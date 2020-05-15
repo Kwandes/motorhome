@@ -1,0 +1,17 @@
+# Compiled class file
+*.class
+/target/*
+
+# Log file
+*.log
+
+# IDE configuration files
+.idea/*
+.mvn/*
+*.iml
+
+# Auto generated files
+mvnw.cmd
+mvnw
+HELP.md
+
