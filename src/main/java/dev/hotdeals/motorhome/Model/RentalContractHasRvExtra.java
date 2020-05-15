@@ -2,9 +2,14 @@ package dev.hotdeals.motorhome.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-public class RentalContractHasRvExtra
+@Table(name = "rental_contract_has_rv_extra")
+@IdClass(RentalContractHasRvExtraID.class)
+public class RentalContractHasRvExtra implements Serializable
 {
     @Id
     private int rental_contract_id;
