@@ -1,6 +1,7 @@
 package dev.hotdeals.motorhome.Repository;
 
-import dev.hotdeals.motorhome.Model.RentalContract;
+import dev.hotdeals.motorhome.Model.RV;
+import dev.hotdeals.motorhome.Model.RVExtra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,37 +9,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RentalContractRepo
+public class RVExtraRepo
 {
-
     @Autowired
     JdbcTemplate template;
 
-    private static RentalContract fetchContractByID(int contractID)
+    public RV fetchByID(int extraID)
     {
-        RentalContract contractToReturn = new RentalContract();
-        return contractToReturn;
+        RV rvExtraToReturn= null;
+        return rvExtraToReturn;
     }
 
-    private List<RentalContract> fetchAll()
+    private List<RVExtra> fetchAll()
     {
-        List<RentalContract> listToReturn = null;
+        List<RVExtra> listToReturn = null;
         return listToReturn;
     }
 
-    private boolean addContract(RentalContract rentalContract)
+    private boolean addExtra(RVExtra extra)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean updateContract(RentalContract rentalContract)
+    private boolean updateExtra(RVExtra extra)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean deleteContract(int contractID)
+    private boolean deleteExtra(int extraID)
     {
         boolean status = false;
         return status;
