@@ -10,8 +10,8 @@ public class Employee
     private int id;
     private String firstName;
     private String lastName;
-    private String position;
-    private String gender;
+    private String position;    //Owner,Sales assistant, Cleaning staff, Auto-mechanic, Bookkeeper.
+    private String gender;      //Male, Female, Other
 
     public Employee()
     {
@@ -19,7 +19,7 @@ public class Employee
 
     public String toString()
     {
-        return firstName + " " + lastName;
+        return firstName + " " + lastName + " " + position + " " + gender;
     }
 
     public int getId()
