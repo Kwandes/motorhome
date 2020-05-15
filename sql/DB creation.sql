@@ -18,7 +18,7 @@ id INT NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(40) NOT NULL,
 last_name VARCHAR(40) NOT NULL,
 position VARCHAR(15) NOT NULL,
-gender VARCHAR(10),
+gender VARCHAR(10) DEFAULT NULL,
 PRIMARY KEY(id)
 );
 
@@ -39,11 +39,11 @@ id INT NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(40) NOT NULL,
 last_name VARCHAR(40) NOT NULL,
 cpr VARCHAR(11) NOT NULL UNIQUE,
-email VARCHAR(80),
+email VARCHAR(80) DEFAULT NULL,
 birthdate DATE NOT NULL,
 address VARCHAR(255) NOT NULL,
-address2 VARCHAR(255),
-gender VARCHAR(10),
+address2 VARCHAR(255) DEFAULT NULL,
+gender VARCHAR(10) DEFAULT NULL,
 PRIMARY KEY(id)
 );
 
@@ -83,15 +83,15 @@ CREATE TABLE IF NOT EXISTS rv (
 id INT NOT NULL AUTO_INCREMENT,
 brand VARCHAR(30) NOT NULL,
 model VARCHAR(30) NOT NULL,
-color VARCHAR(30) NOT NULL,
-fuel_status DECIMAL(2,1) NOT NULL,
-km_driven INT NOT NULL,
+color VARCHAR(30) NOT NULL DEFAULT "white",
+fuel_status DECIMAL(2,1) NOT NULL DEFAULT 1.0,
+km_driven INT NOT NULL DEFAULT 0,
 rv_type VARCHAR(30) NOT NULL,
 price INT NOT NULL,
-requires_cleaning BOOLEAN NOT NULL,
-requires_maintenance BOOLEAN NOT NULL,
-requires_further_service BOOLEAN NOT NULL,
-is_rented BOOLEAN NOT NULL,
+requires_cleaning BOOLEAN NOT NULL DEFAULT 0,
+requires_maintenance BOOLEAN NOT NULL DEFAULT 0,
+requires_further_service BOOLEAN NOT NULL DEFAULT 0,
+is_rented BOOLEAN NOT NULL DEFAULT 0,
 PRIMARY KEY(id)
 );
 
@@ -128,17 +128,17 @@ DROP TABLE IF EXISTS rental_contract;
 
 CREATE TABLE IF NOT EXISTS rental_contract (
 id INT NOT NULL,
-date_signed DATETIME NOT NULL,
+date_signed DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 date_start DATETIME NOT NULL,
 date_end DATETIME NOT NULL,
-address_dropoff VARCHAR(255) NOT NULL,
-address_pickup VARCHAR(255) NOT NULL,
+address_dropoff VARCHAR(255) NOT NULL DEFAULT "Store Address",
+address_pickup VARCHAR(255) NOT NULL DEFAULT "Store Address",
 base_price INT NOT NULL,
-final_price INT,
-km_driven INT,
-customer_id INT,
-rv_id INT,
-employee_id INT,
+final_price INT DEFAULT 0,
+km_driven INT DEFAULT  0,
+customer_id INT DEFAULT NULL,
+rv_id INT DEFAULT NULL,
+employee_id INT DEFAULT NULL,
 status VARCHAR(10) NOT NULL,
 PRIMARY KEY(id),
 CONSTRAINT `fk_rental_contract_customer`
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS rental_contract_has_rv_extra;
 CREATE TABLE IF NOT EXISTS rental_contract_has_rv_extra (
 rental_contract_id INT NOT NULL,
 rv_extra_id INT NOT NULL,
-amount INT NOT NULL,
+amount INT NOT NULL DEFAULT 1,
 PRIMARY KEY(rental_contract_id, rv_extra_id),
 CONSTRAINT `fk_rental_contract_rv_extra1`
 	FOREIGN KEY(rental_contract_id)
