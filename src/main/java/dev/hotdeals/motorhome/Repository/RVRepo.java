@@ -55,4 +55,53 @@ public class RVRepo
         boolean status = false;
         return status;
     }
+
+    public List<RV> fetchAvailable()
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> fetchRented()
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> fetchRequiresCleaning()
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> fetchRequiresMaintenance()
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> sortByPrice()
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> searchByModel(String model)
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> searchByBrand(String brand)
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
+    public List<RV> searchByID(int recreationalVehicleID)
+    {
+        List<RV> listToReturn = null;
+        return listToReturn;
+    }
+
 }
