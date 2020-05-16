@@ -23,6 +23,26 @@ public class RVService {
         return rvRepo.fetchByID( recreationalVehicleID );
     }
 
+    public List<RV> fetchAvailable ()
+    {
+        return rvRepo.fetchAvailable();
+    }
+
+    public List<RV> fetchRented ()
+    {
+        return rvRepo.fetchRented();
+    }
+
+    public List<RV> fetchRequiresCleaning ()
+    {
+        return rvRepo.fetchRequiresCleaning();
+    }
+
+    public List<RV> fetchRequiresMaintenance ()
+    {
+        return rvRepo.fetchRequiresMaintenance();
+    }
+
     public boolean addRV ( RV recreationalVehicle )
     {
         return rvRepo.addRV( recreationalVehicle );
@@ -36,5 +56,25 @@ public class RVService {
     public boolean deleteRV ( int recreationalVehicleID )
     {
         return rvRepo.deleteRV( recreationalVehicleID );
+    }
+
+    public List<RV> sortByPrice ()
+    {
+        return rvRepo.sortByPrice();
+    }
+
+    public List<RV> searchByModel ( String model )
+    {
+        return rvRepo.searchByModel( model );
+    }
+
+    public List<RV> searchByBrand ( String brand )
+    {
+        return rvRepo.searchByBrand( brand );
+    }
+
+    public List<RV> searchByID ( int recreationalVehicleID )
+    {
+        return rvRepo.searchByID( recreationalVehicleID );
     }
 }
