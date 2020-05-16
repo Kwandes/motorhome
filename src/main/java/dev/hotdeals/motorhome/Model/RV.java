@@ -111,7 +111,7 @@ public class RV
         this.price = price;
     }
 
-    public boolean isRequiresCleaning()
+    public boolean getRequiresCleaning()
     {
         return requiresCleaning;
     }
@@ -121,7 +121,7 @@ public class RV
         this.requiresCleaning = requiresCleaning;
     }
 
-    public boolean isRequiresMaintenance()
+    public boolean getRequiresMaintenance()
     {
         return requiresMaintenance;
     }
@@ -131,7 +131,7 @@ public class RV
         this.requiresMaintenance = requiresMaintenance;
     }
 
-    public boolean isRequiresFurtherService()
+    public boolean getRequiresFurtherService()
     {
         return requiresFurtherService;
     }
@@ -141,7 +141,7 @@ public class RV
         this.requiresFurtherService = requiresFurtherService;
     }
 
-    public boolean isRented()
+    public boolean getIsRented()
     {
         return isRented;
     }
