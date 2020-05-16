@@ -22,25 +22,25 @@ public class RVRepo
         return rvToReturn;
     }
 
-    private List<RV> fetchAll()
+    public List<RV> fetchAll()
     {
         List<RV> listToReturn = null;
         return listToReturn;
     }
 
-    private boolean addRV(RV recreationalVehicle)
+    public boolean addRV(RV recreationalVehicle)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean updateRV(RV recreationalVehicle)
+    public boolean updateRV(RV recreationalVehicle)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean deleteRV(int recreationalVehicleID)
+    public boolean deleteRV(int recreationalVehicleID)
     {
         boolean status = false;
         return status;

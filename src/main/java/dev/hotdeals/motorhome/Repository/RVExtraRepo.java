@@ -18,27 +18,28 @@ public class RVExtraRepo
     {
         RV rvExtraToReturn= null;
         return rvExtraToReturn;
+        //test
     }
 
-    private List<RVExtra> fetchAll()
+    public List<RVExtra> fetchAll()
     {
         List<RVExtra> listToReturn = null;
         return listToReturn;
     }
 
-    private boolean addExtra(RVExtra extra)
+    public boolean addExtra(RVExtra extra)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean updateExtra(RVExtra extra)
+    public boolean updateExtra(RVExtra extra)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean deleteExtra(int extraID)
+    public boolean deleteExtra(int extraID)
     {
         boolean status = false;
         return status;

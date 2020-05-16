@@ -14,31 +14,31 @@ public class CustomerRepo
     @Autowired
     JdbcTemplate template;
 
-    private Customer fetchById(int customerID)
+    public Customer fetchById(int customerID)
     {
         Customer customerToReturn = null;
         return customerToReturn;
     }
 
-    private List<Customer> fetchAll()
+    public List<Customer> fetchAll()
     {
         List<Customer> customersListToReturn = null;
         return customersListToReturn;
     }
 
-    private boolean addCustomer(Customer customer)
+    public boolean addCustomer(Customer customer)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean updateCustomer (Customer customer)
+    public boolean updateCustomer (Customer customer)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean deleteCustomer(int customerID)
+    public boolean deleteCustomer(int customerID)
     {
         boolean status = false;
         return status;

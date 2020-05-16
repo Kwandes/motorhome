@@ -13,31 +13,31 @@ public class EmployeeRepo
     @Autowired
     JdbcTemplate template;
 
-    private Employee fetchById(int employeeID)
+    public Employee fetchById(int employeeID)
     {
         Employee employeeToReturn = null;
         return employeeToReturn;
     }
 
-    private List<Employee> fetchAll()
+    public List<Employee> fetchAll()
     {
         List<Employee> employeesListToReturn = null;
         return employeesListToReturn;
     }
 
-    private boolean addEmployee(Employee employee)
+    public boolean addEmployee(Employee employee)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean updateEmployee (Employee employee)
+    public boolean updateEmployee (Employee employee)
     {
         boolean status = false;
         return status;
     }
 
-    private boolean deleteEmployee(int employeeID)
+    public boolean deleteEmployee(int employeeID)
     {
         boolean status = false;
         return status;
