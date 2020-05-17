@@ -24,25 +24,6 @@ public class RVRepo
 
     public RVRepo() {}
 
-    /*
-        public RV fetchByID(int recreationalVehicleID)
-    {
-        String query = "SELECT * FROM rv WHERE id = ?;";
-        RowMapper<RV> rvRowMapper = new BeanPropertyRowMapper<>(RV.class);
-        RV rvToReturn;
-        try
-        {
-            rvToReturn = template.queryForObject(query, rvRowMapper, recreationalVehicleID);
-        } catch (EmptyResultDataAccessException e)
-        {
-            System.out.println("Fetch By ID call for " + id + "has failed");
-            System.out.println(e);
-            rvToReturn = null;
-        }
-        return rvToReturn;
-    }
-     */
-
     public RV fetchByID(int recreationalVehicleID)
     {
         String query = "SELECT * FROM rv WHERE id = ?;";
