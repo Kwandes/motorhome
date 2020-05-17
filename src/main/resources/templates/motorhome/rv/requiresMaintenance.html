@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RV</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/motorhome/rv.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{img/logo.png}" alt="" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/salesmanMainPage/customers">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rentals">Rentals</a>
+                    </li>
+                    <li>
+                        <a style="font-weight:bold; border-style:solid; border-width:4px; padding:3px 8px 3px 8px; border-radius:4px;"
+                           href="/salesmanMainPage/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="header-container">
+        <div class="wrapper">
+            <header>
+                <!-- Selection buttons -->
+                <div class="buttonList">
+                    <ul class="optionButtons">
+                        <li>
+                            <a href="/salesmanMainPage/rv/viewAll">View All</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/createNew">Create New</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/searchByModel">Search by Model</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/searchById">Search by Id</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/searchByType">Search by Type</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/sortByPrice">Sort by Price</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/sortByAvailable">Sort by Available</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/requiresCleaning">Requires Cleaning</a>
+                        </li>
+                        <li>
+                            <a href="/salesmanMainPage/rv/requiresMaintenance">Requires Maintenance</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- list page content -->
+                <div class="">
+
+                </div>
+            </header>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>

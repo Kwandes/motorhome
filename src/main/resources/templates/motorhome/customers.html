@@ -2,44 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index Page</title>
+    <title>Customers</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
-
 </head>
 <body>
 
-    <div class="background-image"></div>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
 
-    <div class="nav-container">
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
         <div class="wrapper">
             <nav>
                 <div class="logo">
-                    <img class="logo" src="images/logo.png" alt="" width="115">
+                    <img th:src="@{img/logo.png}" alt="" width="115">
                 </div>
 
-                <ul class="nav-items">
+                <ul class="navItems">
                     <li>
-                        <a href="#">Customers</a>
+                        <a style="font-weight:bold; border-style:solid; border-width:4px; padding:3px 8px 3px 8px; border-radius:4px;"
+                           href="/salesmanMainPage/customers">Customers</a>
                     </li>
                     <li>
-                        <a href="#">Rentals</a>
+                        <a href="/salesmanMainPage/rentals">Rentals</a>
                     </li>
                     <li>
-                        <a href="#">RV</a>
+                        <a href="/salesmanMainPage/rv/viewAll">RV</a>
                     </li>
                     <li>
-                        <a href="#">RV Extra</a>
+                        <a href="/salesmanMainPage/rvExtras">RV Extras</a>
                     </li>
                     <li>
-                        <a href="#">Log out</a>
+                        <a href="/index">Log out</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
+    <!-- END HEADER NAVIGATION BAR -->
 
+    <!-- PAGE CONTENT -->
     <div class="header-container">
         <div class="wrapper">
             <header>
@@ -51,6 +55,6 @@
             </header>
         </div>
     </div>
-
+    <!-- END PAGE CONTENT -->
 </body>
 </html>

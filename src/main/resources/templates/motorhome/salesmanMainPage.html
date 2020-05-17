@@ -6,51 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
-    <style>
-
-    </style>
 </head>
 <body>
 
+    <!-- BACKGROUND -->
     <div class="backgroundImage"></div>
 
+    <!-- HEADER NAVIGATION BAR -->
     <div class="navContainer">
         <div class="wrapper">
             <nav>
                 <div class="logo">
-                    <img th:src="@{img/logo.png}" width="115"/>
+                    <img th:src="@{img/logo.png}" alt="" width="115">
                 </div>
 
                 <ul class="navItems">
                     <li>
-                        <a href="/salesmanMainPage">Log in</a>
+                        <a href="/salesmanMainPage/customers">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rentals">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
+    <!-- END HEADER NAVIGATION BAR -->
 
+    <!-- PAGE CONTENT -->
     <div class="headerContainer">
         <div class="wrapper">
             <header>
-
-                <!-- Login box container -->
                 <div class="pageContainer">
                     <h1 class="welcomeText">Welcome</h1>
-                    <form class="login" action="index.html" method="post">
-
-                        <div class="container">
-                            <input type="text" name="" placeholder="Enter Username" required>
-
-                            <input type="password" name="" placeholder="Enter Password" required>
-
-                            <input type="submit" value="Login">
-                        </div>
-                    </form>
+                    <p><br>< username >
+                    </p>
                 </div>
             </header>
         </div>
     </div>
-
+    <!-- END PAGE CONTENT -->
 </body>
 </html>

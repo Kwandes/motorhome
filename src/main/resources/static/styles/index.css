@@ -52,7 +52,7 @@ nav .logo:hover
 }
 
 /* Navigation bar box */
-.nav-container
+.navContainer
 {
     height: 70px;
     margin-top: 30px;
@@ -68,14 +68,14 @@ nav .logo:hover
 }
 
 /* Navigation bar text buttons / links */
-.nav-items li
+.navItems li
 {
     list-style: none;
     margin-right: 100px;
 }
 
 /* to remove margin from the last property in nav bar */
-.nav-items li:nth-last-of-type(1)
+.navItems li:nth-last-of-type(1)
 {
     margin: 0;
 }
@@ -97,7 +97,7 @@ end navigation */
 
 /* Page content */
 
-.header-container
+.headerContainer
 {
     display: flex;
 }
@@ -165,13 +165,13 @@ end navigation */
     color: #3E2719;
 }
 
-.page-container
+.pageContainer
 {
     align-items: center;
     text-align: center;
 }
 
-.welcome-text
+.welcomeText
 {
     margin-top: 45%;
     font-size: 60px;
