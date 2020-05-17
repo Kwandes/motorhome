@@ -3,12 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <title>Index Page</title>
-
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <style>
+        *
+        {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body
+        {
+            font-family: Roboto, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 28px;
+            color: #3E2719;
+
+            /* Background image */
+
+            background-image: url('images/background.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 110% 120%;
+            background-position: top -144px left -168px;
+            align-items: center;
+            height: 100hv;
+        }
+
+        /* Navigation */
+
+        nav
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        nav ul
+        {
+            display: flex;
+        }
+
+        nav .logo
+        {
+            margin-top: 2px;
+        }
+
+        nav .logo:hover
+        {
+            width: 125px;
+        }
+
+        .nav-container
+        {
+            height: 70px;
+            margin-top: 30px;
+            background: rgba(252, 233, 192, 0.7);
+            box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper
+        {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-items li
+        {
+            list-style: none;
+            margin-right: 100px;
+        }
+
+        /* to remove margin from the last property in nav bar */
+        .nav-items li:nth-last-of-type(1)
+        {
+            margin: 0;
+        }
+
+        a
+        {
+            color: #3E2719;
+            text-decoration: none;
+            font-family: Roboto, sans-serif;
+        }
+
+        a:hover
+        {
+            font-weight: bold;
+        }
+
+        /* end navigation */
+
+        /* Page content */
+
+        .header-container
+        {
+            display: flex;
+        }
+
+        .page-container
+        {
+
+            align-items: center;
+            margin-top: 40%;
+            text-align: center;
+        }
+
+        .welcome-text
+        {
+            font-size: 72px;
+        }
+
+        /* End page content */
+    </style>
 </head>
 <body>
 
-    <h1>Hello World</h1>
+    <div class="background-image"></div>
+
+    <div class="nav-container">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img class="logo" src="images/logo.png" alt="" width="115">
+                </div>
+
+                <ul class="nav-items">
+                    <li>
+                        <a href="#">Contracts</a>
+                    </li>
+                    <li>
+                        <a href="#">Customers</a>
+                    </li>
+                    <li>
+                        <a href="#">Motorhomes</a>
+                    </li>
+                    <li>
+                        <a href="#">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="header-container">
+        <div class="wrapper">
+            <header>
+                <div class="page-container">
+                    <h1 class="welcome-text">Welcome</h1>
+                    <p><br>< username >
+                    </p>
+                </div>
+            </header>
+        </div>
+    </div>
 
 </body>
 </html>
