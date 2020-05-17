@@ -95,7 +95,7 @@ public class RVRepo
         int rowsAffected = template.update(query, recreationalVehicle.getBrand(), recreationalVehicle.getModel(), recreationalVehicle.getColor(),
                 recreationalVehicle.getFuelStatus(), recreationalVehicle.getKmDriven(), recreationalVehicle.getRvType(), recreationalVehicle.getPrice(),
                 recreationalVehicle.getRequiresCleaning(), recreationalVehicle.getRequiresMaintenance(), recreationalVehicle.getRequiresFurtherService(),
-                recreationalVehicle.getIsRented());
+                recreationalVehicle.getIsRented(), recreationalVehicle.getId());
         boolean status = rowsAffected > 0; //sets to TRUE if rows have been affected, sets to FALSE if no row has been affected
         return status;
     }

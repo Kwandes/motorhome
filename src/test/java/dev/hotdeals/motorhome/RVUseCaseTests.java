@@ -7,6 +7,11 @@ package dev.hotdeals.motorhome;
 import dev.hotdeals.motorhome.Model.RV;
 import dev.hotdeals.motorhome.Repository.RVRepo;
 import dev.hotdeals.motorhome.Service.RVService;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,7 +26,10 @@ import java.util.List;
 @SpringBootTest
 public class RVUseCaseTests
 {
+
+    //region RV Repo
     @SpringBootTest
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class) // Have to look into so I can explain it to CAY
     public static class RVRepoTests
     {
         @Autowired
@@ -77,13 +85,6 @@ public class RVUseCaseTests
         }
 
         @Test
-        public void rvRepoSearchByModelTest() throws Exception
-        {
-            List<RV> rvList = rvRepo.searchByModel("");
-            assertThat(rvList).isNotEmpty();
-        }
-
-        @Test
         public void rvRepoSearchByBrandTest() throws Exception
         {
             // Search for an empty string -> the query will end up as :
@@ -99,10 +100,75 @@ public class RVUseCaseTests
             List<RV> rvList = rvRepo.searchByID(3);
             assertThat(rvList).isNotEmpty();
         }
+
+        @Test
+        @Order(1)
+        public void rvRepoSearchByModelTest() throws Exception
+        {
+            System.out.println("Test 1 : Search");
+            List<RV> rvList = rvRepo.searchByModel("");
+            assertThat(rvList).isNotNull();
+        }
+
+        @Test
+        @Order(2)
+        public void rvRepoAddRVTest() throws Exception
+        {
+            System.out.println("Test 2 : Add");
+            // given
+            RV rv = new RV();
+            rv.setBrand("testBrand");
+            rv.setModel("testModel");
+            rv.setColor("testColor");
+            rv.setRvType("testType");
+            rv.setPrice(0);
+
+            // when
+            boolean rvAdded = rvRepo.addRV(rv);
+
+            // then
+            assertThat(rvAdded).isTrue();
+        }
+
+        @Test
+        @Order(3)
+        public void rvRepoUpdateRVTest() throws Exception
+        {
+            System.out.println("Test 3 : Update");
+            // given
+            RV rv = rvRepo.searchByModel("testModel").get(0);
+            System.out.println(rv);
+            rv.setRvType("updatedType");
+            rv.setPrice(10);
+            rv.setBrand("updatedBrand");
+
+            // when
+            boolean rvUpdated = rvRepo.updateRV(rv);
+
+            // then
+            assertThat(rvUpdated).isTrue();
+        }
+
+        @Test
+        @Order(4)
+        public void rvRepoDeleteRVTest() throws Exception
+        {
+            System.out.println("Test 4 : Delete");
+            // given
+            RV rv = rvRepo.searchByModel("testModel").get(0);
+
+            // when
+            boolean rvDeleted = rvRepo.deleteRV(rv.getId());
+
+            // then
+            assertThat(rvDeleted).isTrue();
+        }
     }
+    //endregion
 
     //region RV Service
     @SpringBootTest
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     public static class RVServiceTests
     {
         @Autowired
@@ -150,30 +216,10 @@ public class RVUseCaseTests
             assertThat(rvList).isNotEmpty();
         }
 
-//    @Test -- Currently not implemented due to lack of knowledge of proper implementation.
-//    public void rvServiceAddRVTest() throws Exception
-//    {
-//        RV rv = new RV();
-//        rv.setBrand("testBrand");
-//        rv.setModel("testModel");
-//        rv.setColor("testColor");
-//        rv.setRvType("testType");
-//        rv.setPrice(0);
-//        boolean rvAdded = rvService.addRV(rv);
-//        assertThat(rvAdded).isTrue();
-//    }
-
         @Test
         public void rvServiceSortByPriceTest() throws Exception
         {
             List<RV> rvList = rvService.sortByPrice();
-            assertThat(rvList).isNotEmpty();
-        }
-
-        @Test
-        public void rvServiceSearchByModelTest() throws Exception
-        {
-            List<RV> rvList = rvService.searchByModel("");
             assertThat(rvList).isNotEmpty();
         }
 
@@ -192,6 +238,69 @@ public class RVUseCaseTests
             // search will always return something as long as the table has cars in it)
             List<RV> rvList = rvService.searchByID(3);
             assertThat(rvList).isNotEmpty();
+        }
+
+        @Test
+        @Order(1)
+        public void rvServiceSearchByModelTest() throws Exception
+        {
+            System.out.println("Test 1 : Search");
+            List<RV> rvList = rvService.searchByModel("");
+            assertThat(rvList).isNotNull();
+        }
+
+        @Test
+        @Order(2)
+        public void rvServiceAddRVTest() throws Exception
+        {
+            System.out.println("Test 2 : Add");
+            // given
+            RV rv = new RV();
+            rv.setBrand("testBrand");
+            rv.setModel("testModel");
+            rv.setColor("testColor");
+            rv.setRvType("testType");
+            rv.setPrice(0);
+
+            // when
+            boolean rvAdded = rvService.addRV(rv);
+
+            // then
+            assertThat(rvAdded).isTrue();
+        }
+
+        @Test
+        @Order(3)
+        public void rvServiceUpdateRVTest() throws Exception
+        {
+            System.out.println("Test 3 : Update");
+            // given
+            RV rv = rvService.searchByModel("testModel").get(0);
+            System.out.println(rv);
+            rv.setRvType("updatedType");
+            rv.setPrice(10);
+            rv.setBrand("updatedBrand");
+
+            // when
+            boolean rvUpdated = rvService.updateRV(rv);
+
+            // then
+            assertThat(rvUpdated).isTrue();
+        }
+
+        @Test
+        @Order(4)
+        public void rvServiceDeleteRVTest() throws Exception
+        {
+            System.out.println("Test 4 : Delete");
+            // given
+            RV rv = rvService.searchByModel("testModel").get(0);
+
+            // when
+            boolean rvDeleted = rvService.deleteRV(rv.getId());
+
+            // then
+            assertThat(rvDeleted).isTrue();
         }
     }
     //endregion
