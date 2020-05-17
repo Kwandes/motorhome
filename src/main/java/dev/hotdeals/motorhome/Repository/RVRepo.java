@@ -110,7 +110,7 @@ public class RVRepo
 
     public List<RV> searchByModel(String model)
     {
-        String query = "SELECT * FROM rv WHERE model LIKE ( \"%?%\" )";
+        String query = "SELECT * FROM rv WHERE model LIKE CONCAT('%', ?, '%')";
         RowMapper<RV> rvRowMapper = new BeanPropertyRowMapper<>(RV.class);
         List<RV> listToReturn = template.query(query, rvRowMapper, model);
         return listToReturn;
@@ -118,7 +118,7 @@ public class RVRepo
 
     public List<RV> searchByBrand(String brand)
     {
-        String query = "SELECT * FROM rv WHERE brand LIKE ( \"%?%\" )";
+        String query = "SELECT * FROM rv WHERE brand LIKE CONCAT('%', ?, '%')";
         RowMapper<RV> rvRowMapper = new BeanPropertyRowMapper<>(RV.class);
         List<RV> listToReturn = template.query(query, rvRowMapper, brand);
         return listToReturn;
@@ -126,7 +126,7 @@ public class RVRepo
 
     public List<RV> searchByID(int recreationalVehicleID)
     {
-        String query = "SELECT * FROM rv WHERE id LIKE ( \"%?%\" )";
+        String query = "SELECT * FROM rv WHERE id LIKE CONCAT('%', ?, '%')";
         RowMapper<RV> rvRowMapper = new BeanPropertyRowMapper<>(RV.class);
         List<RV> listToReturn = template.query(query, rvRowMapper, recreationalVehicleID);
         return listToReturn;
