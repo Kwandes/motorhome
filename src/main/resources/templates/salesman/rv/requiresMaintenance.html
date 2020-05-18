@@ -28,9 +28,8 @@
                     <li>
                         <a href="/salesmanMainPage/rentals">Rentals</a>
                     </li>
-                    <li>
-                        <a style="font-weight:bold; border-style:solid; border-width:4px; padding:3px 8px 3px 8px; border-radius:4px;"
-                           href="/salesmanMainPage/rv/viewAll">RV</a>
+                    <li class="navSelect">
+                        <a href="#">RV</a>
                     </li>
                     <li>
                         <a href="/salesmanMainPage/rvExtras">RV Extras</a>
@@ -51,33 +50,35 @@
                 <!-- Selection buttons -->
                 <div class="buttonList">
                     <ul class="optionButtons">
-                        <li class="selected">
-                            <a href="/salesmanMainPage/rv/viewAll">View All</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/viewAll';" style="cursor:pointer;">
+                            <a href="#">View All</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/createNew">Create New</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/createNew';" style="cursor:pointer;">
+                            <a href="#">Create New</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/searchByModel">Search by Model</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/searchByModel';" style="cursor:pointer;">
+                            <a href="#">Search by Model</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/searchById">Search by Id</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/searchById';" style="cursor:pointer;">
+                            <a href="#">Search by Id</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/searchByType">Search by Type</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/searchByType';" style="cursor:pointer;">
+                            <a href="#">Search by Type</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/sortByPrice">Sort by Price</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/sortByPrice';" style="cursor:pointer;">
+                            <a href="#">Sort by Price</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/sortByAvailable">Sort by Available</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/sortByAvailable';" style="cursor:pointer;">
+                            <a href="#">Sort by Available</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/requiresCleaning">Requires Cleaning</a>
+                        <li onClick="location.href='/salesmanMainPage/rv/requiresCleaning';" style="cursor:pointer;">
+                            <a href="#">Requires Cleaning</a>
                         </li>
-                        <li>
-                            <a href="/salesmanMainPage/rv/requiresMaintenance">Requires Maintenance</a>
-                        </li>
+                        <div class="selected">
+                            <li>
+                                <a href="#">Requires Maintenance</a>
+                            </li>
+                        </div>
                     </ul>
 
                 </div>

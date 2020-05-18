@@ -92,8 +92,98 @@ a:hover
     font-weight: bold;
 }
 
+.navSelect a
+{
+    font-weight:bold;
+    border-style:solid;
+    border-width:4px;
+    padding:3px 8px 3px 8px;
+    border-radius:7px;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 end navigation */
+
+/* BUTTON LIST ITEMS
+* * * * * * * * * * * * * * * * * * * * * * * */
+.buttonList
+{
+    margin-top: 50px;
+}
+
+.optionButtons li
+{
+    background: #3E2719;
+    opacity: 0.9;
+    display: block;
+    margin: 20px;
+    text-align: center;
+    padding: 12px 0px;
+    width: 250px;
+    border-radius: 4px;
+}
+
+.optionButtons li:hover
+{
+    border-radius: 20px;
+    opacity: 1.0;
+}
+
+.optionButtons a
+{
+    color: rgba(252, 233, 192, 0.9);
+    font-size: 18px;
+    text-align: center;
+    margin: 20px;
+    padding: 3px 8px 3px 8px;
+}
+
+/* Overiding hover functions from index.css */
+.optionButtons a:hover
+{
+    font-weight: 400;
+    color: rgba(252, 233, 192, 1.0);
+}
+
+/* When selected */
+.selected li
+{
+    background: rgba(252, 233, 192, 0.9);
+    opacity: 1.0;
+    display: block;
+    margin: 20px;
+    text-align: center;
+    padding: 12px 0px;
+    width: 250px;
+    border: 2px solid #3E2719;
+}
+
+.selected a
+{
+    color: #3E2719;
+}
+
+/* override hover action */
+.selected li:hover
+{
+    background: rgba(252, 233, 192, 0.9);
+    opacity: 1.0;
+    display: block;
+    margin: 20px;
+    text-align: center;
+    padding: 12px 0px;
+    width: 250px;
+    border: 2px solid #3E2719;
+    border-radius: 4px;
+}
+
+.selected a:hover
+{
+    color: #3E2719;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * *
+END BUTTON LIST ITEMS */
 
 /* Page content */
 
@@ -107,62 +197,10 @@ end navigation */
     padding: 16px;
 }
 
-/* LOGIN BOX
- * * * * * * * * * * * * * * * * * * * * * * * * * */
-.login
+.welcomeText
 {
-    width: 500px;
-    height: 300px;
-    padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(252, 233, 192, 0.4);
-    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* input fields for login */
-.login input[type = "text"], .login input[type = "password"]
-{
-    border: 0;
-    background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    border: 1px solid #3E2719;
-    padding: 14px 10px;
-    width: 200px;
-    outline: none;
-    color: #3E2719;
-    border-radius: 4px;
-}
-
-/* Log in button */
-.login input[type = "submit"]
-{
-    border: 1px solid #3E2719;
-    border: 0;
-    border-radius: 4px;
-    color: rgba(252, 233, 192, 0.9);
-    width: 100px;
-    background: #3E2719
-}
-
-/* Log in button hover (increase size)*/
-.login input[type = "submit"]:hover
-{
-    border: 1px solid #3E2719;
-    border: 0;
-    border-radius: 20px;
-    color: rgba(252, 233, 192, 1.0);
-    width: 110px;
-    height: 20px;
-}
-
-::placeholder
-{
-    color: #3E2719;
+    margin-top: 45%;
+    font-size: 60px;
 }
 
 .pageContainer
@@ -170,14 +208,6 @@ end navigation */
     align-items: center;
     text-align: center;
 }
-
-.welcomeText
-{
-    margin-top: 45%;
-    font-size: 60px;
-}
-/* * * * * * * * * * * * * * * * * * * * * * * * * *
-Login box content */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
  End main page*/

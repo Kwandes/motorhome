@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Customers</title>
+    <title>Rentals</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
@@ -22,11 +22,10 @@
 
                 <ul class="navItems">
                     <li>
-                        <a style="font-weight:bold; border-style:solid; border-width:4px; padding:3px 8px 3px 8px; border-radius:4px;"
-                           href="/salesmanMainPage/customers">Customers</a>
+                        <a href="/salesmanMainPage/customers">Customers</a>
                     </li>
-                    <li>
-                        <a href="/salesmanMainPage/rentals">Rentals</a>
+                    <li class="navSelect">
+                        <a href="#">Rentals</a>
                     </li>
                     <li>
                         <a href="/salesmanMainPage/rv/viewAll">RV</a>
