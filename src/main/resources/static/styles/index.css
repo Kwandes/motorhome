@@ -252,6 +252,7 @@ END BUTTON LIST ITEMS */
 {
     text-align: left;
     width: 150px;
+    padding: 0 10px;
 }
 
 /* First child is the ID which doesn't need as much space */
