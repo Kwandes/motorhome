@@ -89,16 +89,23 @@ public class MotorhomeController
         return "rv/createNewRV";
     }
 
-    @PostMapping("/rv/sumbitNewRV")
-    public String submitNewRV(Model model, @ModelAttribute RV rv)
+    @PostMapping("/rv/submitNewRV")
+    public String submitNewRV(Model pageModel, WebRequest wr)
     {
+        RV rv = new RV();
+        rv.setBrand(wr.getParameter("brand"));
+        rv.setModel(wr.getParameter("model"));
+        rv.setColor(wr.getParameter("color"));
+        rv.setRvType(wr.getParameter("rvType"));
+        rv.setPrice(Integer.parseInt(wr.getParameter("price")));
+        System.out.println(rv);
         rvService.addRV(rv);
         List<RV> rvList = rvService.fetchAll();
 
         if (rvList.isEmpty()) return "redirect:/rv/empty";
         else
         {
-            model.addAttribute("rvList", rvList);
+            pageModel.addAttribute("rvList", rvList);
             return "redirect:/rv/viewAll";
         }
     }

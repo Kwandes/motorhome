@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RV - Create New</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/motorhome/rv.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/customers">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/rentals">Rentals</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="/rv">RV</a>
+                    </li>
+                    <li>
+                        <a href="/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="wrapper">
+            <!-- Selection buttons -->
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <li onClick="location.href='/rv/viewAll';" style="cursor:pointer;">
+                        <a href="/rv/viewAll">View All</a>
+                    </li>
+                    <div class="selected">
+                        <li onClick="location.href='/rv/createNewRV';" style="cursor:pointer;">
+                            <a href="/rv/createNewRV">Create New</a>
+                        </li>
+                    </div>
+                    <li onClick="location.href='/rv/searchByModel';" style="cursor:pointer;">
+                        <a href="/rv/searchByModel">Search by Model</a>
+                    </li>
+                    <li onClick="location.href='/rv/searchById';" style="cursor:pointer;">
+                        <a href="/rv/searchByID">Search by Id</a>
+                    </li>
+                    <li onClick="location.href='/rv/searchByBrand';" style="cursor:pointer;">
+                        <a href="/rv/searchByBrand">Search by Brand</a>
+                    </li>
+                    <li onClick="location.href='/rv/sortByPrice';" style="cursor:pointer;">
+                        <a href="/rv/sortByPrice">Sort by Price</a>
+                    </li>
+                    <li onClick="location.href='/rv/sortByAvailable';" style="cursor:pointer;">
+                        <a href="/rv/sortByAvailable">Sort by Available</a>
+                    </li>
+                    <li onClick="location.href='/rv/requiresCleaning';" style="cursor:pointer;">
+                        <a href="/rv/requiresCleaning">Requires Cleaning</a>
+                    </li>
+                    <li onClick="location.href='/rv/requiresMaintenance';" style="cursor:pointer;">
+                        <a href="/rv/requiresMaintenance">Requires Maintenance</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- list content -->
+            <div class="dataSection">
+
+                <form action="/rv/submitNewRV" method="POST">
+
+                    <h3>Create a brand new, fresh, shiny and magnificent Recreational Vehicle</h3>
+                    <label for="brand">Brand</label>
+                    <input type="text" name="brand" id="brand" placeholder="Brand" required><br>
+                    <label for="model">Model</label>
+                    <input type="text" name="model" id="model" placeholder="Model" required><br>
+                    <label for="color">ColoUr</label>
+                    <input type="text" name="color" id="color" placeholder="Color" required><br>
+                    <label for="rvType">Type</label>
+                    <input type="text" name="rvType" id="rvType" placeholder="Rv Type" required><br>
+                    <label for="price">price</label>
+                    <input type="number" name="price" id="price" placeholder="Price" required><br>
+
+                    <div class="tableOptionButtons">
+                        <button type="submit">Create</button>
+                        <button onclick="location.href='/rv/viewAll'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>
