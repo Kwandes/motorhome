@@ -44,9 +44,18 @@ nav ul
 nav .logo
 {
     margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
+/* Up size the Logo when user hovers over it */
 nav .logo:hover
+{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+nav .logo:hover img
 {
     width: 125px;
 }
@@ -58,14 +67,21 @@ nav .logo:hover
     margin-top: 30px;
     background: rgba(252, 233, 192, 0.7);
     box-shadow: 0px 3px 18px rgba(0, 0, 0, 0.2);
+
+    /* Center the contents horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Navigation bar content */
 .wrapper
 {
     max-width: 1200px;
+    margin: 0;
+
+    /* Center the contents horizontally */
     display: flex;
-    margin: 0 float; 
     align-items: center;
     justify-content: center;
 }
@@ -195,7 +211,11 @@ END BUTTON LIST ITEMS */
 * * * * * * * * * * * * * * * * * * * * * * * * */
 .headerContainer
 {
+    /* Center the contents horizontally and vertically*/
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .welcomeText
@@ -215,9 +235,51 @@ END BUTTON LIST ITEMS */
 }
 
 /* # # # # # # # LIST CONTENT # # # # # # # # # # */
+.dataSection
+{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .listContent
 {
     float: right;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.dataTable td, .dataTable th
+{
+    text-align: left;
+    width: 150px;
+}
+
+/* First child is the ID which doesn't need as much space */
+.dataTable td:first-child, .dataTable th:first-child
+{
+    width: 75px;
+}
+
+/* The edit and remove buttons  */
+.tableOptionButtons button
+{
+    background: #3E2719;
+    color: rgba(252, 233, 192, 0.9);
+    opacity: 0.9;
+    display: block;
+    margin: 5px;
+    text-align: center;
+    padding: 5px 25px;
+    width: 100px;
+    border: 2px solid #3E2719;
+    border-radius: 4px;
+}
+
+.tableOptionButtons button:hover
+{
+    opacity: 1.0;
+    border-radius: 12px;
+    cursor:pointer
 }
 /* # # # # # # # LIST END CONTENT # # # # # # # # # # */
 

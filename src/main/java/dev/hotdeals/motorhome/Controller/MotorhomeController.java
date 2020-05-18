@@ -23,11 +23,18 @@ public class MotorhomeController
     @Autowired
     RVService rvService;
 
-    // default mapping
-    @GetMapping({"/rv", "/rv/", "/rv/viewAll"})
+    // default mapping, redirects to actual viewAll file
+    @GetMapping({"/rv", "/rv/", "/rv/viewAll/"})
+    public String redirectViewAll()
+    {
+        return "redirect:/rv/viewAll";
+    }
+
+    @GetMapping("/rv/viewAll")
     public String viewAll(Model model)
     {
         List<RV> rvList = rvService.fetchAll();
+        // can't use checkList() as it redirects to his mapping causing an infinite loop
         if (rvList.isEmpty()) return "redirect:/rv/empty";
         else
         {
@@ -37,8 +44,8 @@ public class MotorhomeController
     }
 
     // Used for obtaining and displaying a specific RV
-    @PostMapping("/rv/fetchById")
-    public String viewSpecificRV(Model model, WebRequest wr)
+    @PostMapping("/rv/editRV")
+    public String editRv(Model model, WebRequest wr)
     {
         // try to obtain an id from the model
         int id;
@@ -47,7 +54,7 @@ public class MotorhomeController
             id = Integer.parseInt(wr.getParameter("id"));
         } catch (NullPointerException | NumberFormatException e)
         {
-            System.out.println("Failed to get parameter 'id' from the model in /rv/fetchByID: " + e);
+            System.out.println("Failed to get parameter 'id' from the model in /rv/editRV: " + e);
             return "redirect:/rv/errorParameters";
         }
 
@@ -56,7 +63,68 @@ public class MotorhomeController
         else
         {
             model.addAttribute("rv", foundRV);
-            return "redirect:/rv/viewSpecificRV";
+            System.out.println("Found rv: " + foundRV);
+            return "rv/editRV";
+        }
+    }
+
+    @PostMapping("/rv/updateRV")
+    public String updateRV(Model model, @ModelAttribute RV rv)
+    {
+        System.out.println("Updated RV: " + rv);
+        rvService.updateRV(rv);
+        List<RV> rvList = rvService.fetchAll();
+
+        if (rvList.isEmpty()) return "redirect:/rv/empty";
+        else
+        {
+            model.addAttribute("rvList", rvList);
+            return "redirect:/rv/viewAll";
+        }
+    }
+
+    @GetMapping("/rv/createNewRV")
+    public String createNew()
+    {
+        return "rv/createNewRV";
+    }
+
+    @PostMapping("/rv/sumbitNewRV")
+    public String submitNewRV(Model model, @ModelAttribute RV rv)
+    {
+        rvService.addRV(rv);
+        List<RV> rvList = rvService.fetchAll();
+
+        if (rvList.isEmpty()) return "redirect:/rv/empty";
+        else
+        {
+            model.addAttribute("rvList", rvList);
+            return "redirect:/rv/viewAll";
+        }
+    }
+
+    @PostMapping("/rv/deleteRV")
+    public String deleteRV(Model model, WebRequest wr)
+    {
+        // try to obtain an id from the model
+        int id;
+        try
+        {
+            id = Integer.parseInt(wr.getParameter("id"));
+        } catch (NullPointerException | NumberFormatException e)
+        {
+            System.out.println("Failed to get parameter 'id' from the model in /rv/deleteRV: " + e);
+            return "redirect:/rv/errorParameters";
+        }
+
+        rvService.deleteRV(id);
+        List<RV> rvList = rvService.fetchAll();
+
+        if (rvList.isEmpty()) return "redirect:/rv/empty";
+        else
+        {
+            model.addAttribute("rvList", rvList);
+            return "redirect:/rv/viewAll";
         }
     }
 
@@ -119,49 +187,16 @@ public class MotorhomeController
         return checkList(rvList, model);
     }
 
-    @GetMapping("/rv/createNew")
-    public String createNew()
+    @GetMapping("/rv/errorParameters")
+    public String errorParameters()
     {
-        return "rv/createNew";
+        return "rv/errorParameters";
     }
 
-    @PostMapping("/rv/addNewRV")
-    public String addNewRV(Model model, @ModelAttribute RV rv)
+    @GetMapping("/rv/empty")
+    public String empty()
     {
-        rvService.addRV(rv);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
-    }
-
-    @PostMapping("/rv/deleteRV")
-    public String deleteRV(Model model, WebRequest wr)
-    {
-        // try to obtain an id from the model
-        int id;
-        try
-        {
-            id = Integer.parseInt(wr.getParameter("id"));
-        } catch (NullPointerException | NumberFormatException e)
-        {
-            System.out.println("Failed to get parameter 'id' from the model in /rv/fetchByID: " + e);
-            return "redirect:/rv/errorParameters";
-        }
-
-        rvService.deleteRV(id);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "rv/empty";
     }
 
     // Takes in an RV List and depending on its contents, returns either redirect to:
@@ -172,15 +207,8 @@ public class MotorhomeController
         if (rvList.isEmpty()) return "redirect:/rv/empty";
         else
         {
-            if (rvList.size() == 1)
-            {
-                model.addAttribute("rv", rvList.get(0));
-                return "redirect:/rv/viewSpecificRV";
-            } else
-            {
-                model.addAttribute("rvList", rvList);
-                return "redirect:/viewAll";
-            }
+            model.addAttribute("rvList", rvList);
+            return "redirect:/rv/viewAll";
         }
     }
 }
