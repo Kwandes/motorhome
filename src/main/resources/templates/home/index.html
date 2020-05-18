@@ -3,12 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Index Page</title>
-
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/login.css}" rel="stylesheet"/>
 </head>
 <body>
 
-    <h1>Hello World</h1>
+    <div class="backgroundImage"></div>
+
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{img/logo.png}" width="115"/>
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/salesmanMainPage">Log in</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="headerContainer">
+        <div class="wrapper">
+            <header>
+
+                <!-- Login box container -->
+                <div class="pageContainer">
+
+                    <form class="login" action="index.html" method="post">
+                        <h1 class="welcomeText">Welcome</h1>
+                        <div class="container">
+                            <input type="text" name="" placeholder="Enter Username" required>
+
+                            <input type="password" name="" placeholder="Enter Password" required>
+
+                            <input type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </header>
+        </div>
+    </div>
 
 </body>
 </html>

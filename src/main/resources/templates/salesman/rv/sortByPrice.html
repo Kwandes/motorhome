@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RV</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/motorhome/rv.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{img/logo.png}" alt="" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/salesmanMainPage/customers">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rentals">Rentals</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="#">RV</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="header-container">
+        <div class="wrapper">
+            <!-- Selection buttons -->
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <li onClick="location.href='/salesmanMainPage/rv/viewAll';" style="cursor:pointer;">
+                        <a href="#">View All</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/createNew';" style="cursor:pointer;">
+                        <a href="#">Create New</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/searchByModel';" style="cursor:pointer;">
+                        <a href="#">Search by Model</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/searchById';" style="cursor:pointer;">
+                        <a href="#">Search by Id</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/searchByType';" style="cursor:pointer;">
+                        <a href="#">Search by Type</a>
+                    </li>
+                    <div class="selected">
+                        <li>
+                            <a href="#">Sort by Price</a>
+                        </li>
+                    </div>
+                    <li onClick="location.href='/salesmanMainPage/rv/sortByAvailable';" style="cursor:pointer;">
+                        <a href="#">Sort by Available</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/requiresCleaning';" style="cursor:pointer;">
+                        <a href="#">Requires Cleaning</a>
+                    </li>
+                    <li onClick="location.href='/salesmanMainPage/rv/requiresMaintenance';" style="cursor:pointer;">
+                        <a href="#">Requires Maintenance</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <!-- list content -->
+            <div class="">
+
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>

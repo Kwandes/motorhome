@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{img/logo.png}" alt="" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="#">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rentals">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/salesmanMainPage/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="header-container">
+        <div class="wrapper">
+            <header>
+                <div class="page-container">
+                    <h1 class="welcome-text">Welcome</h1>
+                    <p><br>< username >
+                    </p>
+                </div>
+            </header>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>
