@@ -57,32 +57,30 @@
                     <li onClick="location.href='/rv/createNewRV';" style="cursor:pointer;">
                         <a href="/rv/createNewRV">Create New</a>
                     </li>
-                    <li onClick="location.href='/rv/searchByModel';" style="cursor:pointer;">
-                        <a href="/rv/searchByModel">Search by Model</a>
-                    </li>
-                    <li onClick="location.href='/rv/searchById';" style="cursor:pointer;">
-                        <a href="/rv/searchByID">Search by Id</a>
-                    </li>
-                    <li onClick="location.href='/rv/searchByBrand';" style="cursor:pointer;">
-                        <a href="/rv/searchByBrand">Search by Brand</a>
-                    </li>
-                    <li onClick="location.href='/rv/sortByPrice';" style="cursor:pointer;">
-                        <a href="/rv/sortByPrice">Sort by Price</a>
-                    </li>
-                    <li onClick="location.href='/rv/sortByAvailable';" style="cursor:pointer;">
-                        <a href="/rv/sortByAvailable">Sort by Available</a>
-                    </li>
-                    <li onClick="location.href='/rv/requiresCleaning';" style="cursor:pointer;">
-                        <a href="/rv/requiresCleaning">Requires Cleaning</a>
-                    </li>
-                    <li onClick="location.href='/rv/requiresMaintenance';" style="cursor:pointer;">
-                        <a href="/rv/requiresMaintenance">Requires Maintenance</a>
-                    </li>
                 </ul>
             </div>
 
             <!-- list content -->
             <div class="dataSection">
+                <div class="searchField" style="margin-bottom: 25px;">
+                    <form action="/rv/viewAll" method="post">
+                        <label for="searchSelect">Search Type</label>
+                        <select name="searchType" id="searchSelect">
+                            <option value="model">Model</option>
+                            <option value="brand">Brand</option>
+                            <option value="price">Sort by Price</option>
+                            <option value="available">Available</option>
+                            <option value="requiresCleaning">Requires Cleaning</option>
+                            <option value="requiresMaintenance">Requires Maintenance</option>>
+                            <!--<option value="requiresFurtherService">Requires Further Service</option> Requires the search to be implemented -->
+                        </select>
+                        <br>
+                        <label for="searchQuery">Search query</label>
+                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+                        <br>
+                        <button type="submit" style="margin-left: 150px">Search</button>
+                    </form>
+                </div>
                 <table class="dataTable">
                     <thead>
                     <tr>
