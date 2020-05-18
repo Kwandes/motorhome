@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>motorhome</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
     <name>motorhome</name>
     <description>Exam Project for 2nd Semester</description>
 
@@ -44,6 +44,11 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>

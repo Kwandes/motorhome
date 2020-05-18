@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RV</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/motorhome/rv.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/customers">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/rentals">Rentals</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="/rv">RV</a>
+                    </li>
+                    <li>
+                        <a href="/rvExtras">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="wrapper">
+            <!-- Selection buttons -->
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <div class="selected">
+                        <li onClick="location.href='/rv/viewAll';" style="cursor:pointer;">
+                            <a href="/rv/viewAll">View All</a>
+                        </li>
+                    </div>
+                    <li onClick="location.href='/rv/createNewRV';" style="cursor:pointer;">
+                        <a href="/rv/createNewRV">Create New</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- list content -->
+            <div class="dataSection">
+                <div class="searchField" style="margin-bottom: 25px;">
+                    <form action="/rv/viewAll" method="post">
+                        <label for="searchSelect">Search Type</label>
+                        <select name="searchType" id="searchSelect">
+                            <option value="model">Model</option>
+                            <option value="brand">Brand</option>
+                            <option value="price">Sort by Price</option>
+                            <option value="available">Available</option>
+                            <option value="requiresCleaning">Requires Cleaning</option>
+                            <option value="requiresMaintenance">Requires Maintenance</option>>
+                            <!--<option value="requiresFurtherService">Requires Further Service</option> Requires the search to be implemented -->
+                        </select>
+                        <br>
+                        <label for="searchQuery">Search query</label>
+                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search">
+                        <br>
+                        <button type="submit" style="margin-left: 150px">Search</button>
+                    </form>
+                </div>
+                <table class="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="main" th:each="rv: ${rvList}">
+                        <td th:text="${rv.id}"></td>
+                        <td th:text="${rv.brand}"></td>
+                        <td th:text="${rv.model}"></td>
+                        <td th:text="${rv.rvType}"></td>
+                        <td class="tableOptions">
+                            <div class="tableOptionButtons">
+                                <form action="/rv/editRV" method="POST">
+                                    <button type="submit" name="id" th:value="${rv.id}">Edit</button>
+                                </form>
+                                <form action="/rv/deleteRV" method="POST">
+                                    <button type="submit" name="id" th:value="${rv.id}">Remove</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>
