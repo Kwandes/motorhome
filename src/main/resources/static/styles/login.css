@@ -29,6 +29,22 @@
     border-radius: 4px;
 }
 
+/* input fields when selected */
+.login input[type = "text"]:focus, .login input[type = "password"]:focus
+{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3E2719;
+    padding: 14px 10px;
+    width: 250px;
+    outline: none;
+    color: #3E2719;
+    border-radius: 6px;
+}
+
 /* Log in button */
 .login input[type = "submit"]
 {

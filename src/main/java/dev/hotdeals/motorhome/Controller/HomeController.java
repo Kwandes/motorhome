@@ -23,7 +23,7 @@ public class HomeController
     }
     /*
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     * END SALESMAN PAGE
+     * END LOGIN PAGE
      */
 
     /*
