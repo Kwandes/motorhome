@@ -11,14 +11,14 @@ public class RV
     private String brand;
     private String model;
     private String color;
-    private float fuelStatus;
-    private int kmDriven;
     private String rvType;
     private int price;
+    private float fuelStatus;
+    private int kmDriven;
+    private boolean isRented;
     private boolean requiresCleaning;
     private boolean requiresMaintenance;
     private boolean requiresFurtherService;
-    private boolean isRented;
 
     public RV()
     {
@@ -27,8 +27,8 @@ public class RV
 
     public String toString()
     {
-        return id + " " + brand + " " + model + " " + color + " " + fuelStatus +  " " + kmDriven + " " + rvType +
-        " " + price + " " + requiresCleaning + " " + requiresMaintenance + " " + requiresFurtherService + " " + isRented;
+        return id + " " + brand + " " + model + " " + color + " " + rvType + " " + price + " " + fuelStatus +  " " +
+                kmDriven + " " + isRented +  " " + requiresCleaning + " " + requiresMaintenance + " " + requiresFurtherService;
     }
 
     public int getId()
@@ -146,8 +146,8 @@ public class RV
         return isRented;
     }
 
-    public void setRented(boolean rented)
+    public void setIsRented(boolean isRented)
     {
-        isRented = rented;
+        this.isRented = isRented;
     }
 }
