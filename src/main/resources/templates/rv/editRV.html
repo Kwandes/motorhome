@@ -72,7 +72,7 @@
                     <input type="text" name="brand" id="brand" th:value="${rv.brand}" required><br>
                     <label for="model">Model</label>
                     <input type="text" name="model" id="model" th:value="${rv.model}" required><br>
-                    <label for="color">ColoUr</label>
+                    <label for="color">Color</label>
                     <input type="text" name="color" id="color" th:value="${rv.color}" required><br>
                     <label for="rvType">Type</label>
                     <input type="text" name="rvType" id="rvType" th:value="${rv.rvType}" required><br>
@@ -99,7 +99,7 @@
                     <label for="requiresFurtherService">Requires Further Service</label><br>
 
                     <div class="tableOptionButtons">
-                        <button type="submit" name="rv" th:object="${rv}">Save</button>
+                        <button type="submit">Save</button>
                         <button onclick="location.href='/rv/viewAll'">Cancel</button>
                     </div>
                 </form>
