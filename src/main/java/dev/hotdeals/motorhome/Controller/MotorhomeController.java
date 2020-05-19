@@ -53,77 +53,25 @@ public class MotorhomeController
         {
             case "null":
                 rvList = rvService.fetchAll();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "brand":
                 rvList = rvService.searchByBrand(searchQuery);
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "model":
                 rvList = rvService.searchByModel(searchQuery);
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "price":
                 rvList = rvService.sortByPrice();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "available":
                 rvList = rvService.fetchAvailable();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "requiresCleaning":
                 rvList = rvService.fetchRequiresCleaning();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "requiresMaintenance":
                 rvList = rvService.fetchRequiresMaintenance();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
-                // Requires rvService.fetchRequiresFurtherService() to be implemented
-//            case "requiresFurtherService":
-//                rvList = rvService.fetchRequiresFurtherService();
-//                // can't use checkList() as it redirects to his mapping causing an infinite loop
-//                if (rvList.isEmpty()) return "redirect:/rv/empty";
-//                else
-//                {
-//                    model.addAttribute("rvList", rvList);
-//                    return "rv/viewAll";
-//                }
+                return checkList(rvList, model);
         }
         return "redirect:/rv/empty";
     }
@@ -217,65 +165,6 @@ public class MotorhomeController
         }
     }
 
-    @GetMapping("/rv/searchByModel")
-    public String searchByModel(Model model, WebRequest wr)
-    {
-
-        List<RV> rvList = rvService.searchByModel(wr.getParameter("model"));
-        return checkList(rvList, model);
-    }
-
-    @PostMapping("/rv/searchByBrand")
-    public String searchByBrand(Model model, WebRequest wr)
-    {
-        List<RV> rvList = rvService.searchByBrand(wr.getParameter("brand"));
-        return checkList(rvList, model);
-    }
-
-    @PostMapping("/rv/searchByID")
-    public String searchByID(Model model, WebRequest wr)
-    {
-        int id;
-        try
-        {
-            id = Integer.parseInt(wr.getParameter("id"));
-        } catch (NullPointerException | NumberFormatException e)
-        {
-            System.out.println("Failed to get parameter 'id' from the model in /rv/searchByID: " + e);
-            return "redirect:/rv/errorParameters";
-        }
-        List<RV> rvList = rvService.searchByID(id);
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/sortByPrice")
-    public String sortByPrice(Model model)
-    {
-        List<RV> rvList = rvService.sortByPrice();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/sortByAvailable")
-    public String sortByAvailable(Model model)
-    {
-        List<RV> rvList = rvService.fetchAvailable();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/requiresCleaning")
-    public String requiresCleaning(Model model)
-    {
-        List<RV> rvList = rvService.fetchRequiresCleaning();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/requiresMaintenance")
-    public String requiresMaintenance(Model model)
-    {
-        List<RV> rvList = rvService.fetchRequiresMaintenance();
-        return checkList(rvList, model);
-    }
-
     @GetMapping("/rv/errorParameters")
     public String errorParameters()
     {
@@ -297,7 +186,7 @@ public class MotorhomeController
         else
         {
             model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
+            return "rv/viewAll";
         }
     }
 }
