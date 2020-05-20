@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @Controller
@@ -34,13 +35,7 @@ public class MotorhomeController
     public String viewAll(Model model)
     {
         List<RV> rvList = rvService.fetchAll();
-        // can't use checkList() as it redirects to his mapping causing an infinite loop
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "rv/viewAll";
-        }
+        return checkList(rvList, model);
     }
 
     @PostMapping("/rv/viewAll")
@@ -72,8 +67,9 @@ public class MotorhomeController
             case "requiresMaintenance":
                 rvList = rvService.fetchRequiresMaintenance();
                 return checkList(rvList, model);
+            default:
+                return "redirect:/rv/errorParameters";
         }
-        return "redirect:/rv/empty";
     }
 
     // Used for obtaining and displaying a specific RV
@@ -105,13 +101,7 @@ public class MotorhomeController
     {
         rvService.updateRV(rv);
         List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "redirect:/rv/viewAll";
     }
 
     @GetMapping("/rv/createNewRV")
@@ -121,23 +111,10 @@ public class MotorhomeController
     }
 
     @PostMapping("/rv/submitNewRV")
-    public String submitNewRV(Model pageModel, WebRequest wr)
+    public String submitNewRV(Model pageModel, @ModelAttribute RV rv) // Used to be :  WebRequest wr
     {
-        RV rv = new RV();
-        rv.setBrand(wr.getParameter("brand"));
-        rv.setModel(wr.getParameter("model"));
-        rv.setColor(wr.getParameter("color"));
-        rv.setRvType(wr.getParameter("rvType"));
-        rv.setPrice(Integer.parseInt(wr.getParameter("price")));
         rvService.addRV(rv);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            pageModel.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "redirect:/rv/viewAll";
     }
 
     @PostMapping("/rv/deleteRV")
@@ -155,14 +132,7 @@ public class MotorhomeController
         }
 
         rvService.deleteRV(id);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "redirect:/rv/viewAll";
     }
 
     @GetMapping("/rv/errorParameters")
