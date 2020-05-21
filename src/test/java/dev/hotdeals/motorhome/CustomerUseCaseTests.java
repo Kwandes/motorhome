@@ -32,7 +32,7 @@ public class CustomerUseCaseTests
         Customer customerTestObject = null;
         int customerIdToRetrieve = 2000;
         //when
-        customerTestObject = customerRepo.fetchById(customerIdToRetrieve);
+        customerTestObject = customerRepo.fetchByID(customerIdToRetrieve);
         //then
         assertThat(customerTestObject).isNotNull();
     }
