@@ -20,10 +20,10 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     // Redirects to the proper viewAll mapping ( in case of typo )
-    @GetMapping({"/employee", "/employee/", "/emplpyee/viewAll/"})
+    @GetMapping({"/employee", "/employee/", "/employee/viewAll/"})
     public String redirectViewAll ()
     {
-        return "redirect:/emplpyee/viewAll";
+        return "redirect:/employee/viewAll";
     }
 
     // Adds a list of all the Employees to the Model and reloads the page
