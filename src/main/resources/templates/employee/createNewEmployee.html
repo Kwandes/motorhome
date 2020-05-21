@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee - Create New</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="/employee">Employee</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- Selection buttons -->
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <div class="selected">
+                        <li onClick="location.href='/employee/viewAll';" style="cursor:pointer;">
+                            <a href="#">View All</a>
+                        </li>
+                    </div>
+                    <li onClick="location.href='/employee/createNewEmployee';" style="cursor:pointer;">
+                        <a href="#">Create New</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- list content -->
+            <div class="dataSection">
+
+                <form action="/employee/submitNewEmployee" method="POST">
+
+                    <h3>Register a motivated, inexperienced and ready-to-work-overtime minimum wage Employee!</h3>
+                    <label for="firstName">First Name</label>
+                    <input type="text" name="firstName" id="firstName" placeholder="First Name" required><br>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name="lastName" id="lastName" placeholder="Last Name" required><br>
+                    <label for="position">Position</label>
+                    <input type="text" name="position" id="position" placeholder="Position" required><br>
+
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other" selected="selected">Other</option>
+                    </select><br>
+
+                    <div class="tableOptionButtons">
+                        <button type="submit">Create</button>
+                        <button type="button" onclick="location.href='/employee/viewAll'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>
