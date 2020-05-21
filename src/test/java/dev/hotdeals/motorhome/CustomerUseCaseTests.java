@@ -139,7 +139,7 @@ public class CustomerUseCaseTests
     public void customerRepoSearchByNameTest()
     {
         // given - name exists
-        String name = "Adele";
+        String name = "";
         // when
         List<Customer> customersReturnedFromSearch= null;
         customersReturnedFromSearch = customerRepo.searchByName(name);
