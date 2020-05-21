@@ -20,7 +20,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping({"/customer", "/customer/", "/customer/viewAll"})
+    @GetMapping({"/customer", "/customer/", "/customer/viewAll/"})
     public String redirectViewAll()
     {
         return "redirect:/customer/viewAll";
