@@ -19,7 +19,7 @@ public class Employee
 
     public String toString()
     {
-        return firstName + " " + lastName + " " + position + " " + gender;
+        return id + " " + firstName + " " + lastName + " " + position + " " + gender;
     }
 
     public int getId()

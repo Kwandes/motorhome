@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee - No results</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/login.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="/employee">Employee</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <!-- Placeholder structure, to be replaced with proper classes -->
+    <div class="headerContainer">
+        <div class="wrapper">
+            <header>
+                <div class="pageContainer">
+                    <form class="login" action="/employee/viewAll" method="get">
+                        <h1 class="welcomeText">There were<br>zero results</h1>
+                        <div style="margin-top: 75px">
+                            <button onclick="location.href='/employee/viewAll'">Go Back</button>
+                        </div>
+                    </form>
+                </div>
+            </header>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>
