@@ -32,6 +32,8 @@ public class RVUseCaseTests
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class) // Have to look into so I can explain it to CAY
     public static class RVRepoTests
     {
+        private static boolean testVerification;
+
         @Autowired
         RVRepo rvRepo;
 
@@ -107,7 +109,11 @@ public class RVUseCaseTests
         {
             System.out.println("Test 1 : Search");
             List<RV> rvList = rvRepo.searchByModel("");
-            assertThat(rvList).isNotNull();
+
+            testVerification = !rvList.isEmpty(); // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
+            System.out.println(testVerification);
+
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -115,19 +121,27 @@ public class RVUseCaseTests
         public void rvRepoAddRVTest() throws Exception
         {
             System.out.println("Test 2 : Add");
-            // given
-            RV rv = new RV();
-            rv.setBrand("testBrand");
-            rv.setModel("testModel");
-            rv.setColor("testColor");
-            rv.setRvType("testType");
-            rv.setPrice(0);
+            System.out.println(testVerification);
 
-            // when
-            boolean rvAdded = rvRepo.addRV(rv);
+            // If the Search has passed, we can test the Add
+            if (testVerification)
+            {
+                // given
+                RV rv = new RV();
+                rv.setBrand("testBrand");
+                rv.setModel("testModel");
+                rv.setColor("testColor");
+                rv.setRvType("testType");
+                rv.setPrice(0);
 
+                // when
+                testVerification = rvRepo.addRV(rv);
+            } else
+            {
+                System.out.println("Search test failed. Skipping Add test...");
+            }
             // then
-            assertThat(rvAdded).isTrue();
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -135,18 +149,26 @@ public class RVUseCaseTests
         public void rvRepoUpdateRVTest() throws Exception
         {
             System.out.println("Test 3 : Update");
-            // given
-            RV rv = rvRepo.searchByModel("testModel").get(0);
-            System.out.println(rv);
-            rv.setRvType("updatedType");
-            rv.setPrice(10);
-            rv.setBrand("updatedBrand");
+            System.out.println(testVerification);
 
-            // when
-            boolean rvUpdated = rvRepo.updateRV(rv);
+            // If the Add has passed, we can test the Update
+            if (testVerification)
+            {
+                // given
+                RV rv = rvRepo.searchByModel("testModel").get(0);
+                System.out.println(rv);
+                rv.setRvType("updatedType");
+                rv.setPrice(10);
+                rv.setBrand("updatedBrand");
 
+                // when
+                testVerification = rvRepo.updateRV(rv);
+            } else
+            {
+                System.out.println("Search test failed. Skipping Update test...");
+            }
             // then
-            assertThat(rvUpdated).isTrue();
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -154,14 +176,23 @@ public class RVUseCaseTests
         public void rvRepoDeleteRVTest() throws Exception
         {
             System.out.println("Test 4 : Delete");
-            // given
-            RV rv = rvRepo.searchByModel("testModel").get(0);
+            System.out.println(testVerification);
 
-            // when
-            boolean rvDeleted = rvRepo.deleteRV(rv.getId());
+            // If the Update has passed, we can test the Delete
+            if (testVerification)
+            {
+                // given
+                RV rv = rvRepo.searchByModel("testModel").get(0);
+
+                // when
+                boolean rvDeleted = rvRepo.deleteRV(rv.getId());
+            } else
+            {
+                System.out.println("Search test failed. Skipping Delete test...");
+            }
 
             // then
-            assertThat(rvDeleted).isTrue();
+            assertThat(testVerification).isTrue();
         }
     }
     //endregion
@@ -171,6 +202,8 @@ public class RVUseCaseTests
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     public static class RVServiceTests
     {
+        private static boolean testVerification;
+
         @Autowired
         RVService rvService;
 
@@ -246,7 +279,11 @@ public class RVUseCaseTests
         {
             System.out.println("Test 1 : Search");
             List<RV> rvList = rvService.searchByModel("");
-            assertThat(rvList).isNotNull();
+
+            testVerification = !rvList.isEmpty(); // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
+            System.out.println(testVerification);
+
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -254,19 +291,28 @@ public class RVUseCaseTests
         public void rvServiceAddRVTest() throws Exception
         {
             System.out.println("Test 2 : Add");
-            // given
-            RV rv = new RV();
-            rv.setBrand("testBrand");
-            rv.setModel("testModel");
-            rv.setColor("testColor");
-            rv.setRvType("testType");
-            rv.setPrice(0);
+            System.out.println(testVerification);
 
-            // when
-            boolean rvAdded = rvService.addRV(rv);
+            // If the Search has passed, we can test the Add
+            if (testVerification)
+            {
+                // given
+                RV rv = new RV();
+                rv.setBrand("testBrand");
+                rv.setModel("testModel");
+                rv.setColor("testColor");
+                rv.setRvType("testType");
+                rv.setPrice(0);
+
+                // when
+                testVerification = rvService.addRV(rv);
+            } else
+            {
+                System.out.println("Search test failed. Skipping Add test...");
+            }
 
             // then
-            assertThat(rvAdded).isTrue();
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -274,18 +320,27 @@ public class RVUseCaseTests
         public void rvServiceUpdateRVTest() throws Exception
         {
             System.out.println("Test 3 : Update");
-            // given
-            RV rv = rvService.searchByModel("testModel").get(0);
-            System.out.println(rv);
-            rv.setRvType("updatedType");
-            rv.setPrice(10);
-            rv.setBrand("updatedBrand");
+            System.out.println(testVerification);
 
-            // when
-            boolean rvUpdated = rvService.updateRV(rv);
+            // If the Add has passed, we can test the Update
+            if (testVerification)
+            {
+                // given
+                RV rv = rvService.searchByModel("testModel").get(0);
+                System.out.println(rv);
+                rv.setRvType("updatedType");
+                rv.setPrice(10);
+                rv.setBrand("updatedBrand");
+
+                // when
+                testVerification = rvService.updateRV(rv);
+            } else
+            {
+                System.out.println("Search test failed. Skipping Update test...");
+            }
 
             // then
-            assertThat(rvUpdated).isTrue();
+            assertThat(testVerification).isTrue();
         }
 
         @Test
@@ -293,14 +348,23 @@ public class RVUseCaseTests
         public void rvServiceDeleteRVTest() throws Exception
         {
             System.out.println("Test 4 : Delete");
-            // given
-            RV rv = rvService.searchByModel("testModel").get(0);
+            System.out.println(testVerification);
 
-            // when
-            boolean rvDeleted = rvService.deleteRV(rv.getId());
+            // If the Update has passed, we can test the Delete
+            if(testVerification)
+            {
+                // given
+                RV rv = rvService.searchByModel("testModel").get(0);
+
+                // when
+                testVerification = rvService.deleteRV(rv.getId());
+            } else
+            {
+                System.out.println("Search test failed. Skipping Delete test...");
+            }
 
             // then
-            assertThat(rvDeleted).isTrue();
+            assertThat(testVerification).isTrue();
         }
     }
     //endregion

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer - Edit</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
+                </div>
+
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="#">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/rental/viewAll">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/rvExtra/viewAll">RV Extras</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- list content -->
+            <div class="dataSection">
+
+                <form action="/customer/updateCustomer" method="POST">
+
+                    <h3>Edit Customer</h3>
+                    <label for="id">Id</label>
+                    <input type="text" name="id" id="id" th:value="${customer.id}" readonly><br>
+
+                    <label for="firstName">First Name</label>
+                    <input type="text" name="firstName" id="firstName" th:value="${customer.firstName}" required><br>
+
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name="lastName" id="lastName" th:value="${customer.lastName}" required><br>
+
+                    <label for="cpr">Cpr</label>
+                    <input type="text" name="cpr" id="cpr" th:value="${customer.cpr}" required><br>
+
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" th:value="${customer.email}"><br>
+
+                    <label for="birthdate">Birthdate</label>
+                    <input type="date" name="birthdate" id="birthdate" th:value="${customer.birthdate}" required><br>
+
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="address" th:value="${customer.address}" required><br>
+
+                    <label for="address2">address2</label>
+                    <input type="text" name="address2" id="address2" th:value="${customer.address2}"><br>
+
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="notSpecified">Not Specified</option>
+                    </select><br>
+
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" name="phoneNumber" id="phoneNumber" th:value="${customer.phoneNumber}"><br>
+
+                    <div class="tableOptionButtons">
+                        <button type="submit">Save</button>
+                        <button onclick="location.href='/customer/viewAll'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+
+</body>
+</html>

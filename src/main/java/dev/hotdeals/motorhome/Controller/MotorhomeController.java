@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @Controller
@@ -34,13 +35,7 @@ public class MotorhomeController
     public String viewAll(Model model)
     {
         List<RV> rvList = rvService.fetchAll();
-        // can't use checkList() as it redirects to his mapping causing an infinite loop
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "rv/viewAll";
-        }
+        return checkList(rvList, model);
     }
 
     @PostMapping("/rv/viewAll")
@@ -53,79 +48,28 @@ public class MotorhomeController
         {
             case "null":
                 rvList = rvService.fetchAll();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "brand":
                 rvList = rvService.searchByBrand(searchQuery);
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "model":
                 rvList = rvService.searchByModel(searchQuery);
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "price":
                 rvList = rvService.sortByPrice();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "available":
                 rvList = rvService.fetchAvailable();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "requiresCleaning":
                 rvList = rvService.fetchRequiresCleaning();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
+                return checkList(rvList, model);
             case "requiresMaintenance":
                 rvList = rvService.fetchRequiresMaintenance();
-                // can't use checkList() as it redirects to his mapping causing an infinite loop
-                if (rvList.isEmpty()) return "redirect:/rv/empty";
-                else
-                {
-                    model.addAttribute("rvList", rvList);
-                    return "rv/viewAll";
-                }
-                // Requires rvService.fetchRequiresFurtherService() to be implemented
-//            case "requiresFurtherService":
-//                rvList = rvService.fetchRequiresFurtherService();
-//                // can't use checkList() as it redirects to his mapping causing an infinite loop
-//                if (rvList.isEmpty()) return "redirect:/rv/empty";
-//                else
-//                {
-//                    model.addAttribute("rvList", rvList);
-//                    return "rv/viewAll";
-//                }
+                return checkList(rvList, model);
+            default:
+                return "redirect:/rv/errorParameters";
         }
-        return "redirect:/rv/empty";
     }
 
     // Used for obtaining and displaying a specific RV
@@ -157,13 +101,7 @@ public class MotorhomeController
     {
         rvService.updateRV(rv);
         List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "redirect:/rv/viewAll";
     }
 
     @GetMapping("/rv/createNewRV")
@@ -173,23 +111,10 @@ public class MotorhomeController
     }
 
     @PostMapping("/rv/submitNewRV")
-    public String submitNewRV(Model pageModel, WebRequest wr)
+    public String submitNewRV(Model pageModel, @ModelAttribute RV rv) // Used to be :  WebRequest wr
     {
-        RV rv = new RV();
-        rv.setBrand(wr.getParameter("brand"));
-        rv.setModel(wr.getParameter("model"));
-        rv.setColor(wr.getParameter("color"));
-        rv.setRvType(wr.getParameter("rvType"));
-        rv.setPrice(Integer.parseInt(wr.getParameter("price")));
         rvService.addRV(rv);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            pageModel.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
+        return "redirect:/rv/viewAll";
     }
 
     @PostMapping("/rv/deleteRV")
@@ -207,73 +132,7 @@ public class MotorhomeController
         }
 
         rvService.deleteRV(id);
-        List<RV> rvList = rvService.fetchAll();
-
-        if (rvList.isEmpty()) return "redirect:/rv/empty";
-        else
-        {
-            model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
-        }
-    }
-
-    @GetMapping("/rv/searchByModel")
-    public String searchByModel(Model model, WebRequest wr)
-    {
-
-        List<RV> rvList = rvService.searchByModel(wr.getParameter("model"));
-        return checkList(rvList, model);
-    }
-
-    @PostMapping("/rv/searchByBrand")
-    public String searchByBrand(Model model, WebRequest wr)
-    {
-        List<RV> rvList = rvService.searchByBrand(wr.getParameter("brand"));
-        return checkList(rvList, model);
-    }
-
-    @PostMapping("/rv/searchByID")
-    public String searchByID(Model model, WebRequest wr)
-    {
-        int id;
-        try
-        {
-            id = Integer.parseInt(wr.getParameter("id"));
-        } catch (NullPointerException | NumberFormatException e)
-        {
-            System.out.println("Failed to get parameter 'id' from the model in /rv/searchByID: " + e);
-            return "redirect:/rv/errorParameters";
-        }
-        List<RV> rvList = rvService.searchByID(id);
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/sortByPrice")
-    public String sortByPrice(Model model)
-    {
-        List<RV> rvList = rvService.sortByPrice();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/sortByAvailable")
-    public String sortByAvailable(Model model)
-    {
-        List<RV> rvList = rvService.fetchAvailable();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/requiresCleaning")
-    public String requiresCleaning(Model model)
-    {
-        List<RV> rvList = rvService.fetchRequiresCleaning();
-        return checkList(rvList, model);
-    }
-
-    @GetMapping("/rv/requiresMaintenance")
-    public String requiresMaintenance(Model model)
-    {
-        List<RV> rvList = rvService.fetchRequiresMaintenance();
-        return checkList(rvList, model);
+        return "redirect:/rv/viewAll";
     }
 
     @GetMapping("/rv/errorParameters")
@@ -297,7 +156,7 @@ public class MotorhomeController
         else
         {
             model.addAttribute("rvList", rvList);
-            return "redirect:/rv/viewAll";
+            return "rv/viewAll";
         }
     }
 }
