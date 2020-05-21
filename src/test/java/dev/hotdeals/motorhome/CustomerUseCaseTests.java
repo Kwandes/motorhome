@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.contentOf;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerUseCaseTests
 {
+    private static boolean testCondition = false;
     @Autowired
     CustomerRepo customerRepo;
 
@@ -53,21 +54,27 @@ public class CustomerUseCaseTests
     @DisplayName("Add a customer to the DB")
     public void customerRepoAddCustomer()
     {
-        // given
-        Customer customer = new Customer();
-        customer.setFirstName("TestName");
-        customer.setLastName("TestLastName");
-        customer.setCpr("999999-9999");
-        customer.setPhoneNumber("12345678");
-        customer.setEmail("testemail@test.mail");
-        customer.setBirthdate("1990-12-24");
-        customer.setAddress("test of address name");
-        customer.setAddress2("test of second address name");
-        customer.setGender("Test");
-        // when
-        boolean success = customerRepo.addCustomer(customer);
+        if (testCondition)
+        {
+            // given
+            Customer customer = new Customer();
+            customer.setFirstName("TestName");
+            customer.setLastName("TestLastName");
+            customer.setCpr("999999-9999");
+            customer.setPhoneNumber("12345678");
+            customer.setEmail("testemail@test.mail");
+            customer.setBirthdate("1990-12-24");
+            customer.setAddress("test of address name");
+            customer.setAddress2("test of second address name");
+            customer.setGender("Test");
+            // when
+            testCondition = customerRepo.addCustomer(customer);
+        } else
+        {
+            System.out.println("Search test failed. Skipping Add test...");
+        }
         // then
-        assertThat(success).isTrue();
+        assertThat(testCondition).isTrue();
     }
 
     @Test
@@ -75,15 +82,21 @@ public class CustomerUseCaseTests
     @DisplayName("Change a customer's information from the DB")
     public void customerRepoUpdateCustomer()
     {
-        // given - the ID exist
-        String originalFirstName = "TestName";
-        String EditedFirstName ="NameTest";
-        Customer testCustomer = customerRepo.searchByName(originalFirstName).get(0);
-        testCustomer.setFirstName(EditedFirstName);
-        // when
-        boolean status = customerRepo.updateCustomer(testCustomer);
+        if (testCondition)
+        {
+            // given - the ID exist
+            String originalFirstName = "TestName";
+            String EditedFirstName = "NameTest";
+            Customer testCustomer = customerRepo.searchByName(originalFirstName).get(0);
+            testCustomer.setFirstName(EditedFirstName);
+            // when
+            testCondition = customerRepo.updateCustomer(testCustomer);
+        } else
+        {
+            System.out.println("Search test failed. Skipping Update test...");
+        }
         // then
-        assertThat(status).isTrue();
+        assertThat(testCondition).isTrue();
     }
 
 
@@ -92,14 +105,20 @@ public class CustomerUseCaseTests
     @DisplayName("Delete customer from DB using Id")
     public void customerRepoDeleteCustomerTest()
     {
-        // given - the Customer exists
-        String customerNameToDelete = "NameTest"; //name used to search for the customer to delete
-        Customer testCustomerDelete = customerRepo.searchByName(customerNameToDelete).get(0); //the Customer we want to delete
-        int customerIdToDelete = testCustomerDelete.getId(); //getting the ID of the customer to delete
-        // when
-        boolean customerDeleteTest = customerRepo.deleteCustomer(customerIdToDelete);
+        if (testCondition)
+        {
+            // given - the Customer exists
+            String customerNameToDelete = "NameTest"; //name used to search for the customer to delete
+            Customer testCustomerDelete = customerRepo.searchByName(customerNameToDelete).get(0); //the Customer we want to delete
+            int customerIdToDelete = testCustomerDelete.getId(); //getting the ID of the customer to delete
+            // when
+            testCondition = customerRepo.deleteCustomer(customerIdToDelete);
+        } else
+        {
+            System.out.println("Search test failed. Skipping Update test...");
+        }
         // then
-        assertThat(customerDeleteTest).isTrue();
+        assertThat(testCondition).isTrue();
     }
 
     @Test
@@ -123,8 +142,9 @@ public class CustomerUseCaseTests
         String name = "Adele";
         // when
         List<Customer> customersReturnedFromSearch= null;
-        customersReturnedFromSearch = customerRepo.searchByName("Adel");
+        customersReturnedFromSearch = customerRepo.searchByName(name);
         // then
+        testCondition = !customersReturnedFromSearch.isEmpty();
         assertThat(customersReturnedFromSearch).isNotEmpty();
     }
 }
