@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
-    <link th:href="@{/styles/motorhome/rv.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 
     <!-- HEADER NAVIGATION BAR -->
     <div class="navContainer">
-        <div class="wrapper">
+        <div class="navWrapper">
             <nav>
                 <div class="logo">
                     <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
@@ -23,16 +23,16 @@
 
                 <ul class="navItems">
                     <li>
-                        <a href="/customers">Customers</a>
+                        <a href="/customer/viewAll">Customers</a>
                     </li>
                     <li>
-                        <a href="/rentals">Rentals</a>
+                        <a href="/rental/viewAll">Rentals</a>
                     </li>
                     <li class="navSelect">
                         <a href="/rv">RV</a>
                     </li>
                     <li>
-                        <a href="/rvExtras">RV Extras</a>
+                        <a href="/rvExtra/viewAll">RV Extras</a>
                     </li>
                     <li>
                         <a href="/index">Log out</a>
@@ -45,8 +45,8 @@
 
     <!-- PAGE CONTENT -->
     <div class="headerContainer">
-        <div class="wrapper">
-            <!-- Selection buttons -->
+        <div class="pageWrapper">
+            <!-- Selection buttons
             <div class="buttonList">
                 <ul class="optionButtons">
                     <div class="selected">
@@ -59,6 +59,7 @@
                     </li>
                 </ul>
             </div>
+            -->
 
             <!-- list content -->
             <div class="dataSection">
