@@ -20,9 +20,9 @@ public class CustomerService {
     }
 
     // Returns a Customer with the provided ID
-    public Customer fetchByID ( int id )
+    public Customer fetchByID ( int customerID )
     {
-        return customerRepo.fetchById( id );
+        return customerRepo.fetchByID( customerID );
     }
 
     // Returns a list of all Customers of which CPR contains the String provided
@@ -50,7 +50,7 @@ public class CustomerService {
         return customerRepo.updateCustomer( customer );
     }
 
-    // Deletes the RV with the given ID from the DataBase
+    // Deletes the Customer with the given ID from the DataBase
     public boolean deleteCustomer ( int customerID )
     {
         return customerRepo.deleteCustomer( customerID );

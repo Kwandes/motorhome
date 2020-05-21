@@ -18,7 +18,7 @@ public class CustomerRepo
     @Autowired
     JdbcTemplate template;
 
-    public Customer fetchById(int customerID)
+    public Customer fetchByID(int customerID)
     {
         String query = "SELECT * FROM customer WHERE ID = ?;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);

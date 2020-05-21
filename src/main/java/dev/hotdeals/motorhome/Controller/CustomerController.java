@@ -3,6 +3,8 @@ package dev.hotdeals.motorhome.Controller;
 import dev.hotdeals.motorhome.Model.Customer;
 import dev.hotdeals.motorhome.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.constraints.Null;
 import java.util.List;
 
+@Controller
 public class CustomerController {
 
     @Autowired

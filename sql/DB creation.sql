@@ -41,6 +41,7 @@ last_name VARCHAR(40) NOT NULL,
 cpr VARCHAR(11) NOT NULL UNIQUE,
 email VARCHAR(80) DEFAULT NULL,
 birthdate DATE NOT NULL,
+phone_number VARCHAR(15),
 address VARCHAR(255) NOT NULL,
 address2 VARCHAR(255) DEFAULT NULL,
 gender VARCHAR(10) DEFAULT NULL,
@@ -48,26 +49,6 @@ PRIMARY KEY(id)
 );
 
 ALTER TABLE customer AUTO_INCREMENT = 2000;
-
-
-#-------------------------------------------
--- Table : phone_number
-#-------------------------------------------
-
--- SELECT * FROM phone_number;
-
-DROP TABLE IF EXISTS phone_number;
-
-CREATE TABLE IF NOT EXISTS phone_number (
-number VARCHAR(15) NOT NULL,
-customer_id INT NOT NULL,
-PRIMARY KEY ( number, customer_id ),
-CONSTRAINT `fk_customer_phone_number`
-	FOREIGN KEY(customer_id)
-	REFERENCES motorhome.customer(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
 
 
 #-------------------------------------------
@@ -99,27 +80,8 @@ ALTER TABLE rv AUTO_INCREMENT = 3000;
 
 
 #-------------------------------------------
--- Table : rv_extra
--- ID    : 4xxx
-#-------------------------------------------
-
--- SELECT * FROM rv_extra;
-
-DROP TABLE IF EXISTS rv_extra;
-
-CREATE TABLE IF NOT EXISTS rv_extra (
-id INT NOT NULL AUTO_INCREMENT,
-name VARCHAR(40) NOT NULL,
-price INT NOT NULL,
-PRIMARY KEY(id)
-);
-
-ALTER TABLE rv_extra AUTO_INCREMENT = 4000;
-
-
-#-------------------------------------------
 -- Table : rental_contract
--- ID    : 5xxx
+-- ID    : 4xxx
 #-------------------------------------------
 
 -- SELECT * FROM rental_contract;
@@ -136,10 +98,11 @@ address_pickup VARCHAR(255) NOT NULL DEFAULT "Store Address",
 base_price INT NOT NULL,
 final_price INT DEFAULT 0,
 km_driven INT DEFAULT  0,
+extras VARCHAR(510),
 customer_id INT DEFAULT NULL,
 rv_id INT DEFAULT NULL,
 employee_id INT DEFAULT NULL,
-status VARCHAR(10) NOT NULL,
+status VARCHAR(10) DEFAULT "open",
 PRIMARY KEY(id),
 CONSTRAINT `fk_rental_contract_customer`
 	FOREIGN KEY(customer_id)
@@ -158,30 +121,4 @@ CONSTRAINT `fk_rental_contract_employee`
     ON DELETE SET NULL
 );
 
-ALTER TABLE rental_contract AUTO_INCREMENT = 5000;
-
-
-#-------------------------------------------
--- Table : rental_contract_has_rv_extra
-#-------------------------------------------
-
--- SELECT * FROM rental_contract_has_rv_extra;
-
-DROP TABLE IF EXISTS rental_contract_has_rv_extra;
-
-CREATE TABLE IF NOT EXISTS rental_contract_has_rv_extra (
-rental_contract_id INT NOT NULL,
-rv_extra_id INT NOT NULL,
-amount INT NOT NULL DEFAULT 1,
-PRIMARY KEY(rental_contract_id, rv_extra_id),
-CONSTRAINT `fk_rental_contract_rv_extra1`
-	FOREIGN KEY(rental_contract_id)
-    REFERENCES motorhome.rental_contract(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-CONSTRAINT `fk_rental_contract_rv_extra2`
-	FOREIGN KEY(rv_extra_id)
-    REFERENCES motorhome.rv_extra(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
+ALTER TABLE rental_contract AUTO_INCREMENT = 4000;
