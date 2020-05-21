@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/login.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
 </head>
 <body>
 
     <div class="backgroundImage"></div>
 
     <div class="navContainer">
-        <div class="wrapper">
+        <div class="navWrapper">
             <nav>
                 <div class="logo">
                     <img th:src="@{img/logo.png}" width="115"/>
@@ -29,7 +30,7 @@
     </div>
 
     <div class="headerContainer">
-        <div class="wrapper">
+        <div class="pageWrapper">
             <header>
 
                 <!-- Login box container -->
@@ -37,12 +38,14 @@
 
                     <form class="login" action="rv/" method="GET">
                         <h1 class="welcomeText">Welcome</h1>
-                        <div class="container">
+                        <div class="textInput">
                             <input type="text" name="" placeholder="Enter Username" required>
 
                             <input type="password" name="" placeholder="Enter Password" required>
 
-                            <input type="submit" value="Login">
+                            <div class="regButton">
+                                <input type="submit" value="Login">
+                            </div>
                         </div>
                     </form>
                 </div>
