@@ -14,10 +14,10 @@ INSERT INTO employee (first_name, last_name, position) VALUES
 -- Table : Customer
 #-------------------------------------------
 
-INSERT INTO customer (first_name, last_name, cpr, birthdate, address) VALUES
-("Adele", "Spencer", "160428-1231", "2016-04-28", "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
-("Connor", "Turner", "160601-3121", "2016-06-01", "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
-("Seth", "Ramirez", "200813-5412", "2020-08-13", "Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+INSERT INTO customer (first_name, last_name, cpr, birthdate, address, phone_number) VALUES
+("Adele", "Spencer", "160428-1231", "2016-04-28", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", "31333213"),
+("Connor", "Turner", "160601-3121", "2016-06-01", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", "+4533445513"),
+("Seth", "Ramirez", "200813-5412", "2020-08-13", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", "45673233");
 
 
 #-------------------------------------------
