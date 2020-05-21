@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RV - No results</title>
+    <title>RV - Invalid Parameters</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
@@ -51,9 +51,10 @@
             <header>
                 <div class="pageContainer">
                     <form class="login" action="/rv/viewAll" method="get">
-                        <h1 class="welcomeText">There were<br>zero results</h1>
+                        <h1 class="welcomeText">There was<br>an invalid parameter passed</h1>
+                        <h3 class="welcomeText">Contact developers for<br>more information</h3>
                         <div style="margin-top: 75px">
-                            <button onclick="location.href='/rv/viewAll'">Go Back</button>
+                            <button onclick="location.href='rv/viewAll'">Go Back</button>
                         </div>
                     </form>
                 </div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RV - No results</title>
+    <title>Customer - No results</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
@@ -23,14 +23,14 @@
                 </div>
 
                 <ul class="navItems">
-                    <li>
-                        <a href="/customer/viewAll">Customers</a>
+                    <li class="navSelect">
+                        <a href="/customer">Customers</a>
                     </li>
                     <li>
                         <a href="/rental/viewAll">Rentals</a>
                     </li>
-                    <li class="navSelect">
-                        <a href="/rv">RV</a>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
                     </li>
                     <li>
                         <a href="/rvExtra/viewAll">RV Extras</a>
@@ -50,10 +50,10 @@
         <div class="wrapper">
             <header>
                 <div class="pageContainer">
-                    <form class="login" action="/rv/viewAll" method="get">
+                    <form class="login" action="/customer/viewAll" method="get">
                         <h1 class="welcomeText">There were<br>zero results</h1>
                         <div style="margin-top: 75px">
-                            <button onclick="location.href='/rv/viewAll'">Go Back</button>
+                            <button onclick="location.href='/customer/viewAll'">Go Back</button>
                         </div>
                     </form>
                 </div>

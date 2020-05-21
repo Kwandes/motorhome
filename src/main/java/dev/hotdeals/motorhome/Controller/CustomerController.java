@@ -109,6 +109,18 @@ public class CustomerController {
         return "redirect:/customer/viewAll";
     }
 
+    @GetMapping("/customer/errorParameters")
+    public String errorParameters()
+    {
+        return "customer/errorParameters";
+    }
+
+    @GetMapping("/customer/empty")
+    public String empty()
+    {
+        return "customer/empty";
+    }
+
     public String checkList ( List<Customer> customerList, Model model )
     {
         if (customerList.isEmpty())
