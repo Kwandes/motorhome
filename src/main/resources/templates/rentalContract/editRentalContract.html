@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Contract - Edit</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/customer/viewAll">Customers</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="/rentalContract/viewAll">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- list content -->
+            <div class="dataSection">
+
+                <form action="/rentalContract/updateRentalContract" method="POST">
+
+                    <h3>Edit Contract</h3>
+                    <label for="id">Id</label>
+                    <input type="text" name="id" id="id" readonly><br>
+<!--                    <input type="text" name="id" id="id" th:value="${customer.id}" readonly><br>-->
+
+                    <label for="dateStart">Date Start</label>
+                    <input type="date" name="dateStart" id="dateStart" placeholder="Date Start" required><br>
+
+                    <label for="dateEnd">Date End</label>
+                    <input type="date" name="dateEnd" id="dateEnd" placeholder="Date End" required><br>
+
+                    <label for="dropoffAddress">Drop-Off Address</label>
+                    <input type="text" name="dropoffAddress" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
+
+                    <label for="pickupAddress">Pick-Up Address</label>
+                    <input type="text" name="pickupAddress" id="pickupAddress" placeholder="Pick-Up Address" required><br>
+
+                    <label for="kmDriven">Kilometers Driven</label>
+                    <input type="number" name="kmDriven" id="kmDriven" placeholder="Kilometers Driven" required><br>
+
+                    <label for="status">Status</label>
+                    <select name="status" id="status">
+                        <option value="open">open</option>
+                        <option value="closed">closed</option>
+                        <option value="canceled">canceled</option>
+                    </select><br><br>
+
+                    <div class="tableOptionButtons">
+                        <button type="submit">Save</button>
+                        <button type="button"  onclick="location.href='/rentalContract/viewAll'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+
+</body>
+</html>
