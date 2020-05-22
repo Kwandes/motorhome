@@ -1,5 +1,6 @@
 package dev.hotdeals.motorhome.Controller;
 
+import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Model.RentalContract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -15,39 +16,22 @@ public class RentalContractController
     @Autowired
     RentalContract rentalContract;
 
-    /*
-    DEFAULT: View All
-
-    CREATE NEW: newRentalContract
-    --> contract info : (-dateSigned-, dateStart, dateEnd, addressDropoff, addressPickup,
-    status(-open-, -closed-, -cancelled-), extras(WIP), cutomerID(via select(customerId)) rvID(via select(id),
-    employeeID(via select(employeeId)))
-
-    --> clicks create button
-
-    SEARCH: search type 	(dropoffAddress, searchPickupAddress, extras, customerName, employeeName, rvModel)
-            sort type	(dateSigned, dateStart, dateEnd, status)
-    --> search query 	(???)
-    --> displays view all page with rental contract data filtered in correct order/type
-
-    ERROR:	display "EMPTY" page
-     */
-
-    // default mapping, redirects to actual viewAll file
+    // Redirects to the proper viewAll mapping ( in case of typos )
     @GetMapping({"/rentalContract", "/rentalContract/", "/rentalContract/viewAll/"})
     public String redirectViewAll()
     {
         return "redirect:/rentalContract/viewAll";
     }
 
+    // Adds a list of all the contracts to the Model and reloads the page
     @GetMapping("/rentalContract/viewAll")
-    public String viewAll(Model model)
+    public String viewAll( Model model)
     {
         List<RentalContract> rentalContractList = rentalContract.fetchAll();
         return checkList(rentalContractList, model);
     }
-
-    @PostMapping("/rentalContract/viewAll")  // TODO - Mostly Done
+    // Adds a list of contracts to the model ( based on the queryType & querySearch ) and reloads the page
+    @PostMapping("/rentalContract/viewAll")
     public String searchAll(Model model, WebRequest wr)
     {
         String searchQuery = wr.getParameter("searchQuery");
@@ -96,65 +80,58 @@ public class RentalContractController
         }
     }
 
-    // Used for obtaining and displaying a specific RentalContract
+    // Redirects to the editRentalContract page
     @PostMapping("/rentalContract/editRentalContract")
     public String editRentalContract(Model model, WebRequest wr)
     {
-        // try to obtain an id from the model
-        int id;
-        try
+        int id = checkID("id", wr, "/rentalContract/editRentalContract");
+        if (id == -1)
         {
-            id = Integer.parseInt(wr.getParameter("id"));
-        } catch (NullPointerException | NumberFormatException e)
-        {
-            System.out.println("Failed to get parameter 'id' from the model in /rentalContract/editRentalContract: " + e);
             return "redirect:/rentalContract/errorParameters";
         }
-
         RentalContract foundContract = rentalContractService.fetchByID(id);
-        if (foundContract == null) return "redirect:/rentalContract/empty";
-        else
+        if (foundContract == null)
         {
-            model.addAttribute("contract", foundContract);
-            return "rentalContract/editContract";
+            return "redirect:/rentalContract/empty";
+        } else
+        {
+            model.addAttribute("rentalContract", foundContract);
+            return "rentalContract/editRentalContract";
         }
     }
 
-    @PostMapping("/rentalContract/updateRentalContractV")
-    public String updateRentalContract(Model model, @ModelAttribute RentalContract rentalContract)
+    // Updates the rental contract information and redirects to viewAll page
+    @PostMapping("/rentalContract/updateRentalContract")
+    public String updateRentalContract(@ModelAttribute RentalContract rentalContract)
     {
         rentalContractService.updateRentalContract(rentalContract);
-        List<RentalContract> rentalContractvList = rentalContractService.fetchAll();
         return "redirect:/rentalContract/viewAll";
     }
 
+    // Redirects to the createNewRentalContract page
     @GetMapping("/rentalContract/createNewRentalContract")
     public String createNew()
     {
         return "rentalContract/createNewRentalContract";
     }
 
+    // Creates a new rental contract and redirects to the viewAll page
     @PostMapping("/rentalContract/submitNewRentalContract")
-    public String submitNewRentalContract(Model pageModel, @ModelAttribute RentalContract rentalContract) // Used to be :  WebRequest wr
+    public String submitNewRentalContract(@ModelAttribute RentalContract rentalContract)
     {
         rentalContractService.addRentalContract(rentalContract);
         return "redirect:/rentalContract/viewAll";
     }
 
+    // Deletes the contract with the given ID and redirects to viewAll page
     @PostMapping("/rentalContract/deleteRentalContract")
-    public String deleteRentalContract(Model model, WebRequest wr)
+    public String deleteRentalContract(WebRequest wr)
     {
-        // try to obtain an id from the model
-        int id;
-        try
+        int id = checkID("id", wr, "/rentalContract/deleteRentalContract");
+        if (id == -1)
         {
-            id = Integer.parseInt(wr.getParameter("id"));
-        } catch (NullPointerException | NumberFormatException e)
-        {
-            System.out.println("Failed to get parameter 'id' from the model in /rentalContract/deleteRentalContract: " + e);
             return "redirect:/rentalContract/errorParameters";
         }
-
         rentalContractService.deleteRentalContract(id);
         return "redirect:/rentalContract/viewAll";
     }
@@ -165,22 +142,44 @@ public class RentalContractController
         return "rentalContract/errorParameters";
     }
 
+    // Shows a page used when nothing was found during the search/sort
     @GetMapping("/rentalContract/empty")
     public String empty()
     {
         return "rentalContract/empty";
     }
 
-    // Takes in an RentalContract List and depending on its contents, returns either redirect to:
-    // a page with "list is empty" message, a page for viewing a specific RentalContract or viewAll page that displays the whole list
-    // Takes in a model and updates it accordingly too
-    public String checkList(List<RentalContract> rentalContractList, Model model)
+    // Takes in a list of Employees, adds it to the Model and displays it to the viewAll page
+    public String checkList (List<RentalContract> rentalContractList, Model model )
     {
-        if (rentalContractList.isEmpty()) return "redirect:/rentalContract/empty";
+        if (rentalContractList.isEmpty())
+        {
+            return "redirect:/rentalContract/empty";
+        }
         else
         {
             model.addAttribute("rentalContractList", rentalContractList);
-            return "rentalContract/viewAll";
+            return "/rentalContract/viewAll";
         }
+    }
+    /*
+    Takes in the name of the ID, a the WebRequest of a specific page & a string of that mapping
+     ( for displaying the origin in case of an error )
+    Requests the ID from the page, parses it into an int and checks for exceptions
+    In case of exceptions, returns -1 & prints an error to the console
+    Otherwise, it will return an int with the value of the ID
+    */
+    public int checkID (String varName, WebRequest wr, String mapping)
+    {
+        int x;
+        try
+        {
+            x = Integer.parseInt(wr.getParameter(varName));
+        } catch (NullPointerException | NumberFormatException e)
+        {
+            System.out.println("Failed to get parameter '" + varName + "' from the model in " + mapping + " : " + e);
+            return -1;
+        }
+        return x;
     }
 }
