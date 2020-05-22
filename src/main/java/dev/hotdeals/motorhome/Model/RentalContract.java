@@ -10,8 +10,7 @@ public class RentalContract
 {
     @Id
     private int id;
-    private int customer_id;
-    private int rv_id;
+
     private String dateSigned;
     private String dateStart;
     private String dateEnd;
@@ -21,6 +20,9 @@ public class RentalContract
     private int finalPrice;
     private int kmDriven;
     private String status;
+    private String extras;
+    private int customer_id;
+    private int rv_id;
     private int employee_id;
 
     public RentalContract()
@@ -29,9 +31,19 @@ public class RentalContract
 
     public String toString()
     {
-        return id + " " + customer_id + " " + rv_id + " " + dateSigned + " " + dateStart +
-                " " + dateEnd + " " + addressDropoff + " " + addressPickup + " " + basePrice +
-                " " + finalPrice + " " + kmDriven + " " + status + " " + employee_id;
+        return id + " " + dateSigned + " " + dateStart + " " + dateEnd +
+                " " + addressDropoff + " " + addressPickup + " " + basePrice +
+                " " + finalPrice + " " + kmDriven + " " + status + " " + extras +
+                " " + customer_id + " " + rv_id + " " + employee_id;
+    }
+
+    public String getExtras() {
+        return extras;
+    }
+
+    public RentalContract setExtras(String extras) {
+        this.extras = extras;
+        return this;
     }
 
     public int getId()
