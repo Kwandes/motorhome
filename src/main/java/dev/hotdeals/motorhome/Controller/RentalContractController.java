@@ -2,6 +2,7 @@ package dev.hotdeals.motorhome.Controller;
 
 import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Model.RentalContract;
+import dev.hotdeals.motorhome.Service.RentalContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import java.util.List;
 public class RentalContractController
 {
     @Autowired
-    RentalContract rentalContract;
+    RentalContractService rentalContractService;
 
     // Redirects to the proper viewAll mapping ( in case of typos )
     @GetMapping({"/rentalContract", "/rentalContract/", "/rentalContract/viewAll/"})
@@ -27,7 +28,7 @@ public class RentalContractController
     @GetMapping("/rentalContract/viewAll")
     public String viewAll( Model model)
     {
-        List<RentalContract> rentalContractList = rentalContract.fetchAll();
+        List<RentalContract> rentalContractList = rentalContractService.fetchAll();
         return checkList(rentalContractList, model);
     }
     // Adds a list of contracts to the model ( based on the queryType & querySearch ) and reloads the page
@@ -58,10 +59,10 @@ public class RentalContractController
 
             //Search
             case "dropoffAddress":
-                rentalContractList = rentalContractService.searchByDropoffAddress(searchQuery);
+                rentalContractList = rentalContractService.searchByAddressDropoff(searchQuery);
                 return checkList(rentalContractList, model);
             case "pickupAddress":
-                rentalContractList = rentalContractService.searchByPickupAddress(searchQuery);
+                rentalContractList = rentalContractService.searchByAddressPickup(searchQuery);
                 return checkList(rentalContractList, model);
             case "extras":
                 rentalContractList = rentalContractService.searchByExtras(searchQuery);

@@ -29,7 +29,7 @@ public class RentalContractService {
 
     public List<RentalContract> sortByStatus () { return rentalContractRepo.sortByStatus(); }
 
-    public List<RentalContract> sortByRvModel () { return rentalContractRepo.sortByRvModel(); }
+    public List<RentalContract> searchByRvModel ( String rvModel ) { return rentalContractRepo.searchByRvModel( rvModel ); }
 
     public List<RentalContract> sortByDateStart () { return rentalContractRepo.sortByDateStart(); }
 
@@ -37,7 +37,9 @@ public class RentalContractService {
 
     public List<RentalContract> sortByDateSigned () { return rentalContractRepo.sortByDateSigned(); }
 
-    public boolean updateContract ( RentalContract rentalContract ) { return rentalContractRepo.updateContract( rentalContract ); }
+    public boolean updateRentalContract ( RentalContract rentalContract ) { return rentalContractRepo.updateRentalContract( rentalContract ); }
 
-    public boolean deleteContract ( int contractID ) { return rentalContractRepo.deleteContract( contractID ); }
+    public boolean deleteRentalContract ( int contractID ) { return rentalContractRepo.deleteRentalContract( contractID ); }
+
+    public boolean addRentalContract ( RentalContract rentalContract ) { return rentalContractRepo.addRentalContract( rentalContract ); }
 }
