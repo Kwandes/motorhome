@@ -148,7 +148,7 @@ public class RentalContract
         this.extras = extras;
     }
 
-    public int getCustomer_id()
+    public Integer getCustomer_id()
     {
         return customer_id;
     }
@@ -159,7 +159,7 @@ public class RentalContract
         this.customer_id = customer_id;
     }
 
-    public int getRv_id()
+    public Integer getRv_id()
     {
         return rv_id;
     }
@@ -170,7 +170,7 @@ public class RentalContract
         this.rv_id = rv_id;
     }
 
-    public int getEmployee_id()
+    public Integer getEmployee_id()
     {
         return employee_id;
     }

@@ -271,13 +271,12 @@ public class RentalContractRepo
     public boolean addRentalContract(RentalContract rentalContract)
     {
         System.out.println(rentalContract);
-        String query = "INSERT INTO rental_contract (date_start, date_end, address_dropoff, address_pickup, " +
-                "extras, customer_id, rv_id, employee_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO rental_contract (date_start, date_end, address_dropoff, address_pickup," +
+                "base_price, extras, customer_id, rv_id, employee_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int rowsAffected = template.update(query, rentalContract.getDateStart(), rentalContract.getDateEnd(),
-                rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), 0,
-                /*rentalContract.getExtras()*/ "empty", rentalContract.getCustomer_id(),
-                rentalContract.getRv_id(), rentalContract.getEmployee_id());
+                rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), rentalContract.getBasePrice(),
+                rentalContract.getExtras(), rentalContract.getCustomer_id(), rentalContract.getRv_id(), rentalContract.getEmployee_id());
         boolean status = rowsAffected > 0;
         return status;
     }
@@ -287,11 +286,11 @@ public class RentalContractRepo
         String query = "UPDATE rental_contract SET date_signed = ?, date_start = ?, date_end = ?, " +
                 "address_dropoff = ?, address_pickup = ?, base_price = ?, " +
                 "final_price = ?, km_driven = ?, status = ?, extras = ?, " +
-                "customer_id = ?, rv_id = ?, employee_id = ?";
+                "customer_id = ?, rv_id = ?, employee_id = ? WHERE id = ?";
         int rowsAffected = template.update(query, rentalContract.getDateSigned(), rentalContract.getDateStart(), rentalContract.getDateEnd(),
                 rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), rentalContract.getBasePrice(), rentalContract.getFinalPrice(),
                 rentalContract.getKmDriven(), rentalContract.getStatus(), rentalContract.getExtras(), rentalContract.getCustomer_id(),
-                rentalContract.getRv_id(), rentalContract.getEmployee_id());
+                rentalContract.getRv_id(), rentalContract.getEmployee_id(), rentalContract.getId());
         boolean status = rowsAffected > 0;
         return status;
     }
