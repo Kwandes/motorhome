@@ -138,13 +138,14 @@ public class RentalContract
         this.status = status;
     }
 
-    public String getExtras() {
+    public String getExtras()
+    {
         return extras;
     }
 
-    public RentalContract setExtras(String extras) {
+    public void setExtras(String extras)
+    {
         this.extras = extras;
-        return this;
     }
 
     public int getCustomer_id()
