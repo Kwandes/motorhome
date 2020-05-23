@@ -4,6 +4,7 @@ import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Model.RentalContract;
 import dev.hotdeals.motorhome.Service.RentalContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
+@Controller
 public class RentalContractController
 {
     @Autowired
@@ -37,6 +39,7 @@ public class RentalContractController
     {
         String searchQuery = wr.getParameter("searchQuery");
         String searchType = wr.getParameter("searchType");
+
         List<RentalContract> rentalContractList;
         switch(searchType)
         {
@@ -160,7 +163,7 @@ public class RentalContractController
         else
         {
             model.addAttribute("rentalContractList", rentalContractList);
-            return "/rentalContract/viewAll";
+            return "rentalContract/viewAll";
         }
     }
     /*

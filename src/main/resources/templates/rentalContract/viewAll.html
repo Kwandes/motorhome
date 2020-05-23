@@ -101,32 +101,32 @@
                     </tr>
                 </thead>
                 <tbody>
-<!--                    <tr class="main" th:each="rentalContract: ${rentalContractList}">-->
-<!--                        <td th:text="${rentalContract.id}"></td>-->
-<!--                        <td th:text="${rentalContract.dateSigned}"></td>-->
-<!--                        <td th:text="${rentalContract.dateStart}"></td>-->
-<!--                        <td th:text="${rentalContract.dateEnd}"></td>-->
-<!--                        <td th:text="${rentalContract.addressDropoff}"></td>-->
-<!--                        <td th:text="${rentalContract.addressPickup}"></td>-->
-<!--                        <td th:text="${rentalContract.basePrice}"></td>-->
-<!--                        <td th:text="${rentalContract.finalPrice}"></td>-->
-<!--                        <td th:text="${rentalContract.kmDriven}"></td>-->
-<!--                        <td th:text="${rentalContract.extras}"></td>-->
-<!--                        <td th:text="${customer.firstName} + {customer.lastName}"></td>-->
-<!--                        <td th:text="${employee.firstName} + {employee.lastName}"></td>-->
-<!--                        <td th:text="${rv.brand} + {rv.model}"></td>-->
-<!--                        <td th:text="${rentalContract.status}"></td>-->
-<!--                        <td class="tableOptions">-->
-<!--                            <div class="tableOptionButtons">-->
-<!--                                <form action="/rentalContract/editRentalContract" method="POST">-->
-<!--                                    <button type="submit" name="id" th:value="${rentalContract.id}">Edit</button>-->
-<!--                                </form>-->
-<!--                                <form action="/rentalContract/deleteRentalContract" method="POST">-->
-<!--                                    <button type="submit" name="id" th:value="${rentalContract.id}">Remove</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </td>-->
-<!--                    </tr>-->
+                    <tr class="main" th:each="rentalContract: ${rentalContractList} + customer: ${customerList}">
+                        <td th:text="${rentalContract.id}"></td>
+                        <td th:text="${rentalContract.dateSigned}"></td>
+                        <td th:text="${rentalContract.dateStart}"></td>
+                        <td th:text="${rentalContract.dateEnd}"></td>
+                        <td th:text="${rentalContract.addressDropoff}"></td>
+                        <td th:text="${rentalContract.addressPickup}"></td>
+                        <td th:text="${rentalContract.basePrice}"></td>
+                        <td th:text="${rentalContract.finalPrice}"></td>
+                        <td th:text="${rentalContract.kmDriven}"></td>
+                        <td th:text="${rentalContract.extras}"></td>
+                        <td th:text="${customer.firstName} + {customer.lastName}"></td>
+                        <td th:text="${employee.firstName} + {employee.lastName}"></td>
+                        <td th:text="${rv.brand} + {rv.model}"></td>
+                        <td th:text="${rentalContract.status}"></td>
+                        <td class="tableOptions">
+                            <div class="tableOptionButtons">
+                                <form action="/rentalContract/editRentalContract" method="POST">
+                                    <button type="submit" name="id" th:value="${rentalContract.id}">Edit</button>
+                                </form>
+                                <form action="/rentalContract/deleteRentalContract" method="POST">
+                                    <button type="submit" name="id" th:value="${rentalContract.id}">Remove</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

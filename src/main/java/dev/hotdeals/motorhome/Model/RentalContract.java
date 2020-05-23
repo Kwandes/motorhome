@@ -21,9 +21,9 @@ public class RentalContract
     private int kmDriven;
     private String status;
     private String extras;
-    private int customer_id;
-    private int rv_id;
-    private int employee_id;
+    private Integer customer_id;
+    private Integer rv_id;
+    private Integer employee_id;
 
     public RentalContract()
     {
@@ -37,14 +37,6 @@ public class RentalContract
                 " " + customer_id + " " + rv_id + " " + employee_id;
     }
 
-    public String getExtras() {
-        return extras;
-    }
-
-    public RentalContract setExtras(String extras) {
-        this.extras = extras;
-        return this;
-    }
 
     public int getId()
     {
@@ -54,26 +46,6 @@ public class RentalContract
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public int getCustomer_id()
-    {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id)
-    {
-        this.customer_id = customer_id;
-    }
-
-    public int getRv_id()
-    {
-        return rv_id;
-    }
-
-    public void setRv_id(int rv_id)
-    {
-        this.rv_id = rv_id;
     }
 
     public String getDateSigned()
@@ -166,13 +138,45 @@ public class RentalContract
         this.status = status;
     }
 
+    public String getExtras() {
+        return extras;
+    }
+
+    public RentalContract setExtras(String extras) {
+        this.extras = extras;
+        return this;
+    }
+
+    public int getCustomer_id()
+    {
+        return customer_id;
+    }
+
+    public void setCustomer_id(Integer customer_id)
+    {
+        if (customer_id == null) this.customer_id = 0; // set to 0 if the attribute is null
+        this.customer_id = customer_id;
+    }
+
+    public int getRv_id()
+    {
+        return rv_id;
+    }
+
+    public void setRv_id(Integer rv_id)
+    {
+        if (rv_id == null) this.rv_id = 0; // set to 0 if the attribute is null
+        this.rv_id = rv_id;
+    }
+
     public int getEmployee_id()
     {
         return employee_id;
     }
 
-    public void setEmployee_id(int employee_id)
+    public void setEmployee_id(Integer employee_id)
     {
+        if (employee_id == null) this.employee_id = 0; // set to 0 if the attribute is null
         this.employee_id = employee_id;
     }
 }
