@@ -115,6 +115,17 @@ Option buttons */
 
 /* buttons
 * * * * * * * * * * * * * * * * * * * * * */
+.regButton li
+{
+    list-style-type: none;
+    border: 1px solid #3E2719;
+    border: 0;
+    border-radius: 4px;
+    color: rgba(252, 233, 192, 0.9);
+    width: 100px;
+    background: #3E2719
+}
+
 .regButton input[type = "submit"]
 {
     border: 1px solid #3E2719;

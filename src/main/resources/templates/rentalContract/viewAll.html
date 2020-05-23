@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Contract</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="backgroundImage"></div>
+
+<!-- HEADER NAVIGATION BAR -->
+<div class="navContainer">
+    <div class="navWrapper">
+        <nav>
+            <div class="logo">
+                <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
+            </div>
+
+            <ul class="navItems">
+                <li>
+                    <a href="/customer/viewAll">Customers</a>
+                </li>
+                <li class="navSelect">
+                    <a href="/rentalContract/viewAll">Rentals</a>
+                </li>
+                <li>
+                    <a href="/rv/viewAll">RV</a>
+                </li>
+                <li>
+                    <a href="/index">Log out</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END HEADER NAVIGATION BAR -->
+
+<!-- PAGE CONTENT -->
+<div class="headerContainer">
+    <div class="pageWrapper">
+        <!-- Selection buttons -->
+        <div class="buttonList">
+            <ul class="optionButtons">
+                <div class="selected">
+                    <li onClick="location.href='/rentalContract/viewAll';" style="cursor:pointer;">
+                        <a href="#">View All</a>
+                    </li>
+                </div>
+                <li onClick="location.href='/rentalContract/createNewRentalContract';" style="cursor:pointer;">
+                    <a href="#">Create New</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- list content -->
+        <div class="dataSection">
+            <div class="searchField" style="margin-bottom: 25px;">
+                <form action="/rentalContract/viewAll" method="post">
+                    <label for="searchSelect">Search Type</label>
+                    <select name="searchType" id="searchSelect">
+                        <option value="dropffAddress">Drop-Off Address</option>
+                        <option value="pickupAddress">Pick-Up Address</option>
+                        <option value="extras">Extras</option>
+                        <option value="customerName">Customer Name</option>
+                        <option value="employeeName">Employee Name</option>
+                        <option value="rvModel">Motorhome Model</option>
+                        <option value="dateSigned">Date Signed</option>
+                        <option value="dateStart">Date Start</option>
+                        <option value="dateEnd">Date End</option>
+                        <option value="status">Status</option>
+                    </select><br>
+
+                    <label for="searchQuery">Search query</label>
+                    <input type="text" name="searchQuery" id="searchQuery" placeholder="Search"><br>
+
+                    <button type="submit" style="margin-left: 150px">Search</button>
+                </form>
+            </div>
+            <table class="dataTable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date Signed</th>
+                        <th>Date Start</th>
+                        <th>Date End</th>
+                        <th>Drop-Off Address</th>
+                        <th>Pick-Up Address</th>
+                        <th>Base Price</th>
+                        <th>Final Price</th>
+                        <th>KM Driven</th>
+                        <th>Extras</th>
+                        <th>Customer Name</th>
+                        <th>Employee Name</th>
+                        <th>Motorhome</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+<!--                    <tr class="main" th:each="rentalContract: ${rentalContractList}">-->
+<!--                        <td th:text="${rentalContract.id}"></td>-->
+<!--                        <td th:text="${rentalContract.dateSigned}"></td>-->
+<!--                        <td th:text="${rentalContract.dateStart}"></td>-->
+<!--                        <td th:text="${rentalContract.dateEnd}"></td>-->
+<!--                        <td th:text="${rentalContract.addressDropoff}"></td>-->
+<!--                        <td th:text="${rentalContract.addressPickup}"></td>-->
+<!--                        <td th:text="${rentalContract.basePrice}"></td>-->
+<!--                        <td th:text="${rentalContract.finalPrice}"></td>-->
+<!--                        <td th:text="${rentalContract.kmDriven}"></td>-->
+<!--                        <td th:text="${rentalContract.extras}"></td>-->
+<!--                        <td th:text="${customer.firstName} + {customer.lastName}"></td>-->
+<!--                        <td th:text="${employee.firstName} + {employee.lastName}"></td>-->
+<!--                        <td th:text="${rv.brand} + {rv.model}"></td>-->
+<!--                        <td th:text="${rentalContract.status}"></td>-->
+<!--                        <td class="tableOptions">-->
+<!--                            <div class="tableOptionButtons">-->
+<!--                                <form action="/rentalContract/editRentalContract" method="POST">-->
+<!--                                    <button type="submit" name="id" th:value="${rentalContract.id}">Edit</button>-->
+<!--                                </form>-->
+<!--                                <form action="/rentalContract/deleteRentalContract" method="POST">-->
+<!--                                    <button type="submit" name="id" th:value="${rentalContract.id}">Remove</button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+        <!-- end list content -->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+</body>
+</html>
