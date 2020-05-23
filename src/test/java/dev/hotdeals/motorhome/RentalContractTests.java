@@ -32,16 +32,16 @@ public class RentalContractTests {
     }
 
     @Test
-    @DisplayName("Fetch contract objects from ID in DB")
+    @DisplayName("Fetch contract objects by ID in DB")
     public void rentalContractFetchByID() {
 
-        RentalContract rentalContractTest = null;
+        RentalContract rentalContract = null;
 
         int contractID = 4001;
 
-        rentalContractTest = rentalContractRepo.fetchContractByID( contractID );
+        rentalContract = rentalContractRepo.fetchContractByID( contractID );
 
-        assertThat( rentalContractTest ).isNotNull();
+        assertThat(rentalContract ).isNotNull();
     }
 
 

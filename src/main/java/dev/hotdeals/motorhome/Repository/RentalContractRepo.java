@@ -21,14 +21,13 @@ public class RentalContractRepo
     //Return one contract with specified ID
     public RentalContract fetchContractByID(int contractID)
     {
-        String query = "SELECT * FROM rental_contract";
+        String query = "SELECT * FROM rental_contract WHERE id = ?";
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         RentalContract rentalContract;
         try
         {
             rentalContract = template.queryForObject(query, rw, contractID); //Read contract object
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract from given ID : " + contractID + ".");
             System.out.println(e);
@@ -48,8 +47,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -65,15 +63,14 @@ public class RentalContractRepo
     {
         String query = "SELECT * FROM rental_contract " +
                 "JOIN customer ON rental_contract.customer_id = customer.id " +
-                "WHERE CONCAT( customer.first_name, \" \", customer.last_name ) = LIKE CONCAT ( '%' , ? , '%' )";
+                "WHERE CONCAT( customer.first_name, \" \", customer.last_name ) LIKE CONCAT ( '%' , ? , '%' )";
 
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         List<RentalContract> rentalContractList;
         try
         {
             rentalContractList = template.query(query, rw, customerName);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -94,8 +91,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw, employeeName);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -115,8 +111,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw, extras);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -129,15 +124,14 @@ public class RentalContractRepo
     public List<RentalContract> searchByAddressDropoff(String dropoff)
     {
         String query = "SELECT * FROM rental_contract " +
-                "WHERE rental_contract.address_dropoff = LIKE CONCAT ( '%' , ? , '%' )";
+                "WHERE rental_contract.address_dropoff LIKE CONCAT ( '%' , ? , '%' )";
 
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         List<RentalContract> rentalContractList;
         try
         {
             rentalContractList = template.query(query, rw, dropoff);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -150,15 +144,14 @@ public class RentalContractRepo
     public List<RentalContract> searchByAddressPickup(String pickup)
     {
         String query = "SELECT * FROM rental_contract " +
-                "WHERE rental_contract.address_pickup = LIKE CONCAT ( '%' , ? , '%' )";
+                "WHERE rental_contract.address_pickup LIKE CONCAT ( '%' , ? , '%' )";
 
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         List<RentalContract> rentalContractList;
         try
         {
             rentalContractList = template.query(query, rw, pickup);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -168,7 +161,7 @@ public class RentalContractRepo
     }
 
     //order by rv model
-    public List<RentalContract> searchByRvModel( String rvModel )
+    public List<RentalContract> searchByRvModel(String rvModel)
     {
         //Using a join between rental_contract and rv
         //Rv_id and rv.id connects, then order rental_contracts by the model of the rv
@@ -181,8 +174,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw, rvModel);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -206,8 +198,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -226,8 +217,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -247,8 +237,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -268,8 +257,7 @@ public class RentalContractRepo
         try
         {
             rentalContractList = template.query(query, rw);
-        }
-        catch (EmptyResultDataAccessException e)
+        } catch (EmptyResultDataAccessException e)
         {
             System.out.println("Failed to retrieve the contract list.");
             System.out.println(e);
@@ -282,13 +270,14 @@ public class RentalContractRepo
 
     public boolean addRentalContract(RentalContract rentalContract)
     {
-        String query = "INSERT INTO rental_contract (date_signed, date_start, date_end, address_dropoff, address_pickup, " +
-                "base_price, final_price, km_driven, status, extras, customer_id, rv_id, employee_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        int rowsAffected = template.update(query, rentalContract.getDateSigned(), rentalContract.getDateStart(), rentalContract.getDateEnd(),
-                rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), rentalContract.getBasePrice(), rentalContract.getFinalPrice(),
-                rentalContract.getKmDriven(), rentalContract.getStatus(), rentalContract.getExtras(), rentalContract.getCustomer_id(),
-                rentalContract.getRv_id(), rentalContract.getEmployee_id() );
+        System.out.println(rentalContract);
+        String query = "INSERT INTO rental_contract (date_start, date_end, address_dropoff, address_pickup, " +
+                "extras, customer_id, rv_id, employee_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        int rowsAffected = template.update(query, rentalContract.getDateStart(), rentalContract.getDateEnd(),
+                rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), 0,
+                /*rentalContract.getExtras()*/ "empty", rentalContract.getCustomer_id(),
+                rentalContract.getRv_id(), rentalContract.getEmployee_id());
         boolean status = rowsAffected > 0;
         return status;
     }
@@ -302,7 +291,7 @@ public class RentalContractRepo
         int rowsAffected = template.update(query, rentalContract.getDateSigned(), rentalContract.getDateStart(), rentalContract.getDateEnd(),
                 rentalContract.getAddressDropoff(), rentalContract.getAddressPickup(), rentalContract.getBasePrice(), rentalContract.getFinalPrice(),
                 rentalContract.getKmDriven(), rentalContract.getStatus(), rentalContract.getExtras(), rentalContract.getCustomer_id(),
-                rentalContract.getRv_id(), rentalContract.getEmployee_id() );
+                rentalContract.getRv_id(), rentalContract.getEmployee_id());
         boolean status = rowsAffected > 0;
         return status;
     }
