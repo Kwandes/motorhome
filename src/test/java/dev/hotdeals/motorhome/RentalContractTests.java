@@ -1,7 +1,13 @@
 package dev.hotdeals.motorhome;
 
+import dev.hotdeals.motorhome.Model.Customer;
+import dev.hotdeals.motorhome.Model.Employee;
+import dev.hotdeals.motorhome.Model.RV;
 import dev.hotdeals.motorhome.Model.RentalContract;
 import dev.hotdeals.motorhome.Repository.RentalContractRepo;
+import dev.hotdeals.motorhome.Service.CustomerService;
+import dev.hotdeals.motorhome.Service.EmployeeService;
+import dev.hotdeals.motorhome.Service.RVService;
 import dev.hotdeals.motorhome.Service.RentalContractService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,10 +253,21 @@ public class RentalContractTests
     }
     //endregion
 
+    //region RV Service
     @Autowired
-    private RentalContractService rentalContractService;
+    private RentalContractService rcService;
+
+    // All of the services used in the Service Layer have to be autowired here
+    @Autowired
+    CustomerService customerService;
+    @Autowired
+    EmployeeService employeeService;
+    @Autowired
+    RVService rvService;
 
     @Nested
+    @DisplayName("Service Layer Loading Validation")
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     public class RentalContractServiceTests
     {
         // In the rental contract use case, the Service logic only contains Repository calls
@@ -260,7 +277,45 @@ public class RentalContractTests
         public void rentalContractServiceLoadsTest()
         {
             // validate if the Rv Service layer has loaded
-            assertThat(rentalContractService).isNotNull();
+            assertThat(rcService).isNotNull();
+        }
+
+        @Test
+        @DisplayName("fetchCustomersInRC()")
+        public void RentalContractServiceFetchCustomersInRC()
+        {
+            // Depends on multiple fetchAll methods working and the database containing valid data
+            List<RentalContract> rcList = rcService.fetchAll();
+
+            List<Customer> customerList = rcService.fetchCustomersInRC(rcList);
+
+            assertThat(customerList).isNotEmpty();
+        }
+
+        @Test
+        @DisplayName("fetchEmployeesInRC()")
+        public void RentalContractServiceFetchEmployeesInRC()
+        {
+            // Depends on multiple fetchAll methods working and the database containing valid data
+            List<RentalContract> rcList = rcService.fetchAll();
+
+            List<Employee> employeeList = rcService.fetchEmployeesInRC(rcList);
+
+            assertThat(employeeList).isNotEmpty();
+        }
+
+
+        @Test
+        @DisplayName("fetchRVsInRC()")
+        public void RentalContractServiceFetchRVsInRC()
+        {
+            // Depends on multiple fetchAll methods working and the database containing valid data
+            List<RentalContract> rcList = rcService.fetchAll();
+
+            List<RV> rvList = rcService.fetchRVsInRC(rcList);
+
+            assertThat(rvList).isNotEmpty();
         }
     }
+    //endregion
 }
