@@ -101,7 +101,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="main" th:each="rentalContract: ${rentalContractList} + customer: ${customerList}">
+                    <tr class="main" th:each="rentalContract,iter: ${rentalContractList}">
                         <td th:text="${rentalContract.id}"></td>
                         <td th:text="${rentalContract.dateSigned}"></td>
                         <td th:text="${rentalContract.dateStart}"></td>
@@ -112,9 +112,9 @@
                         <td th:text="${rentalContract.finalPrice}"></td>
                         <td th:text="${rentalContract.kmDriven}"></td>
                         <td th:text="${rentalContract.extras}"></td>
-                        <td th:text="${customer.firstName} + {customer.lastName}"></td>
-                        <td th:text="${employee.firstName} + {employee.lastName}"></td>
-                        <td th:text="${rv.brand} + {rv.model}"></td>
+                        <td th:with="i=${iter.count}-1" th:text="${customerList[i].firstName} + ' ' + ${customerList[i].lastName}"></td>
+                        <td th:with="i=${iter.count}-1" th:text="${employeeList[i].firstName} + ' ' + ${employeeList[i].lastName}"></td>
+                        <td th:with="i=${iter.count}-1" th:text="${rvList[i].brand} + ' ' + ${rvList[i].model}"></td>
                         <td th:text="${rentalContract.status}"></td>
                         <td class="tableOptions">
                             <div class="tableOptionButtons">

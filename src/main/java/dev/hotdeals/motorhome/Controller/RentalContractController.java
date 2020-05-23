@@ -1,7 +1,7 @@
 package dev.hotdeals.motorhome.Controller;
 
-import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Model.RentalContract;
+import dev.hotdeals.motorhome.Service.CustomerService;
 import dev.hotdeals.motorhome.Service.RentalContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +26,20 @@ public class RentalContractController
         return "redirect:/rentalContract/viewAll";
     }
 
+    @Autowired
+    CustomerService customerService;
+
     // Adds a list of all the contracts to the Model and reloads the page
     @GetMapping("/rentalContract/viewAll")
     public String viewAll( Model model)
     {
         List<RentalContract> rentalContractList = rentalContractService.fetchAll();
+
+        setupRentalContractDataObjects(model, rentalContractList);
+
         return checkList(rentalContractList, model);
     }
+
     // Adds a list of contracts to the model ( based on the queryType & querySearch ) and reloads the page
     @PostMapping("/rentalContract/viewAll")
     public String searchAll(Model model, WebRequest wr)
@@ -45,39 +52,50 @@ public class RentalContractController
         {
             case "null":
                 rentalContractList = rentalContractService.fetchAll();
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             //Sort
             case "dateSigned":
                 rentalContractList = rentalContractService.sortByDateSigned();
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "dateStart":
                 rentalContractList = rentalContractService.sortByDateStart();
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList,model);
             case "dateEnd":
                 rentalContractList = rentalContractService.sortByDateEnd();
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList,model);
             case "status":
                 rentalContractList = rentalContractService.sortByStatus();
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList,model);
 
             //Search
             case "dropoffAddress":
                 rentalContractList = rentalContractService.searchByAddressDropoff(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "pickupAddress":
                 rentalContractList = rentalContractService.searchByAddressPickup(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "extras":
                 rentalContractList = rentalContractService.searchByExtras(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "customerName":
                 rentalContractList = rentalContractService.searchByCustomerName(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "employeeName":
                 rentalContractList = rentalContractService.searchByEmployeeName(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "rvModel":
                 rentalContractList = rentalContractService.searchByRvModel(searchQuery);
+                setupRentalContractDataObjects(model, rentalContractList);
                 return checkList(rentalContractList, model);
             default:
                 return "redirect:/rentalContract/errorParameters";
@@ -123,6 +141,7 @@ public class RentalContractController
     @PostMapping("/rentalContract/submitNewRentalContract")
     public String submitNewRentalContract(@ModelAttribute RentalContract rentalContract)
     {
+        // Doesn't work - most of the attributes are null
         rentalContractService.addRentalContract(rentalContract);
         return "redirect:/rentalContract/viewAll";
     }
@@ -185,5 +204,14 @@ public class RentalContractController
             return -1;
         }
         return x;
+    }
+
+    // adds the Customer, Employee and RV lists to the model based off the IDs found in the Rental Contract
+    // TODO - rename the method to something that makes sense
+    public void setupRentalContractDataObjects(Model model, List<RentalContract> rentalContractList)
+    {
+        model.addAttribute("customerList", rentalContractService.fetchCustomersInRC(rentalContractList));
+        model.addAttribute("employeeList", rentalContractService.fetchEmployeesInRC(rentalContractList));
+        model.addAttribute("rvList", rentalContractService.fetchRVsInRC(rentalContractList));
     }
 }
