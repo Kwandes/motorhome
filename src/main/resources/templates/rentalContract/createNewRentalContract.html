@@ -112,13 +112,42 @@
 <!--                        <option value="" th:value="null">No Sales Assistant</option>-->
 <!--                        <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ${employee.lastName}"></option>-->
 <!--                    </select><br>-->
-                    <div class="buttonList">
-                        <ul class="optionButtons">
-                            <li onclick="location.href='/rentalContract/extras';">
-                                <a href="#">Extras</a>
-                            </li>
-                        </ul>
+
+                    <br><input type="checkbox" id="checkboxExtraButton">
+                    <label for="checkboxExtraButton" id="checkboxExtraLabel" > <strong>Extras</strong>
+                    </label><br>
+
+                    <br><div class="checkboxExtra">
+
+                        <label class="radioCheckbox"> <strong> Child </strong>
+                            <input type="checkbox" id="child">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="radioCheckbox" for="seat"> <strong> Seat </strong>
+                            <input type="checkbox" id="seat">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="radioCheckbox" for="bedLinen"> <strong> Bed Linen </strong>
+                            <input type="checkbox" id="bedLinen">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="radioCheckbox" for="chairs"> <strong> Chairs </strong>
+                            <input type="checkbox" id="chairs">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="radioCheckbox" for="picnicTable"> <strong> Picnic Table </strong>
+                            <input type="checkbox" id="picnicTable">
+                            <span class="checkmark"></span>
+                        </label>
+
                     </div>
+                    <br>
+
+
                     <div class="tableOptionButtons">
                         <button type="submit">Create</button>
                         <button type="button" onclick="location.href='/rentalContract/viewAll'">Cancel</button>
