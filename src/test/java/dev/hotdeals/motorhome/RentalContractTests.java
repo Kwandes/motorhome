@@ -2,10 +2,8 @@ package dev.hotdeals.motorhome;
 
 import dev.hotdeals.motorhome.Model.RentalContract;
 import dev.hotdeals.motorhome.Repository.RentalContractRepo;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import dev.hotdeals.motorhome.Service.RentalContractService;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -46,4 +44,21 @@ public class RentalContractTests {
         assertThat( rentalContractTest ).isNotNull();
     }
 
+
+    @Autowired
+    private RentalContractService rentalContractService;
+
+    @Nested
+    public class RentalContractServiceTests
+    {
+        // In the rental contract use case, the Service logic only contains Repository calls
+        // Therefore, not all Service layer methods are tested
+
+        @Test
+        public void rentalContractServiceLoadsTest()
+        {
+            // validate if the Rv Service layer has loaded
+            assertThat(rentalContractService).isNotNull();
+        }
+    }
 }
