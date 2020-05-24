@@ -93,21 +93,21 @@
 <!--                    </select><br>-->
 
                     <label for="customer_id">Customer</label>
-                    <select name="customer_id" id="customer_id" th:field="*{customerList}">
+                    <select th:name="customer_id" id="customer_id" th:field="${customerList}">
                         <option value="default" th:value="null">Pick Customer</option>
                         <option value="" th:value="null">No Customer</option>
                         <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
                     </select><br>
 
                     <label for="rv_id">Motorhome</label>
-                    <select name="rv_id" id="rv_id" th:field="*{rvList}">
+                    <select th:name="rv_id" id="rv_id" th:field="*{rvList}">
                         <option value="default" th:value="null">Pick Motorhome</option>
                         <option value="" th:value="null">No Motorhome</option>
                         <option th:each="rv : ${rvList}" th:value="${rv.id}" th:text="${rv.brand} + ' ' + ${rv.model} + ' ' + ${rv.color}"></option>
                     </select><br>
 
                     <label for="employee_id">Sales Assistant</label>
-                    <select name="employee_id" id="employee_id" th:field="*{employeeList}">
+                    <select th:name="employee_id" id="employee_id" th:field="*{employeeList}">
                         <option value="default" th:value="null">Pick Sales Assistant</option>
                         <option value="" th:value="null">No Sales Assistant</option>
                         <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>

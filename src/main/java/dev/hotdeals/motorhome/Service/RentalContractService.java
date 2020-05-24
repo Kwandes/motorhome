@@ -157,9 +157,12 @@ public class RentalContractService
     // due to complexity, this method is not tested in the Tests (extra call to the rvService)
     public boolean addRentalContract(RentalContract rentalContract)
     {
-        int rvPrice = rvService.fetchByID(rentalContract.getRv_id()).getPrice();
-        int basePrice = calculateBasePrice(rentalContract, rvPrice);
-
+        System.out.println(rentalContract);
+    //    if (rentalContract.getRv_id() != 0)
+    //    {
+            int rvPrice = rvService.fetchByID(rentalContract.getRv_id()).getPrice();
+            int basePrice = calculateBasePrice(rentalContract, rvPrice);
+      //  }
         return rentalContractRepo.addRentalContract(rentalContract);
     }
 

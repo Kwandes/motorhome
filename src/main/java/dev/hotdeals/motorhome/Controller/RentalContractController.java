@@ -155,9 +155,16 @@ public class RentalContractController
 
     // Creates a new rental contract and redirects to the viewAll page
     @PostMapping("/rentalContract/submitNewRentalContract")
-    public String submitNewRentalContract(@ModelAttribute RentalContract rentalContract)
+    public String submitNewRentalContract(@ModelAttribute RentalContract rentalContract, WebRequest wr)
     {
-        // Doesn't work - most of the attributes are null
+        // TODO - most of the attributes are null
+        int customerId = Integer.parseInt(wr.getParameter("customer_id"));
+        int rvId = Integer.parseInt(wr.getParameter("rv_id"));
+        int employeeId = Integer.parseInt(wr.getParameter("employee_id"));
+        rentalContract.setCustomer_id(customerId);
+        rentalContract.setRv_id(rvId);
+        rentalContract.setEmployee_id(employeeId);
+
         rentalContractService.addRentalContract(rentalContract);
         return "redirect:/rentalContract/viewAll";
     }
