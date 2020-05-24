@@ -60,7 +60,6 @@ public class RentalContractRepo
 
     public boolean addRentalContract(RentalContract rentalContract)
     {
-        System.out.println(rentalContract);
         String query = "INSERT INTO rental_contract (date_start, date_end, address_dropoff, address_pickup," +
                 "base_price, extras, customer_id, rv_id, employee_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

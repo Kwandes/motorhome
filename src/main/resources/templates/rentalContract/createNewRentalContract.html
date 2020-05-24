@@ -92,68 +92,39 @@
                         <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
                     </select><br>
 
-
-                    <label for="extras">Sales Assistant</label>
-                    <select th:name="extras" id="extras">
-                        <option th:value="null" >zero</option>
-                        <option th:value="child">one</option>
-                    </select><br>
-<!--
-                    <label for="customer_id">Customer</label>
-                    <select th:name="customer_id" id="customer_id" th:field="${customerList}">
-                        <option value="default" th:value="null">Pick Customer</option>
-                        <option value="" th:value="null">No Customer</option>
-                        <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
-                    </select><br>
-
-                    <label for="rv_id">Motorhome</label>
-                    <select th:name="rv_id" id="rv_id" th:field="*{rvList}">
-                        <option value="default" th:value="null">Pick Motorhome</option>
-                        <option value="" th:value="null">No Motorhome</option>
-                        <option th:each="rv : ${rvList}" th:value="${rv.id}" th:text="${rv.brand} + ' ' + ${rv.model} + ' ' + ${rv.color}"></option>
-                    </select><br>
-
-                    <label for="employee_id">Sales Assistant</label>
-                    <select th:name="employee_id" id="employee_id" th:field="*{employeeList}">
-                        <option value="default" th:value="null">Pick Sales Assistant</option>
-                        <option value="" th:value="null">No Sales Assistant</option>
-                        <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
-                    </select><br>
-
                     <br><input type="checkbox" id="checkboxExtraButton">
-                    <label for="checkboxExtraButton" id="checkboxExtraLabel" > <strong>Extras</strong>
-                    </label><br>-->
+                    <label for="checkboxExtraButton" id="checkboxExtraLabel"> <strong>Extras</strong>
+                    </label><br>
 
                     <br><div class="checkboxExtra">
 
                         <label class="radioCheckbox"> <strong> Child </strong>
-                            <input type="checkbox" id="child">
+                            <input type="checkbox" id="child" th:name="extrasChild">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="radioCheckbox" for="seat"> <strong> Seat </strong>
-                            <input type="checkbox" id="seat">
+                            <input type="checkbox" id="seat" th:name="extrasSeat">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="radioCheckbox" for="bedLinen"> <strong> Bed Linen </strong>
-                            <input type="checkbox" id="bedLinen">
+                            <input type="checkbox" id="bedLinen" th:name="extrasBedLinen">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="radioCheckbox" for="chairs"> <strong> Chairs </strong>
-                            <input type="checkbox" id="chairs">
+                            <input type="checkbox" id="chairs" th:name="extrasChairs">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="radioCheckbox" for="picnicTable"> <strong> Picnic Table </strong>
-                            <input type="checkbox" id="picnicTable">
+                            <input type="checkbox" id="picnicTable" th:name="extrasPicnicTable">
                             <span class="checkmark"></span>
                         </label>
 
                     </div>
                     <br>
-
 
                     <div class="tableOptionButtons">
                         <button type="submit">Create</button>

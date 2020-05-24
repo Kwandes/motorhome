@@ -304,7 +304,6 @@ public class RentalContractTests
             assertThat(employeeList).isNotEmpty();
         }
 
-
         @Test
         @DisplayName("fetchRVsInRC()")
         public void RentalContractServiceFetchRVsInRCTest()
@@ -342,6 +341,20 @@ public class RentalContractTests
             // Pickup has a hash of -1864390754, which results in 754
             assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressDropoff())).isEqualTo(0);
             assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressPickup())).isEqualTo(754);
+        }
+
+        @Test
+        @DisplayName("calculateExtrasPrice()")
+        public void RentalContractServiceCalculateExtrasPriceTest()
+        {
+            String extras = "child";
+            assertThat(rcService.calculateExtrasPrice(extras)).isEqualTo(15);
+
+            extras = "child, Seat";
+            assertThat(rcService.calculateExtrasPrice(extras)).isEqualTo(30);
+
+            extras = "child, Seat, bed linen, picnic table";
+            assertThat(rcService.calculateExtrasPrice(extras)).isEqualTo(60);
         }
 
         @Test

@@ -7,6 +7,7 @@ import dev.hotdeals.motorhome.Model.RentalContract;
 import dev.hotdeals.motorhome.Repository.RentalContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ public class RentalContractService
 
     @Autowired
     CustomerService customerService;
+
     // search through the provided Rental Contract list and return a list of Customers according to the list's customer_id
-    public List<Customer> fetchCustomersInRC (List<RentalContract> rentalContractList)
+    public List<Customer> fetchCustomersInRC(List<RentalContract> rentalContractList)
     {
         List<Customer> customerList = customerService.fetchAll();
         List<Customer> matchingList = new ArrayList<Customer>();
@@ -39,8 +41,9 @@ public class RentalContractService
 
     @Autowired
     EmployeeService employeeService;
+
     // search through the provided Rental Contract list and return a list of Employees according to the list's employee_id
-    public List<Employee> fetchEmployeesInRC (List<RentalContract> rentalContractList)
+    public List<Employee> fetchEmployeesInRC(List<RentalContract> rentalContractList)
     {
         List<Employee> employeeList = employeeService.fetchAll();
         List<Employee> matchingList = new ArrayList<Employee>();
@@ -58,8 +61,9 @@ public class RentalContractService
 
     @Autowired
     RVService rvService;
+
     // search through the provided Rental Contract list and return a list of RVs according to the list's rv_id
-    public List<RV> fetchRVsInRC (List<RentalContract> rentalContractList)
+    public List<RV> fetchRVsInRC(List<RentalContract> rentalContractList)
     {
         List<RV> rvList = rvService.fetchAll();
         List<RV> matchingList = new ArrayList<RV>();
@@ -74,6 +78,55 @@ public class RentalContractService
             }
         }
         return matchingList;
+    }
+
+    // takes in a webrequest, reads the parameters for extras and returns them as one string
+    public String extractExtrasFromModel(WebRequest wr)
+    {
+        String extras = "";
+        try
+        {
+            if (wr.getParameter("extrasChild").equals("on"))
+                extras += "child,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
+        try
+        {
+            if (wr.getParameter("extrasSeat").equals("on"))
+                extras += "seat,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
+        try
+        {
+            if (wr.getParameter("extrasBedLinen").equals("on"))
+                extras += "bed linen,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
+        try
+        {
+            if (wr.getParameter("extrasChairs").equals("on"))
+                extras += "chairs,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
+        try
+        {
+            if (wr.getParameter("extrasPicnicTable").equals("on"))
+                extras += "picnic table,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
+        // remove an extra ',' at the end
+        if (extras.length() > 0) extras = extras.substring(0, extras.length() - 1);
+        return extras;
     }
 
     @Autowired
@@ -157,7 +210,6 @@ public class RentalContractService
     // due to complexity, this method is not tested in the Tests (extra call to the rvService)
     public boolean addRentalContract(RentalContract rentalContract)
     {
-        System.out.println("Contract: " + rentalContract);
         int rvPrice;
         try
         {
@@ -168,6 +220,8 @@ public class RentalContractService
             rvPrice = 0;
         }
         int basePrice = calculateBasePrice(rentalContract, rvPrice);
+
+        rentalContract.setBasePrice(basePrice);
 
         return rentalContractRepo.addRentalContract(rentalContract);
     }
@@ -195,6 +249,7 @@ public class RentalContractService
         else
             return 0;
     }
+
     // returns a penalty fee for KM driven over the threshold
     public int calculateKmDrivenPrice(RentalContract rentalContract)
     {
@@ -205,8 +260,7 @@ public class RentalContractService
         if (averageKmDriven > 400)
         {
             kmDrivenPrice = ((averageKmDriven - 400) * getDateDifferenceInDays(rentalContract)) * extraKmPenaltyPrice;
-        }
-        else kmDrivenPrice = 0;
+        } else kmDrivenPrice = 0;
 
         return kmDrivenPrice;
     }
@@ -217,14 +271,22 @@ public class RentalContractService
     public int calculateBasePrice(RentalContract rentalContract, int rvPrice)
     {
         int contractDuration = getDateDifferenceInDays(rentalContract);
-        int fixedExtrasPrice = 15; //TODO - replace with a value obtained from config/DB
-        int extrasPrice = rentalContract.getExtras().split(",").length * fixedExtrasPrice;
+
+        int extrasPrice = calculateExtrasPrice(rentalContract.getExtras());
 
         int deliveryPrice = calculateDeliveryPrice(rentalContract);
 
         int basePrice = (contractDuration * (rvPrice + extrasPrice)) + deliveryPrice;
 
         return basePrice;
+    }
+
+    // takes in a String with a list of extras and returns a flat price for them (doesn't take contract duration into account)
+    public int calculateExtrasPrice(String extras)
+    {
+        int fixedExtrasPrice = 15; //TODO - replace with a value obtained from config/DB
+        int extrasPrice = extras.split(",").length * fixedExtrasPrice;
+        return extrasPrice;
     }
 
     // takes in a contract and converts the addresses into distance, which is then compared against the delivery Fee
@@ -237,7 +299,7 @@ public class RentalContractService
         int distanceDropoff = calculateDeliveryDistance(rentalContract.getAddressDropoff());
         int distancePickup = calculateDeliveryDistance(rentalContract.getAddressPickup());
         // calculate actual fee for the delivery distance
-        deliveryPrice = (int) ((distanceDropoff + distancePickup ) * perKmPrice);
+        deliveryPrice = (int) ((distanceDropoff + distancePickup) * perKmPrice);
 
         return deliveryPrice;
     }
@@ -258,8 +320,10 @@ public class RentalContractService
     // takes in a rental contract and returns the amount of days between the start and end of the contract
     public int getDateDifferenceInDays(RentalContract rentalContract)
     {
-        if (!rentalContract.getDateStart().contains(" ")) rentalContract.setDateStart(rentalContract.getDateStart() + " 00:00:00");
-        if (!rentalContract.getDateEnd().contains(" ")) rentalContract.setDateEnd(rentalContract.getDateEnd() + " 00:00:00");
+        if (!rentalContract.getDateStart().contains(" "))
+            rentalContract.setDateStart(rentalContract.getDateStart() + " 00:00:00");
+        if (!rentalContract.getDateEnd().contains(" "))
+            rentalContract.setDateEnd(rentalContract.getDateEnd() + " 00:00:00");
 
         LocalDateTime startDate = LocalDateTime.parse(rentalContract.getDateStart().replace(' ', 'T'));
         LocalDateTime endDate = LocalDateTime.parse(rentalContract.getDateEnd().replace(' ', 'T'));

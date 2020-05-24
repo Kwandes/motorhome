@@ -157,6 +157,7 @@ public class RentalContractController
     @PostMapping("/rentalContract/submitNewRentalContract")
     public String submitNewRentalContract(@ModelAttribute RentalContract rentalContract, WebRequest wr)
     {
+        rentalContract.setExtras(rentalContractService.extractExtrasFromModel(wr));
         rentalContractService.addRentalContract(rentalContract);
         return "redirect:/rentalContract/viewAll";
     }
