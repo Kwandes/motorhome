@@ -34,7 +34,7 @@ public class RentalContractTests
     {
         @Test
         @DisplayName("Repository Loading Validation")
-        public void rentalContractRepoLoads()
+        public void rentalContractRepoLoadsTest()
         {
             // validate if the Rv Repository layer has loaded
             assertThat(rentalContractRepo).isNotNull();
@@ -43,7 +43,7 @@ public class RentalContractTests
         @Test
         @DisplayName("searchByAddressDropoff()")
         @Order(1)
-        public void rentalContractRepoFetchAll() throws Exception
+        public void rentalContractRepoSearchByAddressDropoffTest() throws Exception
         {
             // searchByBrand is run as the first test as the add, update and delete tests depend on it
             System.out.println("RentalContract Repo ordered tests of adding, updating and deleting data");
@@ -205,7 +205,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("searchByRvModel()")
-        public void rentalContractRepoSearchByRvModel() throws Exception
+        public void rentalContractRepoSearchByRvModelTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.searchByRvModel("");
             assertThat(rentalContractList).isNotEmpty();
@@ -213,7 +213,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("searchByRvExtras()")
-        public void rentalContractRepoSearchByExtras() throws Exception
+        public void rentalContractRepoSearchByExtrasTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.searchByExtras("");
             assertThat(rentalContractList).isNotEmpty();
@@ -221,7 +221,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("sortByStatus()")
-        public void rentalContractRepoSortByStatus() throws Exception
+        public void rentalContractRepoSortByStatusTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.sortByStatus();
             assertThat(rentalContractList).isNotEmpty();
@@ -229,7 +229,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("sortByDateSigned()")
-        public void rentalContractRepoSortByDateSigned() throws Exception
+        public void rentalContractRepoSortByDateSignedTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.sortByDateSigned();
             assertThat(rentalContractList).isNotEmpty();
@@ -237,7 +237,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("sortByDateStart()")
-        public void rentalContractRepoSortByDateStart() throws Exception
+        public void rentalContractRepoSortByDateStartTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.sortByDateStart();
             assertThat(rentalContractList).isNotEmpty();
@@ -245,7 +245,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("sortByDateEnd()")
-        public void rentalContractRepoSortByDateEnd() throws Exception
+        public void rentalContractRepoSortByDateEndTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.sortByDateEnd();
             assertThat(rentalContractList).isNotEmpty();
@@ -282,7 +282,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("fetchCustomersInRC()")
-        public void RentalContractServiceFetchCustomersInRC()
+        public void RentalContractServiceFetchCustomersInRCTest()
         {
             // Depends on multiple fetchAll methods working and the database containing valid data
             List<RentalContract> rcList = rcService.fetchAll();
@@ -294,7 +294,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("fetchEmployeesInRC()")
-        public void RentalContractServiceFetchEmployeesInRC()
+        public void RentalContractServiceFetchEmployeesInRCTest()
         {
             // Depends on multiple fetchAll methods working and the database containing valid data
             List<RentalContract> rcList = rcService.fetchAll();
@@ -307,7 +307,7 @@ public class RentalContractTests
 
         @Test
         @DisplayName("fetchRVsInRC()")
-        public void RentalContractServiceFetchRVsInRC()
+        public void RentalContractServiceFetchRVsInRCTest()
         {
             // Depends on multiple fetchAll methods working and the database containing valid data
             List<RentalContract> rcList = rcService.fetchAll();
