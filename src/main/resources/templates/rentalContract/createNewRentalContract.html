@@ -63,35 +63,42 @@
 
                     <h3>Create a brand new, fresh Rental Contract with a shiny and magnificent Customer</h3>
                     <label for="dateStart">Date Start</label>
-                    <input type="date" name="dateStart" id="dateStart" placeholder="Date Start" required><br>
+                    <input type="date" th:name="dateStart" id="dateStart" placeholder="Date Start" required><br>
 
                     <label for="dateEnd">Date End</label>
-                    <input type="date" name="dateEnd" id="dateEnd" placeholder="Date End" required><br>
+                    <input type="date" th:name="dateEnd" id="dateEnd" placeholder="Date End" required><br>
 
                     <label for="dropoffAddress">Drop-Off Address</label>
-                    <input type="text" name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
+                    <input type="text" th:name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
 
                     <label for="pickupAddress">Pick-Up Address</label>
-                    <input type="text" name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" required><br>
+                    <input type="text" th:name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" required><br>
 
-<!--                    <label for="customer_id">Customer</label>-->
-<!--                    <select name="customer_id" id="customer_id">-->
-<!--                        <option value="default">Pick Customer</option>-->
-<!--                        <option value="0" >No Customer</option>-->
-<!--                    </select><br>-->
+                    <label for="customer_id">Customer</label>
+                    <select th:name="customer_id" id="customer_id" required>
+                        <option value="default" th:value="null">Pick Motorhome</option>
+                        <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
+                    </select><br>
 
-<!--                    <label for="motorhome">Motorhome</label>-->
-<!--                    <select name="rv_id" id="motorhome">-->
-<!--                        <option value="default">Pick Motorhome</option>-->
-<!--                        <option value="0">No Motorhome</option>-->
-<!--                    </select><br>-->
+                    <label for="motorhome">Motorhome</label>
+                    <select th:name="rv_id" id="motorhome" required>
+                        <option value="default" th:value="null">Pick Motorhome</option>
+                        <option th:each="rv : ${rvList}" th:value="${rv.id}" th:text="${rv.brand} + ' ' + ${rv.model}"></option>
+                    </select><br>
 
-<!--                    <label for="salesAssistant">Sales Assistant</label>-->
-<!--                    <select name="employee_id" id="salesAssistant">-->
-<!--                        <option value="default" >Pick Sales Assistant</option>-->
-<!--                        <option value="0">No Sales Assistant</option>-->
-<!--                    </select><br>-->
+                    <label for="salesAssistant">Sales Assistant</label>
+                    <select th:name="employee_id" id="salesAssistant" required>
+                        <option value="default" th:value="null">Pick Motorhome</option>
+                        <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
+                    </select><br>
 
+
+                    <label for="extras">Sales Assistant</label>
+                    <select th:name="extras" id="extras">
+                        <option th:value="null" >zero</option>
+                        <option th:value="child">one</option>
+                    </select><br>
+<!--
                     <label for="customer_id">Customer</label>
                     <select th:name="customer_id" id="customer_id" th:field="${customerList}">
                         <option value="default" th:value="null">Pick Customer</option>
@@ -115,7 +122,7 @@
 
                     <br><input type="checkbox" id="checkboxExtraButton">
                     <label for="checkboxExtraButton" id="checkboxExtraLabel" > <strong>Extras</strong>
-                    </label><br>
+                    </label><br>-->
 
                     <br><div class="checkboxExtra">
 
