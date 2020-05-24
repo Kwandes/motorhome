@@ -157,12 +157,18 @@ public class RentalContractService
     // due to complexity, this method is not tested in the Tests (extra call to the rvService)
     public boolean addRentalContract(RentalContract rentalContract)
     {
-        System.out.println(rentalContract);
-    //    if (rentalContract.getRv_id() != 0)
-    //    {
-            int rvPrice = rvService.fetchByID(rentalContract.getRv_id()).getPrice();
-            int basePrice = calculateBasePrice(rentalContract, rvPrice);
-      //  }
+        System.out.println("Contract: " + rentalContract);
+        int rvPrice;
+        try
+        {
+            rvPrice = rvService.fetchByID(rentalContract.getRv_id()).getPrice();
+        } catch (NullPointerException e)
+        {
+            System.out.println("Failed to get an rvPrice. Setting to 0");
+            rvPrice = 0;
+        }
+        int basePrice = calculateBasePrice(rentalContract, rvPrice);
+
         return rentalContractRepo.addRentalContract(rentalContract);
     }
 
@@ -252,6 +258,9 @@ public class RentalContractService
     // takes in a rental contract and returns the amount of days between the start and end of the contract
     public int getDateDifferenceInDays(RentalContract rentalContract)
     {
+        if (!rentalContract.getDateStart().contains(" ")) rentalContract.setDateStart(rentalContract.getDateStart() + " 00:00:00");
+        if (!rentalContract.getDateEnd().contains(" ")) rentalContract.setDateEnd(rentalContract.getDateEnd() + " 00:00:00");
+
         LocalDateTime startDate = LocalDateTime.parse(rentalContract.getDateStart().replace(' ', 'T'));
         LocalDateTime endDate = LocalDateTime.parse(rentalContract.getDateEnd().replace(' ', 'T'));
         return (int) DAYS.between(startDate, endDate);
