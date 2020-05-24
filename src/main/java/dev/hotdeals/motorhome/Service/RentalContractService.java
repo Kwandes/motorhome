@@ -86,16 +86,8 @@ public class RentalContractService
         String extras = "";
         try
         {
-            if (wr.getParameter("extrasChild").equals("on"))
-                extras += "child,";
-        } catch (NullPointerException e)
-        {
-            // Null Pointer Exception is expected in case of a non-checked extra
-        }
-        try
-        {
-            if (wr.getParameter("extrasSeat").equals("on"))
-                extras += "seat,";
+            if (wr.getParameter("extrasChildSeat").equals("on"))
+                extras += "child seat,";
         } catch (NullPointerException e)
         {
             // Null Pointer Exception is expected in case of a non-checked extra
@@ -307,14 +299,14 @@ public class RentalContractService
     // takes in an address string, hashes it (in order to obtain an int value). Returns a stripped down distance value
     public int calculateDeliveryDistance(String address)
     {
-        int distanceThreshold = 50; // a distance after which the fee is calculated. Under it the fee is 0
+        String storeAddress = "Store Address";
+        if (address.equals(storeAddress)) return 0; // if the address matches the store address the distance is 0
 
-        int location = address.hashCode(); // obtain a replicable int from the string
-        if (location < 0) location *= -1; // negate the value
-        location %= 1000; // limit to last 3 digits
-        if (location < distanceThreshold) location = 0; // don't charge for delivery less than 25km away
+        int distance = address.hashCode(); // obtain a replicable int from the string
+        if (distance < 0) distance *= -1; // negate the value
+        distance %= 1000; // limit to last 3 digits
 
-        return location;
+        return distance;
     }
 
     // takes in a rental contract and returns the amount of days between the start and end of the contract

@@ -155,7 +155,6 @@ public class RentalContract
 
     public void setCustomer_id(Integer customer_id)
     {
-        if (customer_id == null) this.customer_id = 0; // set to 0 if the attribute is null
         this.customer_id = customer_id;
     }
 
@@ -166,7 +165,6 @@ public class RentalContract
 
     public void setRv_id(Integer rv_id)
     {
-        if (rv_id == null) this.rv_id = 0; // set to 0 if the attribute is null
         this.rv_id = rv_id;
     }
 
@@ -177,7 +175,6 @@ public class RentalContract
 
     public void setEmployee_id(Integer employee_id)
     {
-        if (employee_id == null) this.employee_id = 0; // set to 0 if the attribute is null
         this.employee_id = employee_id;
     }
 }
