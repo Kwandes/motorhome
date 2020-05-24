@@ -1,7 +1,12 @@
 package dev.hotdeals.motorhome.Controller;
 
+import dev.hotdeals.motorhome.Model.Customer;
+import dev.hotdeals.motorhome.Model.Employee;
+import dev.hotdeals.motorhome.Model.RV;
 import dev.hotdeals.motorhome.Model.RentalContract;
 import dev.hotdeals.motorhome.Service.CustomerService;
+import dev.hotdeals.motorhome.Service.EmployeeService;
+import dev.hotdeals.motorhome.Service.RVService;
 import dev.hotdeals.motorhome.Service.RentalContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +23,12 @@ public class RentalContractController
 {
     @Autowired
     RentalContractService rentalContractService;
+    @Autowired
+    CustomerService customerService;
+    @Autowired
+    RVService rvService;
+    @Autowired
+    EmployeeService employeeService;
 
     // Redirects to the proper viewAll mapping ( in case of typos )
     @GetMapping({"/rentalContract", "/rentalContract/", "/rentalContract/viewAll/"})
@@ -26,8 +37,6 @@ public class RentalContractController
         return "redirect:/rentalContract/viewAll";
     }
 
-    @Autowired
-    CustomerService customerService;
 
     // Adds a list of all the contracts to the Model and reloads the page
     @GetMapping("/rentalContract/viewAll")
@@ -132,8 +141,15 @@ public class RentalContractController
 
     // Redirects to the createNewRentalContract page
     @GetMapping("/rentalContract/createNewRentalContract")
-    public String createNew()
+    public String createNew( Model model)
     {
+        List<Customer> customerList = customerService.fetchAll();
+        model.addAttribute("customerList", customerList);
+        List<Employee> employeeList = employeeService.fetchAll();
+        model.addAttribute("employeeList", employeeList);
+        List<RV> rvList = rvService.fetchAll();
+        model.addAttribute("rvList", rvList);
+
         return "rentalContract/createNewRentalContract";
     }
 
