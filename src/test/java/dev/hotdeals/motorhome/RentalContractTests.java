@@ -119,8 +119,7 @@ public class RentalContractTests
             {
                 System.out.println("Add RentalContract test failed. Skipping the Update RentalContract test...");
                 // throw a more descriptive exception message
-                assertThat("Rv Repo - Add RentalContract Test to be ").isEqualTo("Successful");
-            }
+                assertThat("Rv Repo - Add RentalContract Test to be ").isEqualTo("Successful");            }
             // If the Add has passed, we can test the Update
             // given
             testVerification = false; // reset the variable to false
@@ -212,7 +211,7 @@ public class RentalContractTests
         }
 
         @Test
-        @DisplayName("searchByRvExtras()")
+        @DisplayName("searchByExtras()")
         public void rentalContractRepoSearchByExtrasTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.searchByExtras("");
@@ -334,10 +333,10 @@ public class RentalContractTests
         public void RentalContractServiceCalculateDeliveryDistanceTest()
         {
             RentalContract rentalContract = new RentalContract();
-            rentalContract.setAddressDropoff("Test Dropoff address");
+            rentalContract.setAddressDropoff("Store Address");
             rentalContract.setAddressPickup("Test Pickup address");
 
-            // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            // Dropoff address matches the Store Address and therefore equals 0
             // Pickup has a hash of -1864390754, which results in 754
             assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressDropoff())).isEqualTo(0);
             assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressPickup())).isEqualTo(754);
@@ -365,9 +364,9 @@ public class RentalContractTests
             rentalContract.setAddressDropoff("Test Dropoff address");
             rentalContract.setAddressPickup("Test Pickup address");
 
-            // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            // Dropoff address has a hash of 487720038, which results in 38, which after * 0.7 = 26
             // Pickup has a hash of -1864390754, which results in 754, which after * 0.7 = 527
-            assertThat(rcService.calculateDeliveryPrice(rentalContract)).isEqualTo(527);
+            assertThat(rcService.calculateDeliveryPrice(rentalContract)).isEqualTo(554);
         }
 
         @Test
@@ -380,13 +379,13 @@ public class RentalContractTests
             rentalContract.setDateEnd("2020-04-17 08:00:00");
             // expected price - 4 x fixedPrice (atm, 15), total 60
             rentalContract.setExtras("extra1, extra2, extra Three, extra4");
-            rentalContract.setAddressDropoff("Test Dropoff address"); // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            rentalContract.setAddressDropoff("Test Dropoff address"); // Dropoff address has a hash of 487720038, which results in 38, which after * 0.7 = 26
             rentalContract.setAddressPickup("Test Pickup address");   // Pickup has a hash of -1864390754, which results in 754, which after * 0.7 = 527
 
             int rvPrice = 100;
             int extrasPrice = 60;
             int expectedTotalBasePrice = 105 * (rvPrice + extrasPrice); // days * (rvPrice + extrasPrice)
-            expectedTotalBasePrice += 527; // price for delivery
+            expectedTotalBasePrice += 554; // price for delivery
 
             assertThat(rcService.calculateBasePrice(rentalContract, rvPrice)).isEqualTo(expectedTotalBasePrice);
         }
