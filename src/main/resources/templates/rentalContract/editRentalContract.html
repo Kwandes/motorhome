@@ -49,30 +49,58 @@
 
                     <h3>Edit Contract</h3>
                     <label for="id">Id</label>
-                    <input type="text" name="id" id="id" readonly><br>
-<!--                    <input type="text" name="id" id="id" th:value="${customer.id}" readonly><br>-->
+                    <input type="text" name="id" id="id" th:value="${rentalContract.id}" required readonly><br>
 
                     <label for="dateStart">Date Start</label>
-                    <input type="date" name="dateStart" id="dateStart" placeholder="Date Start" required><br>
+                    <input type="date" name="dateStart" id="dateStart" th:value="${rentalContract.dateStart}" placeholder="Date Start" required><br>
 
                     <label for="dateEnd">Date End</label>
-                    <input type="date" name="dateEnd" id="dateEnd" placeholder="Date End" required><br>
+                    <input type="date" name="dateEnd" id="dateEnd" th:value="${rentalContract.dateEnd}" placeholder="Date End" required><br>
 
                     <label for="dropoffAddress">Drop-Off Address</label>
-                    <input type="text" name="dropoffAddress" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
+                    <input type="text" name="dropoffAddress" id="dropoffAddress" th:value="${rentalContract.addressDropoff}" placeholder="Drop-Off Address" required><br>
 
                     <label for="pickupAddress">Pick-Up Address</label>
-                    <input type="text" name="pickupAddress" id="pickupAddress" placeholder="Pick-Up Address" required><br>
+                    <input type="text" name="pickupAddress" id="pickupAddress" th:value="${rentalContract.addressPickup}" placeholder="Pick-Up Address" required><br>
 
                     <label for="kmDriven">Kilometers Driven</label>
-                    <input type="number" name="kmDriven" id="kmDriven" placeholder="Kilometers Driven" required><br>
+                    <input type="number" name="kmDriven" id="kmDriven" th:value="${rentalContract.kmDriven}" placeholder="Kilometers Driven" required><br>
 
                     <label for="status">Status</label>
-                    <select name="status" id="status">
+                    <select name="status" id="status" th:value="${rentalContract.status}">
                         <option value="open">open</option>
                         <option value="closed">closed</option>
                         <option value="canceled">canceled</option>
                     </select><br><br>
+
+                    <br><input type="checkbox" id="checkboxExtraButton">
+                    <label for="checkboxExtraButton" id="checkboxExtraLabel"> <strong>More Information</strong>
+                    </label><br>
+
+                    <br><div class="checkboxExtra">
+
+                        <label for="dateSigned">Date Signed</label>
+                        <input type="date" name="dateSigned" id="dateSigned" th:value="${rentalContract.dateSigned}" readonly><br>
+
+                        <label for="basePrice">Base Price</label>
+                        <input type="number" name="basePrice" id="basePrice" th:value="${rentalContract.basePrice}" readonly><br>
+
+                        <label for="finalPrice">Final Price</label>
+                        <input type="number" name="finalPrice" id="finalPrice" th:value="${rentalContract.finalPrice}" readonly><br>
+
+                        <label for="extras">Extras</label>
+                        <input type="text" name="extras" id="extras" th:value="${rentalContract.extras}" readonly><br>
+
+                        <label for="customer_id">Customer ID</label>
+                        <input type="text" name="customer_id" id="customer_id" th:value="${rentalContract.customer_id}" readonly><br>
+
+                        <label for="rv_id">RV ID</label>
+                        <input type="text" name="rv_id" id="rv_id" th:value="${rentalContract.rv_id}" readonly><br>
+
+                        <label for="employee_id">Employee ID</label>
+                        <input type="text" name="employee_id" id="employee_id" th:value="${rentalContract.employee_id}" readonly><br>
+
+                    </div>
 
                     <div class="tableOptionButtons">
                         <button type="submit">Save</button>
