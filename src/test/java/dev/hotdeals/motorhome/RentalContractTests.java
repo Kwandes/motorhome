@@ -316,6 +316,127 @@ public class RentalContractTests
 
             assertThat(rvList).isNotEmpty();
         }
+
+        //region Base Price Calculation
+        @Test
+        @DisplayName("getDateDifferenceInDays()")
+        public void RentalContractServiceGetDateDifferenceInDaysTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            // days difference should be 105 days
+            rentalContract.setDateStart("2020-01-03 08:00:00");
+            rentalContract.setDateEnd("2020-04-17 08:00:00");
+
+            assertThat(rcService.getDateDifferenceInDays(rentalContract)).isEqualTo(105);
+        }
+
+        @Test
+        @DisplayName("calculateDeliveryDistance()")
+        public void RentalContractServiceCalculateDeliveryDistanceTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            rentalContract.setAddressDropoff("Test Dropoff address");
+            rentalContract.setAddressPickup("Test Pickup address");
+
+            // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            // Pickup has a hash of -1864390754, which results in 754
+            assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressDropoff())).isEqualTo(0);
+            assertThat(rcService.calculateDeliveryDistance(rentalContract.getAddressPickup())).isEqualTo(754);
+        }
+
+        @Test
+        @DisplayName("calculateDeliveryPrice()")
+        public void RentalContractServiceCalculateDeliveryPriceTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            rentalContract.setAddressDropoff("Test Dropoff address");
+            rentalContract.setAddressPickup("Test Pickup address");
+
+            // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            // Pickup has a hash of -1864390754, which results in 754, which after * 0.7 = 527
+            assertThat(rcService.calculateDeliveryPrice(rentalContract)).isEqualTo(527);
+        }
+
+        @Test
+        @DisplayName("calculateBasePrice()")
+        public void RentalContractServiceCalculateBasePriceTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            // days difference should be 105 days
+            rentalContract.setDateStart("2020-01-03 08:00:00");
+            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            // expected price - 4 x fixedPrice (atm, 15), total 60
+            rentalContract.setExtras("extra1, extra2, extra Three, extra4");
+            rentalContract.setAddressDropoff("Test Dropoff address"); // Dropoff address has a hash of 487720038, which results in 38, which is less than the threshold, so = 0
+            rentalContract.setAddressPickup("Test Pickup address");   // Pickup has a hash of -1864390754, which results in 754, which after * 0.7 = 527
+
+            int rvPrice = 100;
+            int extrasPrice = 60;
+            int expectedTotalBasePrice = 105 * (rvPrice + extrasPrice); // days * (rvPrice + extrasPrice)
+            expectedTotalBasePrice += 527; // price for delivery
+
+            assertThat(rcService.calculateBasePrice(rentalContract, rvPrice)).isEqualTo(expectedTotalBasePrice);
+        }
+        //endregion
+
+        //region Final Price calculation
+        @Test
+        @DisplayName("calculateKmDrivenPrice() - Under Threshold")
+        public void RentalContractServiceCalculateKmDrivenPriceUnderThresholdTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            // days difference should be 105 days
+            rentalContract.setDateStart("2020-01-03 08:00:00");
+            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setKmDriven(41000); // 105 days * 400 km = 42000 km. 41000 is under that
+
+            assertThat(rcService.calculateKmDrivenPrice(rentalContract)).isEqualTo(0);
+        }
+
+        @Test
+        @DisplayName("calculateKmDrivenPrice() - Over Threshold")
+        public void RentalContractServiceCalculateKmDrivenPriceOverThresholdTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            // days difference should be 105 days
+            rentalContract.setDateStart("2020-01-03 08:00:00");
+            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setKmDriven(44100); // 105 days * 400 km = 42000 km. 44100 is over that
+
+            assertThat(rcService.calculateKmDrivenPrice(rentalContract)).isEqualTo(2100);
+        }
+
+        @Test
+        @DisplayName("calculateFuelPrice() - Different Values")
+        public void RentalContractServiceCalculateFuelPriceTest()
+        {
+            // Over the threshold
+            float fuelStatus = (float) 0.7;
+            assertThat(rcService.calculateFuelPrice(fuelStatus)).isEqualTo(0);
+
+            // right on the threshold
+            fuelStatus = (float) 0.5;
+            assertThat(rcService.calculateFuelPrice(fuelStatus)).isEqualTo(0);
+
+            // under the threshold
+            fuelStatus = (float) 0.3;
+            assertThat(rcService.calculateFuelPrice(fuelStatus)).isNotEqualTo(0);
+        }
+
+        @Test
+        @DisplayName("calculateFinalPrice()")
+        public void RentalContractServiceCalculateFinalPriceTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            rentalContract.setDateStart("2020-01-03 08:00:00");
+            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setKmDriven(44100); // 105 days * 400 km = 42000 km. 44100 is over that. Extra price = 2100
+            rentalContract.setBasePrice(17327); // resulting base price from the calculateBasePrice() test.
+            float fuelStatus = (float) 0.2; // over the threshold of 0.5. Extra price = 70
+
+            assertThat(rcService.calculateFinalPrice(rentalContract, fuelStatus)).isEqualTo(19497);
+        }
+        //endregion
     }
     //endregion
 }
