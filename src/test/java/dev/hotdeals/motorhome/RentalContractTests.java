@@ -79,8 +79,8 @@ public class RentalContractTests
 
             RentalContract rentalContract = new RentalContract();
             // only the required parameters are set
-            rentalContract.setDateStart("1234-01-02 12:34:56");
-            rentalContract.setDateEnd("1234-03-04 12:34:56");
+            rentalContract.setDateStart("1234-01-02");
+            rentalContract.setDateEnd("1234-03-04");
             rentalContract.setAddressDropoff("testAddressDropoff");
             rentalContract.setAddressPickup("testAddressPickup");
             rentalContract.setBasePrice(999);
@@ -128,8 +128,8 @@ public class RentalContractTests
 
             RentalContract rentalContract = rentalContractRepo.searchByAddressDropoff("testAddressDropoff").get(0);
 
-            rentalContract.setDateStart("8888-08-09 10:11:12");
-            rentalContract.setDateEnd("9999-09-09 13:14:15");
+            rentalContract.setDateStart("8888-08-09");
+            rentalContract.setDateEnd("9999-09-09");
             rentalContract.setAddressDropoff("testAddressDropoffUpdated");
             rentalContract.setAddressPickup("testAddressPickupUpdated");
             rentalContract.setKmDriven(1234);
@@ -322,8 +322,8 @@ public class RentalContractTests
         {
             RentalContract rentalContract = new RentalContract();
             // days difference should be 105 days
-            rentalContract.setDateStart("2020-01-03 08:00:00");
-            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setDateStart("2020-01-03");
+            rentalContract.setDateEnd("2020-04-17");
 
             assertThat(rcService.getDateDifferenceInDays(rentalContract)).isEqualTo(105);
         }
@@ -375,8 +375,8 @@ public class RentalContractTests
         {
             RentalContract rentalContract = new RentalContract();
             // days difference should be 105 days
-            rentalContract.setDateStart("2020-01-03 08:00:00");
-            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setDateStart("2020-01-03");
+            rentalContract.setDateEnd("2020-04-17");
             // expected price - 4 x fixedPrice (atm, 15), total 60
             rentalContract.setExtras("extra1, extra2, extra Three, extra4");
             rentalContract.setAddressDropoff("Test Dropoff address"); // Dropoff address has a hash of 487720038, which results in 38, which after * 0.7 = 26
@@ -398,8 +398,8 @@ public class RentalContractTests
         {
             RentalContract rentalContract = new RentalContract();
             // days difference should be 105 days
-            rentalContract.setDateStart("2020-01-03 08:00:00");
-            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setDateStart("2020-01-03");
+            rentalContract.setDateEnd("2020-04-17");
             rentalContract.setKmDriven(41000); // 105 days * 400 km = 42000 km. 41000 is under that
 
             assertThat(rcService.calculateKmDrivenPrice(rentalContract)).isEqualTo(0);
@@ -411,8 +411,8 @@ public class RentalContractTests
         {
             RentalContract rentalContract = new RentalContract();
             // days difference should be 105 days
-            rentalContract.setDateStart("2020-01-03 08:00:00");
-            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setDateStart("2020-01-03");
+            rentalContract.setDateEnd("2020-04-17");
             rentalContract.setKmDriven(44100); // 105 days * 400 km = 42000 km. 44100 is over that
 
             assertThat(rcService.calculateKmDrivenPrice(rentalContract)).isEqualTo(2100);
@@ -440,8 +440,8 @@ public class RentalContractTests
         public void RentalContractServiceCalculateFinalPriceTest()
         {
             RentalContract rentalContract = new RentalContract();
-            rentalContract.setDateStart("2020-01-03 08:00:00");
-            rentalContract.setDateEnd("2020-04-17 08:00:00");
+            rentalContract.setDateStart("2020-01-03");
+            rentalContract.setDateEnd("2020-04-17");
             rentalContract.setKmDriven(44100); // 105 days * 400 km = 42000 km. 44100 is over that. Extra price = 2100
             rentalContract.setBasePrice(17327); // resulting base price from the calculateBasePrice() test.
             float fuelStatus = (float) 0.2; // over the threshold of 0.5. Extra price = 70

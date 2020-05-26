@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -312,13 +312,8 @@ public class RentalContractService
     // takes in a rental contract and returns the amount of days between the start and end of the contract
     public int getDateDifferenceInDays(RentalContract rentalContract)
     {
-        if (!rentalContract.getDateStart().contains(" "))
-            rentalContract.setDateStart(rentalContract.getDateStart() + " 00:00:00");
-        if (!rentalContract.getDateEnd().contains(" "))
-            rentalContract.setDateEnd(rentalContract.getDateEnd() + " 00:00:00");
-
-        LocalDateTime startDate = LocalDateTime.parse(rentalContract.getDateStart().replace(' ', 'T'));
-        LocalDateTime endDate = LocalDateTime.parse(rentalContract.getDateEnd().replace(' ', 'T'));
+        LocalDate startDate = LocalDate.parse(rentalContract.getDateStart());
+        LocalDate endDate = LocalDate.parse(rentalContract.getDateEnd());
         return (int) DAYS.between(startDate, endDate);
     }
     //endregion
