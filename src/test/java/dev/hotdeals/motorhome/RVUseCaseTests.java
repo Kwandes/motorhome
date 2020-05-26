@@ -38,6 +38,7 @@ public class RVUseCaseTests
 
         @Test
         @Order(1)
+        @DisplayName("searchByModel()")
         public void rvRepoSearchByModelTest() throws Exception
         {
             System.out.println("RV Repo ordered tests of adding, updating and deleting data");
@@ -52,6 +53,7 @@ public class RVUseCaseTests
 
         @Test
         @Order(2)
+        @DisplayName("addRV()")
         public void rvRepoAddRVTest() throws Exception
         {
             System.out.println("RV Repo - Test 2 : Add RV Test");
@@ -78,7 +80,7 @@ public class RVUseCaseTests
             rv.setPrice(0);
 
             // set fuel status to 1 as the database default is 1
-            rv.setFuelStatus((float)1.0);
+            rv.setFuelStatus((float) 1.0);
 
             // when
             queryResult = rvRepo.addRV(rv);
@@ -97,6 +99,7 @@ public class RVUseCaseTests
 
         @Test
         @Order(3)
+        @DisplayName("updateRV()")
         public void rvRepoUpdateRVTest() throws Exception
         {
             System.out.println("RV Repo - Test 3 : Update RV Test");
@@ -121,7 +124,7 @@ public class RVUseCaseTests
             rv.setRvType("testTypeUpdated");
             rv.setPrice(100);
             rv.setKmDriven(200);
-            rv.setFuelStatus((float)0.9);
+            rv.setFuelStatus((float) 0.9);
             rv.setIsRented(true);
             rv.setRequiresCleaning(true);
             rv.setRequiresMaintenance(true);
@@ -144,6 +147,7 @@ public class RVUseCaseTests
 
         @Test
         @Order(4)
+        @DisplayName("deleteRV()")
         public void rvRepoDeleteRVTest() throws Exception
         {
             System.out.println("RV Repo - Test 4 : Delete RV Test");
@@ -170,6 +174,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchAll()")
         public void rvRepoFetchAllTest() throws Exception
         {
             List<RV> rvList = rvRepo.fetchAll();
@@ -177,6 +182,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchByID()")
         public void rvRepoFetchByIDTest() throws Exception
         {
             RV rv = rvRepo.fetchByID(3000);
@@ -184,6 +190,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchAvailable()")
         public void rvRepoFetchAvailableTest() throws Exception
         {
             List<RV> rvList = rvRepo.fetchAvailable();
@@ -191,6 +198,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchRented()")
         public void rvRepoFetchRentedTest() throws Exception
         {
             List<RV> rvList = rvRepo.fetchRented();
@@ -198,6 +206,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchRequiresCleaning()")
         public void rvRepoFetchRequiresCleaningTest() throws Exception
         {
             List<RV> rvList = rvRepo.fetchRequiresCleaning();
@@ -205,6 +214,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("fetchRequiresMaintenance()")
         public void rvRepoFetchRequiresMaintenanceTest() throws Exception
         {
             List<RV> rvList = rvRepo.fetchRequiresMaintenance();
@@ -212,6 +222,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("sortByPrice()")
         public void rvRepoSortByPriceTest() throws Exception
         {
             List<RV> rvList = rvRepo.sortByPrice();
@@ -219,6 +230,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("searchByBrand()")
         public void rvRepoSearchByBrandTest() throws Exception
         {
             // Search for an empty string -> the query will end up as :
@@ -227,6 +239,7 @@ public class RVUseCaseTests
         }
 
         @Test
+        @DisplayName("searchByID()")
         public void rvRepoSearchByIDTest() throws Exception
         {
             // Search for cars that will contain '3' in their ID ( by convention all car ids will start with 3, so the
