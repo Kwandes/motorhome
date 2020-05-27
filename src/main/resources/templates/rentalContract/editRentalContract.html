@@ -52,16 +52,16 @@
                     <input type="text" name="id" id="id" th:value="${rentalContract.id}" required readonly><br>
 
                     <label for="dateStart">Date Start</label>
-                    <input type="date" name="dateStart" id="dateStart" th:value="${rentalContract.dateStart}" placeholder="Date Start" required><br>
+                    <input type="date" name="dateStart" id="dateStart" th:value="${rentalContract.dateStart}" placeholder="Date Start" required readonly><br>
 
                     <label for="dateEnd">Date End</label>
-                    <input type="date" name="dateEnd" id="dateEnd" th:value="${rentalContract.dateEnd}" placeholder="Date End" required><br>
+                    <input type="date" name="dateEnd" id="dateEnd" th:value="${rentalContract.dateEnd}" placeholder="Date End" required readonly><br>
 
                     <label for="dropoffAddress">Drop-Off Address</label>
-                    <input type="text" name="addressDropoff" id="dropoffAddress" th:value="${rentalContract.addressDropoff}" placeholder="Drop-Off Address" required><br>
+                    <input type="text" name="addressDropoff" id="dropoffAddress" th:value="${rentalContract.addressDropoff}" placeholder="Drop-Off Address" required readonly><br>
 
                     <label for="pickupAddress">Pick-Up Address</label>
-                    <input type="text" name="addressPickup" id="pickupAddress" th:value="${rentalContract.addressPickup}" placeholder="Pick-Up Address" required><br>
+                    <input type="text" name="addressPickup" id="pickupAddress" th:value="${rentalContract.addressPickup}" placeholder="Pick-Up Address" required readonly><br>
 
                     <label for="kmDriven">Kilometers Driven</label>
                     <input type="number" name="kmDriven" id="kmDriven" th:value="${rentalContract.kmDriven}" placeholder="Kilometers Driven" required><br>

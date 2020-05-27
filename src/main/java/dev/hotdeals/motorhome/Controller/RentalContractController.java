@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class RentalContractController
@@ -133,9 +134,23 @@ public class RentalContractController
 
     // Updates the rental contract information and redirects to viewAll page
     @PostMapping("/rentalContract/updateRentalContract")
-    public String updateRentalContract(@ModelAttribute RentalContract rentalContract)
+    public String updateRentalContract(@ModelAttribute RentalContract rentalContract, WebRequest wr)
     {
         rentalContractService.updateRentalContract(rentalContract);
+        if (rentalContract.getStatus().equals("closed"))
+        {
+            Random r = new Random();
+            float min = 0.1f, max = 1.0f; // The limits of the fuelStatus
+            float rvFuelStatus = min + r.nextFloat() * (max - min);
+
+            int rvID = rentalContract.getRv_id();
+            RV rv = rvService.fetchByID(rvID);
+            rv.setIsRented(false);
+            rv.setRequiresCleaning(true);
+            rv.setFuelStatus(rvFuelStatus);
+            rv.setKmDriven(rv.getKmDriven()+rentalContract.getKmDriven());
+            rvService.updateRV(rv);
+        }
         return "redirect:/rentalContract/viewAll";
     }
 
@@ -147,7 +162,7 @@ public class RentalContractController
         model.addAttribute("customerList", customerList);
         List<Employee> employeeList = employeeService.fetchAll();
         model.addAttribute("employeeList", employeeList);
-        List<RV> rvList = rvService.fetchAll();
+        List<RV> rvList = rvService.fetchAvailable();
         model.addAttribute("rvList", rvList);
 
         return "rentalContract/createNewRentalContract";
@@ -159,6 +174,16 @@ public class RentalContractController
     {
         rentalContract.setExtras(rentalContractService.extractExtrasFromModel(wr));
         rentalContractService.addRentalContract(rentalContract);
+
+        int rvID = checkID("rv_id", wr, "/rentalContract/submitNewRentalContract" );
+        if (rvID == -1)
+        {
+            return "redirect:/rentalContract/errorParameters";
+        }
+        RV rv = rvService.fetchByID(rvID);
+        rv.setIsRented(true);
+        rvService.updateRV(rv);
+
         return "redirect:/rentalContract/viewAll";
     }
 

@@ -76,7 +76,7 @@
 
                     <label for="customer_id">Customer</label>
                     <select th:name="customer_id" id="customer_id" required>
-                        <option value="default" th:value="null">Pick Motorhome</option>
+                        <option value="default" th:value="null">Pick Customer</option>
                         <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
                     </select><br>
 
@@ -88,7 +88,7 @@
 
                     <label for="salesAssistant">Sales Assistant</label>
                     <select th:name="employee_id" id="salesAssistant" required>
-                        <option value="default" th:value="null">Pick Motorhome</option>
+                        <option value="default" th:value="null">Pick Sales Assistant</option>
                         <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
                     </select><br>
 

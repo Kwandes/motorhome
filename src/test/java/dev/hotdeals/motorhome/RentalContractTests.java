@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @SpringBootTest
@@ -354,6 +355,75 @@ public class RentalContractTests
 
             extras = "child, Seat, bed linen, picnic table";
             assertThat(rcService.calculateExtrasPrice(extras)).isEqualTo(60);
+        }
+
+        @Test
+        @DisplayName("calculateSeasonMultiplier()")
+        public void rentalContractServiceCalculateSeasonMultiplierTest()
+        {
+            // Month 1 - Low Season
+            String dateStart = "1470-01-10";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1);
+
+            // Month 2 - Low Season
+            dateStart = "1360-02-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1);
+
+            // Month 3 - Middle Season
+            dateStart = "1360-03-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 4 - Middle Season
+            dateStart = "1360-04-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 5 - Middle Season
+            dateStart = "1360-05-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 6 - Peak Season
+            dateStart = "1360-06-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.6);
+
+            // Month 7 - Peak Season
+            dateStart = "1360-07-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.6);
+
+            // Month 8 - Peak Season
+            dateStart = "1360-08-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.6);
+
+            // Month 9 - Middle Season
+            dateStart = "1360-09-12";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 10 - Middle Season
+            dateStart = "1667-10-24";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 11 - Middle Season
+            dateStart = "1667-11-24";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1.3);
+
+            // Month 12 - Low Season
+            dateStart = "1667-12-24";
+            assertThat(rcService.calculateSeasonMultiplier(dateStart)).isEqualTo(1);
+
+            // Month 0 - INVALID
+            dateStart = "1667-00-24";
+            try {
+                rcService.calculateSeasonMultiplier(dateStart);
+                assertThat("Test for Month 0 Failed").isEqualTo("Dis statement was not supposed to be reached");
+            } catch (DateTimeParseException e)
+            {}
+
+            // Month 13 - INVALID
+            dateStart = "1667-13-24";
+            try {
+                rcService.calculateSeasonMultiplier(dateStart);
+                assertThat("Test for Month 13 Failed").isEqualTo("Dis statement was not supposed to be reached");
+            } catch (DateTimeParseException e)
+            {}
         }
 
         @Test

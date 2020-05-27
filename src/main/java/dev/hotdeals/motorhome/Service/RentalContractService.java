@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -191,6 +192,20 @@ public class RentalContractService
         int rvPrice = rvService.fetchByID(rentalContract.getRv_id()).getPrice();
         int basePrice = calculateBasePrice(rentalContract, rvPrice);
         rentalContract.setBasePrice(basePrice);
+        if (rentalContract.getStatus().equals("closed"))
+        {
+            float rvFuelStatus;
+            try
+            {
+                rvFuelStatus = rvService.fetchByID(rentalContract.getRv_id()).getFuelStatus();
+            } catch (NullPointerException e)
+            {
+                System.out.println("Failed to get an rvPrice. Setting to 0");
+                rvFuelStatus = 1.0f;
+            }
+            int finalPrice = calculateFinalPrice(rentalContract, rvFuelStatus);
+            rentalContract.setFinalPrice(finalPrice);
+        }
         return rentalContractRepo.updateRentalContract(rentalContract);
     }
 
@@ -262,13 +277,15 @@ public class RentalContractService
     // calculates the base price based off the rv price, extras price and the contract duration
     public int calculateBasePrice(RentalContract rentalContract, int rvPrice)
     {
+        double seasonMultiplier = calculateSeasonMultiplier(rentalContract.getDateStart());
+
         int contractDuration = getDateDifferenceInDays(rentalContract);
 
         int extrasPrice = calculateExtrasPrice(rentalContract.getExtras());
 
         int deliveryPrice = calculateDeliveryPrice(rentalContract);
 
-        int basePrice = (contractDuration * (rvPrice + extrasPrice)) + deliveryPrice;
+        int basePrice = (contractDuration * ( (int) (rvPrice * seasonMultiplier) + extrasPrice) ) + deliveryPrice;
 
         return basePrice;
     }
@@ -279,6 +296,25 @@ public class RentalContractService
         int fixedExtrasPrice = 15; //TODO - replace with a value obtained from config/DB
         int extrasPrice = extras.split(",").length * fixedExtrasPrice;
         return extrasPrice;
+    }
+
+    // Takes in a Rental Contract and returns the Price Increase depending on the Season.
+    // The Price Increase will be based only on the Start Date of the Contract
+    // and will not change if the Contract streches across multiple Seasons ( with diffrent Prices ).
+    // Low Season - Months : 12, 1, 2; Middle Season : 3, 4, 5, 9, 10, 11; Peak Season : 6, 7, 8
+    public double calculateSeasonMultiplier(String dateStart)
+    {
+        int month = LocalDate.parse(dateStart).getMonthValue();
+
+        if ( (month >= 9 && month <= 11)  || (month >= 3 && month <= 5) )
+        {
+            return 1.3;
+        }
+        else if ( month >= 6 && month <= 8 )
+        {
+            return 1.6;
+        }
+        return 1;
     }
 
     // takes in a contract and converts the addresses into distance, which is then compared against the delivery Fee
