@@ -2,6 +2,7 @@ package dev.hotdeals.motorhome;
 
 import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Repository.EmployeeRepo;
+import dev.hotdeals.motorhome.Service.EmployeeService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,117 +15,192 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeUseCaseTests
 {
-    private static boolean testCondition = false;
-
     @Autowired
     EmployeeRepo employeeRepo;
 
-    @Test
-    @DisplayName("Fetch employee object by ID from DB")
-    public void employeeRepoFetchById()
-    {
-        //given - User Of ID 1000 exists
-        Employee employeeTestObject = null;
-        int employeeIdToRetrieve = 1000;
-        //when
-        employeeTestObject = employeeRepo.fetchByID(employeeIdToRetrieve);
-        //then
-        assertThat(employeeTestObject).isNotNull();
-    }
+    public static boolean testVerification; // holds status of the previous test in the series
 
-    @Test
-    @DisplayName("Fetch all employees from DB")
-    public void employeeRepoFetchAll()
+    //region Employee Repo
+    @Nested
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    public class EmployeeRepoTests
     {
-        // given - the DB is not empty
-        List<Employee> employeesTestList = null;
-        // when
-        employeesTestList = employeeRepo.fetchAll();
-        // then
-        assertThat(employeesTestList).isNotNull();
-    }
-
-    @Test
-    @Order(1)
-    @DisplayName("Search for a employee by name")
-    public void employeeRepoSearchByNameTest()
-    {
-        // given - name exists
-        String name = "";
-        // when
-        List<Employee> employeesReturnedFromSearch = null;
-        employeesReturnedFromSearch = employeeRepo.searchByName(name);
-        // then
-        testCondition = !employeesReturnedFromSearch.isEmpty();
-        assertThat(employeesReturnedFromSearch).isNotEmpty();
-    }
-
-    @Test
-    @Order(2)
-    @DisplayName("Add a employee to the DB")
-    public void employeeRepoAddEmployee()
-    {
-        // check the previous test result
-        if (!testCondition)
+        @Test
+        public void employeeRepoLoads()
         {
-            System.out.println("Search test failed. Skipping the Add Employee test...");
-            assertThat(testCondition).isTrue();
+            // validate if the Employee Repository layer has loaded
+            assertThat(employeeRepo).isNotNull();
         }
 
-        Employee employee = new Employee();
-        employee.setFirstName("TestName");
-        employee.setLastName("TestLastName");
-        employee.setPosition("Tester");
-        employee.setGender("TestGender");
-
-        testCondition = employeeRepo.addEmployee(employee);
-
-        assertThat(testCondition).isTrue();
-    }
-
-    @Test
-    @Order(3)
-    @DisplayName("Change a employee's information from the DB")
-    public void employeeRepoUpdateEmployee()
-    {
-        // check previous test result
-        if (!testCondition)
+        @Test
+        @Order(1)
+        @DisplayName("searchByName()")
+        public void employeeRepoSearchByNameTest() throws Exception
         {
-            System.out.println("Search test failed. Skipping Update test...");
-            assertThat(testCondition).isTrue();
+            System.out.println("Employee Repo ordered tests of adding, updating and deleting data");
+            System.out.println("Employee Repo - Test 1 : Search");
+            List<Employee> employeeList = employeeRepo.searchByName("");
+
+            testVerification = false; // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
+
+            assertThat(employeeList).isNotEmpty();
+            testVerification = true; // this will only be reached if the assert is successful
         }
-        // given - the ID exist
-        String originalFirstName = "TestName";
-        String editedFirstName = "NameTest";
-        Employee testEmployee = employeeRepo.searchByName(originalFirstName).get(0);
-        testEmployee.setFirstName(editedFirstName);
 
-        testCondition = employeeRepo.updateEmployee(testEmployee);
-        Employee updatedEmployee = employeeRepo.searchByName(editedFirstName).get(0);
-
-        assertThat(testCondition).isTrue();
-        assertThat(testEmployee.toString()).isEqualTo(updatedEmployee.toString());
-    }
-
-
-    @Test
-    @Order(4)
-    @DisplayName("Delete employee from DB using Id")
-    public void employeeRepoDeleteEmployeeTest()
-    {
-        // check previous test result
-        if (!testCondition)
+        @Test
+        @Order(2)
+        @DisplayName("addEmployee()")
+        public void employeeRepoAddEmployeeTest() throws Exception
         {
-            System.out.println("Search test failed. Skipping the Delete test...");
-            assertThat(testCondition).isTrue();
+            System.out.println("Employee Repo - Test 2 : Add Employee Test");
+
+            if (!testVerification)
+            {
+                System.out.println("Search test failed. Skipping the Add Employee test...");
+                // throw a more descriptive exception message
+                assertThat("Employee Repo - Search Employee Test to be ").isEqualTo("Successful");
+            }
+
+            // If the Search has passed, we can test the Add
+            // given
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            Employee foundEmployee;
+
+            Employee employee = new Employee();
+            // only the required parameters are set
+            employee.setFirstName("testFirstName");
+            employee.setLastName("testLastName");
+            employee.setPosition("testPosition");
+            employee.setGender("testGender");
+
+            // when
+            queryResult = employeeRepo.addEmployee(employee);
+            foundEmployee = employeeRepo.searchByName(employee.getFirstName()).get(0);
+
+            // then
+            assertThat(queryResult).isTrue(); // check if the query was successful
+
+            // check if the added Employee is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(employee.toString().replaceFirst("(\\d+)", "")).
+                    isEqualTo(foundEmployee.toString().replaceFirst("(\\d+)", ""));
+
+            testVerification = true; // this will only be reached if the assert is successful
         }
-        // given - the Employee exists
-        String employeeNameToDelete = "NameTest"; //name used to search for the employee to delete
-        Employee testEmployeeDelete = employeeRepo.searchByName(employeeNameToDelete).get(0); //the Employee we want to delete
-        int employeeIdToDelete = testEmployeeDelete.getId(); //getting the ID of the employee to delete
 
-        testCondition = employeeRepo.deleteEmployee(employeeIdToDelete);
+        @Test
+        @Order(3)
+        @DisplayName("updateEmployee()")
+        public void employeeRepoUpdateEmployeeTest() throws Exception
+        {
+            System.out.println("Employee Repo - Test 3 : Update Employee Test");
 
-        assertThat(testCondition).isTrue();
+            if (!testVerification)
+            {
+                System.out.println("Add Employee test failed. Skipping the Update Employee test...");
+                // throw a more descriptive exception message
+                assertThat("Employee Repo - Add Employee Test to be ").isEqualTo("Successful");
+            }
+            // If the Add has passed, we can test the Update
+            // given
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            Employee foundEmployee;
+
+            Employee employee = employeeRepo.searchByName("testFirstName").get(0);
+            // update all attributes except for the ID
+            employee.setFirstName("testFirstNameUpdated");
+            employee.setLastName("testLastNameUpdated");
+            employee.setPosition("testPosUpdated"); // limited options as the column is a VARCHAR of 15
+            employee.setGender("testGondor"); // limited options as the column is a VARCHAR of 10
+
+            // when
+            queryResult = employeeRepo.updateEmployee(employee);
+
+            foundEmployee = employeeRepo.searchByName(employee.getFirstName()).get(0);
+
+            // then
+            assertThat(queryResult).isTrue(); // check if the query was successful
+
+            // check if the added Employee is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(employee.toString()).isEqualTo(foundEmployee.toString());
+
+            testVerification = true; // this will only be reached if the assert is successful
+        }
+
+        @Test
+        @Order(4)
+        @DisplayName("deleteEmployee()")
+        public void employeeRepoDeleteEmployeeTest() throws Exception
+        {
+            System.out.println("Employee Repo - Test 4 : Delete Employee Test");
+
+            if (!testVerification)
+            {
+                System.out.println("Update Employee test failed. Skipping the Delete Employee test...");
+                // throw a more descriptive exception message
+                assertThat("Employee Repo - Update Employee Test to be ").isEqualTo("Successful");
+            }
+
+            // If the Update has passed, we can test the Delete
+            // given
+            Employee employee = employeeRepo.searchByName("testFirstNameUpdated").get(0); // Searching for an updated value
+            List<Employee> foundEmployeeList;
+
+            // when
+            boolean employeeDeleted = employeeRepo.deleteEmployee(employee.getId());
+            foundEmployeeList = employeeRepo.searchByName("testFirstNameUpdated"); // checking if the entry still exists in the DB
+
+            // then
+            assertThat(employeeDeleted).isTrue();
+            assertThat(foundEmployeeList).isEmpty();
+        }
+
+        @Test
+        @DisplayName("fetchAll()")
+        public void employeeRepoFetchAllTest() throws Exception
+        {
+            List<Employee> employeeList = employeeRepo.fetchAll();
+            assertThat(employeeList).isNotEmpty();
+        }
+
+        @Test
+        @DisplayName("fetchByID()")
+        public void employeeRepoFetchByIDTest() throws Exception
+        {
+            Employee employee = employeeRepo.fetchByID(1000);
+            assertThat(employee).isNotNull();
+        }
+
+        @Test
+        @DisplayName("searchByPosition")
+        public void employeeRepoSearchByPositionTest() throws Exception
+        {
+            List<Employee> employeeList = employeeRepo.searchByPosition("");
+            assertThat(employeeList).isNotEmpty();
+        }
     }
+    //endregion
+
+    //region Employee Service
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Nested
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    public class EmployeeServiceTests
+    {
+        // In the Employee Use Case, the Service logic only contains Repository calls
+        // Therefore, not all Service layer methods are tested
+
+        @Test
+        public void employeeServiceLoads()
+        {
+            // validate if the Employee Service layer has loaded
+            assertThat(employeeService).isNotNull();
+        }
+    }
+    //endregion
 }

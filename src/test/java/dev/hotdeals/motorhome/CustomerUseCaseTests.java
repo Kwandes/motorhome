@@ -3,148 +3,214 @@ package dev.hotdeals.motorhome;
 
 import dev.hotdeals.motorhome.Model.Customer;
 import dev.hotdeals.motorhome.Repository.CustomerRepo;
-import net.minidev.json.JSONUtil;
+import dev.hotdeals.motorhome.Service.CustomerService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.thymeleaf.engine.IterationStatusVar;
-import org.w3c.dom.ls.LSOutput;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.contentOf;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CustomerUseCaseTests
-{
-    private static boolean testCondition = false;
+public class CustomerUseCaseTests{
     @Autowired
     CustomerRepo customerRepo;
 
-    @Test
-    @DisplayName("Fetch customer object by ID from DB")
-    public void customerRepoFetchById()
-    {
-        //given - User Of ID 2000 exists
-        Customer customerTestObject = null;
-        int customerIdToRetrieve = 2000;
-        //when
-        customerTestObject = customerRepo.fetchByID(customerIdToRetrieve);
-        //then
-        assertThat(customerTestObject).isNotNull();
-    }
+    public static boolean testVerification; // holds status of the previous test in the series
 
-    @Test
-    @DisplayName("Fetch all customers from DB")
-    public void customerRepoFetchAll()
+    //region Customer Repo
+    @Nested
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    public class CustomerRepoTests
     {
-        // given - the DB is not empty
-        List<Customer> customersTestList = null;
-        // when
-        customersTestList = customerRepo.fetchAll();
-        // then
-        assertThat(customersTestList).isNotNull();
-    }
-
-    @Test
-    @Order(2)
-    @DisplayName("Add a customer to the DB")
-    public void customerRepoAddCustomer()
-    {
-        if (testCondition)
+        @Test
+        public void customerRepoLoads()
         {
+            // validate if the Customer Repository layer has loaded
+            assertThat(customerRepo).isNotNull();
+        }
+
+        @Test
+        @Order(1)
+        @DisplayName("searchByName()")
+        public void customerRepoSearchByNameTest() throws Exception
+        {
+            System.out.println("Customer Repo ordered tests of adding, updating and deleting data");
+            System.out.println("Customer Repo - Test 1 : Search");
+            List<Customer> customerList = customerRepo.searchByName("");
+
+            testVerification = false; // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
+
+            assertThat(customerList).isNotEmpty();
+            testVerification = true; // this will only be reached if the assert is successful
+        }
+
+        @Test
+        @Order(2)
+        @DisplayName("addCustomer()")
+        public void customerRepoAddCustomerTest() throws Exception
+        {
+            System.out.println("Customer Repo - Test 2 : Add Customer Test");
+
+            if (!testVerification)
+            {
+                System.out.println("Search test failed. Skipping the Add Customer test...");
+                // throw a more descriptive exception message
+                assertThat("Customer Repo - Search Customer Test to be ").isEqualTo("Successful");
+            }
+
+            // If the Search has passed, we can test the Add
             // given
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            Customer foundCustomer;
+
             Customer customer = new Customer();
-            customer.setFirstName("TestName");
-            customer.setLastName("TestLastName");
+            // only the required parameters are set
+            customer.setFirstName("testFirstName");
+            customer.setLastName("testLastName");
             customer.setCpr("999999-9999");
-            customer.setPhoneNumber("12345678");
-            customer.setEmail("testemail@test.mail");
-            customer.setBirthdate("1990-12-24");
-            customer.setAddress("test of address name");
-            customer.setAddress2("test of second address name");
-            customer.setGender("Test");
+            customer.setPhoneNumber("1234567890");
+            customer.setEmail("test@junit.minecraft.net");
+            customer.setBirthdate("1234-05-06");
+            customer.setAddress("testAddress1");
+            customer.setAddress2("testAddress2");
+            customer.setGender("testGender");
+
             // when
-            testCondition = customerRepo.addCustomer(customer);
-        } else
-        {
-            System.out.println("Search test failed. Skipping Add test...");
-        }
-        // then
-        assertThat(testCondition).isTrue();
-    }
+            queryResult = customerRepo.addCustomer(customer);
+            foundCustomer = customerRepo.searchByName(customer.getFirstName()).get(0);
 
-    @Test
-    @Order(3)
-    @DisplayName("Change a customer's information from the DB")
-    public void customerRepoUpdateCustomer()
-    {
-        if (testCondition)
+            // then
+            assertThat(queryResult).isTrue(); // check if the query was successful
+
+            // check if the added Customer is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(customer.toString().replaceFirst("(\\d+)", "")).
+                    isEqualTo(foundCustomer.toString().replaceFirst("(\\d+)", ""));
+
+            testVerification = true; // this will only be reached if the assert is successful
+        }
+
+        @Test
+        @Order(3)
+        @DisplayName("updateCustomer()")
+        public void customerRepoUpdateCustomerTest() throws Exception
         {
-            // given - the ID exist
-            String originalFirstName = "TestName";
-            String EditedFirstName = "NameTest";
-            Customer testCustomer = customerRepo.searchByName(originalFirstName).get(0);
-            testCustomer.setFirstName(EditedFirstName);
+            System.out.println("Customer Repo - Test 3 : Update Customer Test");
+
+            if (!testVerification)
+            {
+                System.out.println("Add Customer test failed. Skipping the Update Customer test...");
+                // throw a more descriptive exception message
+                assertThat("Customer Repo - Add Customer Test to be ").isEqualTo("Successful");
+            }
+            // If the Add has passed, we can test the Update
+            // given
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            Customer foundCustomer;
+
+            Customer customer = customerRepo.searchByName("testFirstName").get(0);
+            // update all attributes except for the ID
+            customer.setFirstName("testFirstNameUpdated");
+            customer.setLastName("testLastNameUpdated");
+            customer.setCpr("989898-9898");
+            customer.setPhoneNumber("12345678901");
+            customer.setEmail("test.updated@junit.minecraft.net");
+            customer.setBirthdate("1234-07-08");
+            customer.setAddress("testAddress1Updated");
+            customer.setAddress2("testAddress2Updated");
+            customer.setGender("testGondor"); // limited options as the column is a VARCHAR of 10
+
             // when
-            testCondition = customerRepo.updateCustomer(testCustomer);
-        } else
-        {
-            System.out.println("Search test failed. Skipping Update test...");
+            queryResult = customerRepo.updateCustomer(customer);
+
+            foundCustomer = customerRepo.searchByName(customer.getFirstName()).get(0);
+
+            // then
+            assertThat(queryResult).isTrue(); // check if the query was successful
+
+            // check if the added Customer is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(customer.toString()).isEqualTo(foundCustomer.toString());
+
+            testVerification = true; // this will only be reached if the assert is successful
         }
-        // then
-        assertThat(testCondition).isTrue();
-    }
 
-
-    @Test
-    @Order(4)
-    @DisplayName("Delete customer from DB using Id")
-    public void customerRepoDeleteCustomerTest()
-    {
-        if (testCondition)
+        @Test
+        @Order(4)
+        @DisplayName("deleteCustomer()")
+        public void customerRepoDeleteCustomerTest() throws Exception
         {
-            // given - the Customer exists
-            String customerNameToDelete = "NameTest"; //name used to search for the customer to delete
-            Customer testCustomerDelete = customerRepo.searchByName(customerNameToDelete).get(0); //the Customer we want to delete
-            int customerIdToDelete = testCustomerDelete.getId(); //getting the ID of the customer to delete
+            System.out.println("Customer Repo - Test 4 : Delete Customer Test");
+
+            if (!testVerification)
+            {
+                System.out.println("Update Customer test failed. Skipping the Delete Customer test...");
+                // throw a more descriptive exception message
+                assertThat("Customer Repo - Update Customer Test to be ").isEqualTo("Successful");
+            }
+
+            // If the Update has passed, we can test the Delete
+            // given
+            Customer customer = customerRepo.searchByName("testFirstNameUpdated").get(0); // Searching for an updated value
+            List<Customer> foundCustomerList;
+
             // when
-            testCondition = customerRepo.deleteCustomer(customerIdToDelete);
-        } else
-        {
-            System.out.println("Search test failed. Skipping Update test...");
+            boolean customerDeleted = customerRepo.deleteCustomer(customer.getId());
+            foundCustomerList = customerRepo.searchByName("testFirstNameUpdated"); // checking if the entry still exists in the DB
+
+            // then
+            assertThat(customerDeleted).isTrue();
+            assertThat(foundCustomerList).isEmpty();
         }
-        // then
-        assertThat(testCondition).isTrue();
-    }
 
-    @Test
-    @DisplayName("Search for a customer by CPR - partial input is valid")
-    public void customerRepoSearchByCpr()
-    {
-        // given - Cpr 160428-1231 exists
-        String cpr = "160428-1231";
-        // when
-        List<Customer> customerList = customerRepo.searchByCpr(cpr);
-        // then
-        assertThat(customerList).isNotEmpty();
-    }
+        @Test
+        @DisplayName("fetchAll()")
+        public void customerRepoFetchAllTest() throws Exception
+        {
+            List<Customer> customerList = customerRepo.fetchAll();
+            assertThat(customerList).isNotEmpty();
+        }
 
-    @Test
-    @Order(1)
-    @DisplayName("Search for a customer by name")
-    public void customerRepoSearchByNameTest()
-    {
-        // given - name exists
-        String name = "";
-        // when
-        List<Customer> customersReturnedFromSearch= null;
-        customersReturnedFromSearch = customerRepo.searchByName(name);
-        // then
-        testCondition = !customersReturnedFromSearch.isEmpty();
-        assertThat(customersReturnedFromSearch).isNotEmpty();
+        @Test
+        @DisplayName("fetchByID()")
+        public void customerRepoFetchByIDTest() throws Exception
+        {
+            Customer customer = customerRepo.fetchByID(2000);
+            assertThat(customer).isNotNull();
+        }
+
+        @Test
+        @DisplayName("searchByCpr")
+        public void customerReposearchByCprTest() throws Exception
+        {
+            List<Customer> customerList = customerRepo.searchByCpr("");
+            assertThat(customerList).isNotEmpty();
+        }
     }
+    //endregion
+
+    //region Customer Service
+    @Autowired
+    private CustomerService customerService;
+
+    @Nested
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    public class CustomerServiceTests
+    {
+        // In the Customer Use Case, the Service logic only contains Repository calls
+        // Therefore, not all Service layer methods are tested
+
+        @Test
+        public void customerServiceLoads()
+        {
+            // validate if the Customer Service layer has loaded
+            assertThat(customerService).isNotNull();
+        }
+    }
+    //endregion
 }
