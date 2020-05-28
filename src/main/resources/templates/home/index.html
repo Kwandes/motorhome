@@ -17,7 +17,7 @@
         <div class="navWrapper">
             <nav>
                 <div class="logo">
-                    <img th:src="@{img/logo.png}" width="115"/>
+                    <img th:src="@{~/img/logo.png}" width="115"/>
                 </div>
 
                 <ul class="navItems">
@@ -36,12 +36,14 @@
                 <!-- Login box container -->
                 <div class="pageContainer">
 
-                    <form class="login" action="rv/" method="GET">
+                    <form class="login" action="/home/login" method="POST">
                         <h1 class="welcomeText">Welcome</h1>
+                        <p style="font-size: 12px" th:if="${error == 0}" class="welcomeText" th:text="'Error : ' + ${error} + ' Not implemented yet - WIP'"></p>
+                        <p style="font-size: 12px" th:if="${error == 1}" class="welcomeText" th:text="'Error : ' + ${error} + ' Wrong Username or Password. Try Again !'" ></p>
                         <div class="textInput">
-                            <input type="text" name="" placeholder="Enter Username" required>
+                            <input type="text" name="username" placeholder="Enter Username" required>
 
-                            <input type="password" name="" placeholder="Enter Password" required>
+                            <input type="password" name="password" placeholder="Enter Password" required>
 
                             <div class="regButton">
                                 <input type="submit" value="Login">

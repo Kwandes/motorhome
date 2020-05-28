@@ -10,8 +10,7 @@ public class RentalContract
 {
     @Id
     private int id;
-    private int customer_id;
-    private int rv_id;
+
     private String dateSigned;
     private String dateStart;
     private String dateEnd;
@@ -21,7 +20,10 @@ public class RentalContract
     private int finalPrice;
     private int kmDriven;
     private String status;
-    private int employee_id;
+    private String extras;
+    private Integer customer_id;
+    private Integer rv_id;
+    private Integer employee_id;
 
     public RentalContract()
     {
@@ -29,10 +31,12 @@ public class RentalContract
 
     public String toString()
     {
-        return id + " " + customer_id + " " + rv_id + " " + dateSigned + " " + dateStart +
-                " " + dateEnd + " " + addressDropoff + " " + addressPickup + " " + basePrice +
-                " " + finalPrice + " " + kmDriven + " " + status + " " + employee_id;
+        return id + " " + dateSigned + " " + dateStart + " " + dateEnd +
+                " " + addressDropoff + " " + addressPickup + " " + basePrice +
+                " " + finalPrice + " " + kmDriven + " " + status + " " + extras +
+                " " + customer_id + " " + rv_id + " " + employee_id;
     }
+
 
     public int getId()
     {
@@ -42,26 +46,6 @@ public class RentalContract
     public void setId(int id)
     {
         this.id = id;
-    }
-
-    public int getCustomer_id()
-    {
-        return customer_id;
-    }
-
-    public void setCustomer_id(int customer_id)
-    {
-        this.customer_id = customer_id;
-    }
-
-    public int getRv_id()
-    {
-        return rv_id;
-    }
-
-    public void setRv_id(int rv_id)
-    {
-        this.rv_id = rv_id;
     }
 
     public String getDateSigned()
@@ -154,12 +138,42 @@ public class RentalContract
         this.status = status;
     }
 
-    public int getEmployee_id()
+    public String getExtras()
+    {
+        return extras;
+    }
+
+    public void setExtras(String extras)
+    {
+        this.extras = extras;
+    }
+
+    public Integer getCustomer_id()
+    {
+        return customer_id;
+    }
+
+    public void setCustomer_id(Integer customer_id)
+    {
+        this.customer_id = customer_id;
+    }
+
+    public Integer getRv_id()
+    {
+        return rv_id;
+    }
+
+    public void setRv_id(Integer rv_id)
+    {
+        this.rv_id = rv_id;
+    }
+
+    public Integer getEmployee_id()
     {
         return employee_id;
     }
 
-    public void setEmployee_id(int employee_id)
+    public void setEmployee_id(Integer employee_id)
     {
         this.employee_id = employee_id;
     }

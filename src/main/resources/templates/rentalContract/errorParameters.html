@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RV - No results</title>
+    <title>Rental Contract - Invalid Parameters</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
@@ -26,11 +26,11 @@
                     <li>
                         <a href="/customer/viewAll">Customers</a>
                     </li>
-                    <li>
+                    <li class="navSelect">
                         <a href="/rentalContract/viewAll">Rentals</a>
                     </li>
-                    <li class="navSelect">
-                        <a href="/rv">RV</a>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
                     </li>
                     <li>
                         <a href="/index">Log out</a>
@@ -44,17 +44,18 @@
     <!-- PAGE CONTENT -->
     <!-- Placeholder structure, to be replaced with proper classes -->
     <div class="headerContainer">
-        <div class="wrapper">
-            <header>
-                <div class="pageContainer">
-                    <form class="login" action="/rv/viewAll" method="get">
-                        <h1 class="welcomeText">There were<br>zero results</h1>
-                        <div style="margin-top: 75px">
-                            <button onclick="location.href='/rv/viewAll'">Go Back</button>
-                        </div>
-                    </form>
-                </div>
-            </header>
+        <div class="pageWrapper">
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <li onclick="location.href='/rentalContract/viewAll';">
+                        <a href="#">Go Back</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dataSection">
+                <h1 class="welcomeText">There was<br><br>an invalid parameter passed</h1>
+                <h4 class="welcomeText">Contact developers for<br><br>more information</h4>
+            </div>
         </div>
     </div>
     <!-- END PAGE CONTENT -->

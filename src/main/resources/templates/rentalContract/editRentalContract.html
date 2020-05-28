@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Contract - Edit</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/customer/viewAll">Customers</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="/rentalContract/viewAll">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- list content -->
+            <div class="dataSection">
+
+                <form action="/rentalContract/updateRentalContract" method="POST">
+
+                    <h3>Edit Contract</h3>
+                    <label for="id">Id</label>
+                    <input type="text" name="id" id="id" th:value="${rentalContract.id}" required readonly><br>
+
+                    <label for="dateStart">Date Start</label>
+                    <input type="date" name="dateStart" id="dateStart" th:value="${rentalContract.dateStart}" placeholder="Date Start" required readonly><br>
+
+                    <label for="dateEnd">Date End</label>
+                    <input type="date" name="dateEnd" id="dateEnd" th:value="${rentalContract.dateEnd}" placeholder="Date End" required readonly><br>
+
+                    <label for="dropoffAddress">Drop-Off Address</label>
+                    <input type="text" name="addressDropoff" id="dropoffAddress" th:value="${rentalContract.addressDropoff}" placeholder="Drop-Off Address" required readonly><br>
+
+                    <label for="pickupAddress">Pick-Up Address</label>
+                    <input type="text" name="addressPickup" id="pickupAddress" th:value="${rentalContract.addressPickup}" placeholder="Pick-Up Address" required readonly><br>
+
+                    <label for="kmDriven">Kilometers Driven</label>
+                    <input type="number" name="kmDriven" id="kmDriven" th:value="${rentalContract.kmDriven}" placeholder="Kilometers Driven" required><br>
+
+                    <label for="status">Status</label>
+                    <select name="status" id="status" th:value="${rentalContract.status}">
+                        <option value="open">open</option>
+                        <option value="closed">closed</option>
+                        <option value="canceled">canceled</option>
+                    </select><br><br>
+
+                    <br><input type="checkbox" id="checkboxExtraButton">
+                    <label for="checkboxExtraButton" id="checkboxExtraLabel"> <strong>More Information</strong>
+                    </label><br>
+
+                    <br><div class="checkboxExtra">
+
+                        <label for="dateSigned">Date Signed</label>
+                        <input type="text" name="dateSigned" id="dateSigned" th:value="${rentalContract.dateSigned}" readonly><br>
+
+                        <label for="basePrice">Base Price</label>
+                        <input type="number" name="basePrice" id="basePrice" th:value="${rentalContract.basePrice}" readonly><br>
+
+                        <label for="finalPrice">Final Price</label>
+                        <input type="number" name="finalPrice" id="finalPrice" th:value="${rentalContract.finalPrice}" readonly><br>
+
+                        <label for="extras">Extras</label>
+                        <input type="text" name="extras" id="extras" th:value="${rentalContract.extras}" readonly><br>
+
+                        <label for="customer_id">Customer ID</label>
+                        <input type="text" name="customer_id" id="customer_id" th:value="${rentalContract.customer_id}" readonly><br>
+
+                        <label for="rv_id">RV ID</label>
+                        <input type="text" name="rv_id" id="rv_id" th:value="${rentalContract.rv_id}" readonly><br>
+
+                        <label for="employee_id">Employee ID</label>
+                        <input type="text" name="employee_id" id="employee_id" th:value="${rentalContract.employee_id}" readonly><br>
+
+                    </div>
+
+                    <div class="tableOptionButtons">
+                        <button type="submit">Save</button>
+                        <button type="button"  onclick="location.href='/rentalContract/viewAll'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+
+</body>
+</html>

@@ -1,7 +1,10 @@
 package dev.hotdeals.motorhome;
 
+import dev.hotdeals.motorhome.Controller.CustomerController;
+import dev.hotdeals.motorhome.Controller.EmployeeController;
 import dev.hotdeals.motorhome.Controller.HomeController;
-import dev.hotdeals.motorhome.Controller.MotorhomeController;
+import dev.hotdeals.motorhome.Controller.RvController;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,23 +17,41 @@ class MotorhomeApplicationTests
 {
 
     @Autowired
-    private HomeController controller;
+    private HomeController homeController;
 
     @Test
     void contextLoads() throws Exception
     {
-        assertThat(controller).isNotNull();
+        assertThat(homeController).isNotNull();
     }
-
 
     @Autowired
-    private MotorhomeController motorhomeController;
+    private RvController rvController;
 
     @Test
-    void motorhomeContextLoads() throws Exception
+    @DisplayName("Rv Controller Loads")
+    void rvContextLoads() throws Exception
     {
-        assertThat(motorhomeController).isNotNull();
+        assertThat(rvController).isNotNull();
     }
 
+    @Autowired
+    private CustomerController customerController;
 
+    @Test
+    @DisplayName("Customer Controller Loads")
+    void customerContextLoads() throws Exception
+    {
+        assertThat(customerController).isNotNull();
+    }
+
+    @Autowired
+    private EmployeeController employeeController;
+
+    @Test
+    @DisplayName("Employee Controller Loads")
+    void employeeContextLoads() throws Exception
+    {
+        assertThat(employeeController).isNotNull();
+    }
 }
