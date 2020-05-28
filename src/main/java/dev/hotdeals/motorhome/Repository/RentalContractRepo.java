@@ -204,7 +204,7 @@ public class RentalContractRepo
     public List<RentalContract> searchByExtras(String extras)
     {
         String query = "SELECT * FROM rental_contract " +
-                "WHERE rental_contract.extras LIKE CONCAT ( '%' , ? , '%' )";
+                "WHERE 'rental_contract.extras' LIKE CONCAT ( '%' , ? , '%' )";
 
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         List<RentalContract> rentalContractList;
