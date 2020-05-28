@@ -2,7 +2,9 @@ package dev.hotdeals.motorhome.Controller;
 
 import dev.hotdeals.motorhome.Model.Customer;
 import dev.hotdeals.motorhome.Model.Employee;
+import dev.hotdeals.motorhome.Model.User;
 import dev.hotdeals.motorhome.Service.EmployeeService;
+import dev.hotdeals.motorhome.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +15,16 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
+import static java.lang.StrictMath.abs;
+
 @Controller
 public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    UserService userService;
 
     // Redirects to the proper viewAll mapping ( in case of typo )
     @GetMapping({"/employee", "/employee/", "/employee/viewAll/"})
@@ -83,7 +90,17 @@ public class EmployeeController {
     @PostMapping ("/employee/updateEmployee")
     public String updateEmployee (@ModelAttribute Employee employee)
     {
+        String username = employeeService.createUsername(employee);
+        String password = String.valueOf(abs(username.hashCode()));
+
+        User user = userService.fetchByEmployeeID(employee.getId());
+
+        user.setUsername(username);
+        user.setPassword(password);
+
         employeeService.updateEmployee(employee);
+        userService.updateUser(user);
+
         return "redirect:/employee/viewAll";
     }
 
@@ -99,6 +116,24 @@ public class EmployeeController {
     public String submitNewEmployee (@ModelAttribute Employee employee)
     {
         employeeService.addEmployee(employee);
+
+        String username = employeeService.createUsername(employee);
+        String password = String.valueOf(username.hashCode());
+
+        User user = new User();
+
+        user.setUsername(username);
+        user.setPassword(password);
+        try
+        {
+            user.setEmployee_id(employeeService.searchByName(employee.getFirstName() + " " + employee.getLastName()).get(0).getId());
+            userService.addUser(user);
+        } catch(NullPointerException e)
+        {
+            System.out.println("Failed to find the associated employeeID");
+            System.out.println(e);
+        }
+
         return "redirect:/employee/viewAll";
     }
 
@@ -160,4 +195,5 @@ public class EmployeeController {
         }
         return x;
     }
+
 }

@@ -54,4 +54,24 @@ public class EmployeeService {
     {
         return employeeRepo.deleteEmployee( employeeID );
     }
+
+    public String createUsername ( Employee employee )
+    {
+        String username, employeeFirstName = employee.getFirstName().toLowerCase();
+        if (employeeFirstName.length() >= 4)
+        {
+            username = employeeFirstName.substring(0,4);
+        }
+        else
+        {
+            username = employeeFirstName;
+            while (username.length() < 4)
+            {
+                username += "#";
+            }
+        }
+        username += "_" + employee.getPosition().substring(0,4).toLowerCase() + employee.getId()%10;
+
+        return username;
+    }
 }

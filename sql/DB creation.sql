@@ -18,7 +18,7 @@ id INT NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(40) NOT NULL,
 last_name VARCHAR(40) NOT NULL,
 position VARCHAR(15) NOT NULL,
-gender VARCHAR(10) DEFAULT NULL,
+gender VARCHAR(10) DEFAULT "other",
 PRIMARY KEY(id)
 );
 
@@ -91,8 +91,8 @@ DROP TABLE IF EXISTS rental_contract;
 CREATE TABLE IF NOT EXISTS rental_contract (
 id INT NOT NULL AUTO_INCREMENT,
 date_signed DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-date_start DATETIME NOT NULL,
-date_end DATETIME NOT NULL,
+date_start DATE NOT NULL,
+date_end DATE NOT NULL,
 address_dropoff VARCHAR(255) NOT NULL DEFAULT "Store Address",
 address_pickup VARCHAR(255) NOT NULL DEFAULT "Store Address",
 base_price INT NOT NULL,
@@ -122,3 +122,28 @@ CONSTRAINT `fk_rental_contract_employee`
 );
 
 ALTER TABLE rental_contract AUTO_INCREMENT = 4000;
+
+
+#-------------------------------------------
+-- Table : user
+-- ID    : 5xxx
+#-------------------------------------------
+
+-- SELECT * FROM user;
+
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE IF NOT EXISTS user (
+id INT NOT NULL AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL,
+password VARCHAR(20) NOT NULL,
+employee_id INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT `fk_user_employee`
+	FOREIGN KEY(employee_id)
+    REFERENCES motorhome.employee(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+ALTER TABLE user AUTO_INCREMENT = 5000;

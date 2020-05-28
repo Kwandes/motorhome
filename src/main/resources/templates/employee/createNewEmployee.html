@@ -25,6 +25,9 @@
                     <li class="navSelect">
                         <a href="/employee">Employee</a>
                     </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -59,7 +62,14 @@
                     <label for="lastName">Last Name</label>
                     <input type="text" name="lastName" id="lastName" placeholder="Last Name" required><br>
                     <label for="position">Position</label>
-                    <input type="text" name="position" id="position" placeholder="Position" required><br>
+<!--                    <input type="text" name="position" id="position" placeholder="Position" required><br>-->
+                    <select name="position" id="position" required>
+                        <option value="Cleaning Staff">Cleaning Staff</option>
+                        <option value="Auto-mechanic">Auto-mechanic</option>
+                        <option value="Bookkeeper">Bookkeeper</option>
+                        <option value="Owner">Owner</option>
+                        <option value="Sales Assistant">Sales Assistant</option>
+                    </select><br>
 
                     <label for="gender">Gender</label>
                     <select name="gender" id="gender">
