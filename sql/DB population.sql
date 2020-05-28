@@ -40,7 +40,10 @@ INSERT INTO rv ( brand, model, rv_type, price, fuel_status, km_driven, requires_
 -- Table : Rental_Contract
 #-------------------------------------------
 
-INSERT INTO rental_contract ( date_start, date_end, base_price ) VALUES
-("1990-08-24", "1990-08-24", 399);
+INSERT INTO rental_contract ( date_start, date_end, base_price, rv_id, employee_id, customer_id ) VALUES
+("2010-08-14", "2011-11-24", 399, 3000, 1000, 2002),
+("1930-08-14", "2000-11-24", 399, 3004, 1001, 2002),
+("1980-08-14", "1790-11-24", 399, 3002, 1002, 2001),
+("1990-08-24", "2000-08-24", 399, 3003, 1002, 2000);
 
 

@@ -79,6 +79,89 @@
 /* * * * * * * * * * * * * * * * * * * * * * * *
 Option buttons */
 
+/************************************************
+Extras Checkboxes
+ */
+
+.radioCheckbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radioCheckbox input
+{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.radioCheckbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.radioCheckbox input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radioCheckbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.radioCheckbox .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.checkboxExtra
+{
+    display: none;
+}
+#checkboxExtraButton:checked ~ .checkboxExtra
+{
+    display: block;
+}
+#checkboxExtraButton
+{
+    display: none;
+}
+#checkboxExtraLabel
+{
+    background: rgba(252, 233, 192, 0.9);
+    font-size: 18px;
+    margin: 20px;
+    padding: 3px 8px 3px 8px;
+    border: 2px solid #3E2719;
+    border-radius: 6px;
+}
 
 /* input fields
 * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -115,6 +198,17 @@ Option buttons */
 
 /* buttons
 * * * * * * * * * * * * * * * * * * * * * */
+.regButton li
+{
+    list-style-type: none;
+    border: 1px solid #3E2719;
+    border: 0;
+    border-radius: 4px;
+    color: rgba(252, 233, 192, 0.9);
+    width: 100px;
+    background: #3E2719
+}
+
 .regButton input[type = "submit"]
 {
     border: 1px solid #3E2719;
