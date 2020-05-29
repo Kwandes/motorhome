@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -25,6 +26,9 @@
                     <li class="navSelect">
                         <a href="/employee">Employee</a>
                     </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -37,14 +41,14 @@
             <!-- Selection buttons -->
             <div class="buttonList">
                 <ul class="optionButtons">
+                    <li onClick="location.href='/employee/viewAll';" style="cursor:pointer;">
+                        <a href="#">View All</a>
+                    </li>
                     <div class="selected">
-                        <li onClick="location.href='/employee/viewAll';" style="cursor:pointer;">
-                            <a href="#">View All</a>
+                        <li style="cursor:pointer;">
+                            <a href="#">Create New</a>
                         </li>
                     </div>
-                    <li onClick="location.href='/employee/createNewEmployee';" style="cursor:pointer;">
-                        <a href="#">Create New</a>
-                    </li>
                 </ul>
             </div>
 
@@ -53,25 +57,42 @@
 
                 <form action="/employee/submitNewEmployee" method="POST">
 
-                    <h3>Register a motivated, inexperienced and ready-to-work-overtime minimum wage Employee!</h3>
-                    <label for="firstName">First Name</label>
-                    <input type="text" name="firstName" id="firstName" placeholder="First Name" required><br>
-                    <label for="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" placeholder="Last Name" required><br>
-                    <label for="position">Position</label>
-                    <input type="text" name="position" id="position" placeholder="Position" required><br>
+                    <div class="createForm textInput">
+                        <h3>Register a motivated, inexperienced and ready-to-work-overtime minimum wage Employee!</h3>
 
-                    <label for="gender">Gender</label>
-                    <select name="gender" id="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other" selected="selected">Other</option>
-                    </select><br>
+                        <div class="innerCreateForm innerCreateFormEmployeeEdit">
+                            <label for="firstName">First Name</label>
+                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required><br>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required><br>
+                            <label for="position">Position</label>
 
-                    <div class="tableOptionButtons">
-                        <button type="submit">Create</button>
-                        <button type="button" onclick="location.href='/employee/viewAll'">Cancel</button>
+                            <div class="searchField createSelect">
+                                <select name="position" id="position" required>
+                                    <option value="Cleaning Staff">Cleaning Staff</option>
+                                    <option value="Auto-mechanic">Auto-mechanic</option>
+                                    <option value="Bookkeeper">Bookkeeper</option>
+                                    <option value="Owner">Owner</option>
+                                    <option value="Sales Assistant">Sales Assistant</option>
+                                </select><br>
+                            </div>
+
+                            <label for="gender">Gender</label>
+                            <div class="searchField createSelect">
+                                <select name="gender" id="gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other" selected="selected">Other</option>
+                                </select><br>
+                            </div>
+                        </div>
+
+                        <div class="tableOptionButtons">
+                            <button type="button" onclick="location.href='/employee/viewAll'">Cancel</button>
+                            <button type="submit">Create</button>
+                        </div>
                     </div>
+
                 </form>
             </div>
             <!-- end list content -->
