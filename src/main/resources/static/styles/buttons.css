@@ -82,7 +82,7 @@ Option buttons */
 
 /* input fields
 * * * * * * * * * * * * * * * * * * * * * * * * */
-.textInput input[type = "text"]
+.textInput input[type = "text"], .textInput input[type = "number"], .textInput input[type = "date"]
 {
     background: none;
     border: 1px solid #3E2719;
@@ -104,6 +104,12 @@ Option buttons */
     outline: none;
     color: #3E2719;
     border-radius: 5px;
+}
+
+/* Trying hard to override the auto fill background from text-fields */
+input:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px rgba(252, 233, 192, 0.7) inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
 }
 
 .textInput button
@@ -131,7 +137,7 @@ Option buttons */
 	background-color: #3E2719;
     color: rgba(252, 233, 192, 1.0);
     padding: 5px 10px;
-    width: 220px;
+    width: 150px;
     border: none;
     border-radius: 4px;
     -webkit-appearance: button;

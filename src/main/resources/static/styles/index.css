@@ -149,6 +149,10 @@ end navigation */
     margin-top: 50px;
 }
 
+.dataSection label {
+    width: 150px;
+}
+
 .listContent
 {
     float: right;

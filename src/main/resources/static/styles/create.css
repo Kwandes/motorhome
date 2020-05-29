@@ -1,0 +1,46 @@
+.createForm {
+    width: 550px;
+    height: 350px;
+    padding: 40px;
+    background: rgba(252, 233, 192, 0.4);
+    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.createForm select {
+    width: 222px;
+}
+
+.createFormEditRV {
+    height: 490px;
+}
+
+.innerCreateForm {
+    text-align: right;
+    margin: 0 76px 6px;
+}
+
+.innerCreateFormEditRV {
+    margin: 0 135px 4px 0;
+}
+
+.createRVForm {
+    margin: 0 125px 6px 0;
+}
+
+.createForm h3 {
+    margin-top: 15px;
+}
+
+.createForm button {
+    display: inline;
+    margin-top: 20px;
+}
+
+.createFormCustomer {
+    height: 450px;
+}
+
+.createSelect {
+    display: inline;
+}

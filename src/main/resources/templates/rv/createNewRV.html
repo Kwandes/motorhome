@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -61,26 +62,33 @@
             </div>
 
             <!-- list content -->
-            <div class="dataSection">
+            <div class="dataSection textInput">
 
                 <form action="/rv/submitNewRV" method="POST">
 
-                    <h3>Create a brand new, fresh, shiny and magnificent Recreational Vehicle</h3>
-                    <label for="brand">Brand</label>
-                    <input type="text" name="brand" id="brand" placeholder="Brand" required><br>
-                    <label for="model">Model</label>
-                    <input type="text" name="model" id="model" placeholder="Model" required><br>
-                    <label for="color">Color</label>
-                    <input type="text" name="color" id="color" placeholder="Color" required><br>
-                    <label for="rvType">Type</label>
-                    <input type="text" name="rvType" id="rvType" placeholder="Rv Type" required><br>
-                    <label for="price">price</label>
-                    <input type="number" name="price" id="price" placeholder="Price" required><br>
+                    <div class="createForm">
 
-                    <div class="tableOptionButtons">
-                        <button type="submit">Create</button>
-                        <button onclick="location.href='/rv/viewAll'">Cancel</button>
+                        <h3>Create a brand new, fresh, shiny and magnificent Recreational Vehicle</h3>
+
+                        <div class="innerCreateForm createRVForm">
+                            <label for="brand">Brand</label>
+                            <input type="text" name="brand" id="brand" placeholder="Brand ..." required><br>
+                            <label for="model">Model</label>
+                            <input type="text" name="model" id="model" placeholder="Model ..." required><br>
+                            <label for="color">Color</label>
+                            <input type="text" name="color" id="color" placeholder="Color ..." required><br>
+                            <label for="rvType">Type</label>
+                            <input type="text" name="rvType" id="rvType" placeholder="Rv Type ..." required><br>
+                            <label for="price">price</label>
+                            <input type="number" name="price" id="price" placeholder="Price ..." required><br>
+                        </div>
+
+                        <div class="tableOptionButtons">
+                            <button onclick="location.href='/rv/viewAll'">Cancel</button>
+                            <button type="submit">Create</button>
+                        </div>
                     </div>
+
                 </form>
             </div>
             <!-- end list content -->
