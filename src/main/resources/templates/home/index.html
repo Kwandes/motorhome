@@ -33,25 +33,20 @@
         <!-- Login box container -->
         <div class="pageContainer">
 
-            <form class="login" action="rv/" method="GET">
-                <h1 class="welcomeText">Welcome</h1>
-                <div class="loginInput">
-                    <input type="text" name="" placeholder="Enter Username" required>
+            <form class="login" action="/home/login" method="POST">
+                <div class="login">
+                    <h1 class="welcomeText">Welcome</h1>
+                    <p style="font-size: 12px" th:if="${error == 0}" class="welcomeText" th:text="'Error : ' + ${error} + ' Not implemented yet - WIP'"></p>
+                    <p style="font-size: 12px" th:if="${error == 1}" class="welcomeText" th:text="'Error : ' + ${error} + ' Wrong Username or Password. Try Again !'" ></p>
+                    <div class="loginInput">
+                        <input type="text" name="username" placeholder="Enter Username" required>
 
-                    <form class="login" action="/home/login" method="POST">
-                        <h1 class="welcomeText">Welcome</h1>
-                        <p style="font-size: 12px" th:if="${error == 0}" class="welcomeText" th:text="'Error : ' + ${error} + ' Not implemented yet - WIP'"></p>
-                        <p style="font-size: 12px" th:if="${error == 1}" class="welcomeText" th:text="'Error : ' + ${error} + ' Wrong Username or Password. Try Again !'" ></p>
-                        <div class="textInput">
-                            <input type="text" name="username" placeholder="Enter Username" required>
+                        <input type="password" name="password" placeholder="Enter Password" required>
 
-                            <input type="password" name="password" placeholder="Enter Password" required>
-
-                            <div class="regButton">
-                                <input type="submit" value="Login">
-                            </div>
+                        <div class="tableOptionButtons" style="display: inline;">
+                            <button type="submit" style="display: inline;">login</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </form>
         </div>
