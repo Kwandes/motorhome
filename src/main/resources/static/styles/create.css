@@ -56,3 +56,12 @@
 .createFormCustomer {
     height: 450px;
 }
+
+/* rental contract screen specifics */
+.createFormRentalContract {
+    height: 550px;
+}
+
+.innerCreateFormRentalContract {
+    margin: 0 80px 13px 0;
+}

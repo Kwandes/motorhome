@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
 </head>
 <body>
     <!-- BACKGROUND -->
@@ -61,69 +62,75 @@
 
                 <form action="/rentalContract/submitNewRentalContract" method="POST">
 
-                    <h3>Create a brand new, fresh Rental Contract with a shiny and magnificent Customer</h3>
-                    <label for="dateStart">Date Start</label>
-                    <input type="date" th:name="dateStart" id="dateStart" placeholder="Date Start" min="2020-01-01" max="2200-02-02" required><br>
+                    <div class="createForm createFormRentalContract">
 
-                    <label for="dateEnd">Date End</label>
-                    <input type="date" th:name="dateEnd" id="dateEnd" placeholder="Date End" min="2020-01-01" max="2200-02-02" required><br>
+                        <h3>Create a brand new, fresh Rental Contract with a shiny and magnificent Customer</h3>
 
-                    <label for="dropoffAddress">Drop-Off Address</label>
-                    <input type="text" th:name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
+                        <div class="innerCreateForm textInput innerCreateFormRentalContract">
+                            <label for="dateStart">Date Start</label>
+                            <input type="date" th:name="dateStart" id="dateStart" placeholder="Date Start" min="2020-01-01" max="2200-02-02" required><br>
 
-                    <label for="pickupAddress">Pick-Up Address</label>
-                    <input type="text" th:name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" required><br>
+                            <label for="dateEnd">Date End</label>
+                            <input type="date" th:name="dateEnd" id="dateEnd" placeholder="Date End" min="2020-01-01" max="2200-02-02" required><br>
 
-                    <label for="customer_id">Customer</label>
-                    <select th:name="customer_id" id="customer_id" required>
-                        <option value="default" th:value="null">Pick Customer</option>
-                        <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
-                    </select><br>
+                            <label for="dropoffAddress">Drop-Off Address</label>
+                            <input type="text" th:name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
 
-                    <label for="motorhome">Motorhome</label>
-                    <select th:name="rv_id" id="motorhome" required>
-                        <option value="default" th:value="null">Pick Motorhome</option>
-                        <option th:each="rv : ${rvList}" th:value="${rv.id}" th:text="${rv.brand} + ' ' + ${rv.model}"></option>
-                    </select><br>
+                            <label for="pickupAddress">Pick-Up Address</label>
+                            <input type="text" th:name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" required><br>
 
-                    <label for="salesAssistant">Sales Assistant</label>
-                    <select th:name="employee_id" id="salesAssistant" required>
-                        <option value="default" th:value="null">Pick Sales Assistant</option>
-                        <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
-                    </select><br>
+                            <div class="searchField searchFieldCreate createSelect">
+                                <label for="customer_id">Customer</label>
+                                <select th:name="customer_id" id="customer_id" required>
+                                    <option value="default" th:value="null">Pick Customer</option>
+                                    <option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
+                                </select><br>
 
-                    <br><input type="checkbox" id="checkboxExtraButton">
-                    <label for="checkboxExtraButton" id="checkboxExtraLabel"> <strong>Extras</strong>
-                    </label><br>
+                                <label for="motorhome">Motorhome</label>
+                                <select th:name="rv_id" id="motorhome" required>
+                                    <option value="default" th:value="null">Pick Motorhome</option>
+                                    <option th:each="rv : ${rvList}" th:value="${rv.id}" th:text="${rv.brand} + ' ' + ${rv.model}"></option>
+                                </select><br>
 
-                    <br><div class="checkboxExtra">
+                                <label for="salesAssistant">Sales Assistant</label>
+                                <select th:name="employee_id" id="salesAssistant" required>
+                                    <option value="default" th:value="null">Pick Sales Assistant</option>
+                                    <option th:each="employee : ${employeeList}" th:value="${employee.id}" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></option>
+                                </select><br>
+                            </div>
 
-                        <label class="radioCheckbox"> <strong> Child Seat </strong>
-                            <input type="checkbox" id="childSeat" th:name="extrasChildSeat">
-                            <span class="checkmark"></span>
+                        </div>
+
+                        <input type="checkbox" id="checkboxExtraButton">
+                        <label for="checkboxExtraButton" id="checkboxExtraLabel"> <strong>Extras</strong>
                         </label>
+                        <br>
+                        <div class="checkboxExtra">
+                            <label class="radioCheckbox"> <strong> Child Seat </strong>
+                                <input type="checkbox" id="childSeat" th:name="extrasChildSeat">
+                                <span class="checkmark"></span>
+                            </label>
 
-                        <label class="radioCheckbox" for="bedLinen"> <strong> Bed Linen </strong>
-                            <input type="checkbox" id="bedLinen" th:name="extrasBedLinen">
-                            <span class="checkmark"></span>
-                        </label>
+                            <label class="radioCheckbox" for="bedLinen"> <strong> Bed Linen </strong>
+                                <input type="checkbox" id="bedLinen" th:name="extrasBedLinen">
+                                <span class="checkmark"></span>
+                            </label><br>
 
-                        <label class="radioCheckbox" for="chairs"> <strong> Chairs </strong>
-                            <input type="checkbox" id="chairs" th:name="extrasChairs">
-                            <span class="checkmark"></span>
-                        </label>
+                            <label class="radioCheckbox" for="chairs"> <strong> Chairs </strong>
+                                <input type="checkbox" id="chairs" th:name="extrasChairs">
+                                <span class="checkmark"></span>
+                            </label>
 
-                        <label class="radioCheckbox" for="picnicTable"> <strong> Picnic Table </strong>
-                            <input type="checkbox" id="picnicTable" th:name="extrasPicnicTable">
-                            <span class="checkmark"></span>
-                        </label>
+                            <label class="radioCheckbox" for="picnicTable"> <strong> Picnic Table </strong>
+                                <input type="checkbox" id="picnicTable" th:name="extrasPicnicTable">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
 
-                    </div>
-                    <br>
-
-                    <div class="tableOptionButtons">
-                        <button type="submit">Create</button>
-                        <button type="button" onclick="location.href='/rentalContract/viewAll'">Cancel</button>
+                        <div class="tableOptionButtons">
+                            <button type="button" onclick="location.href='/rentalContract/viewAll'">Cancel</button>
+                            <button type="submit">Create</button>
+                        </div>
                     </div>
 
                 </form>

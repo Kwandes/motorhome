@@ -84,7 +84,7 @@ Extras Checkboxes
  */
 
 .radioCheckbox {
-    display: block;
+    display: inline;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
@@ -130,7 +130,7 @@ Extras Checkboxes
 }
 
 .radioCheckbox input:checked ~ .checkmark:after {
-    display: block;
+    display: inline;
 }
 
 .radioCheckbox .checkmark:after {
@@ -143,6 +143,7 @@ Extras Checkboxes
 }
 .checkboxExtra
 {
+    margin-top: 12px;
     display: none;
 }
 #checkboxExtraButton:checked ~ .checkboxExtra
@@ -231,6 +232,11 @@ input:-webkit-autofill {
 .searchField label {
     font-size: 16px;
     margin: 0 25px 0 11px;
+}
+
+.searchFieldCreate label {
+    font-size: 24px;
+    margin: 0;
 }
 
 /* buttons
