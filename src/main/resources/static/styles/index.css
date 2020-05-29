@@ -126,6 +126,7 @@ end navigation */
 
 .welcomeText
 {
+    margin-top: 65px;
     font-size: 45px;
 }
 
@@ -148,6 +149,10 @@ end navigation */
     margin-top: 50px;
 }
 
+.dataSection label {
+    width: 150px;
+}
+
 .listContent
 {
     float: right;
@@ -166,28 +171,6 @@ end navigation */
 .dataTable td:first-child, .dataTable th:first-child
 {
     width: 75px;
-}
-
-/* The edit and remove buttons  */
-.tableOptionButtons button
-{
-    background: #3E2719;
-    color: rgba(252, 233, 192, 0.9);
-    opacity: 0.9;
-    display: block;
-    margin: 5px;
-    text-align: center;
-    padding: 5px 25px;
-    width: 100px;
-    border: 2px solid #3E2719;
-    border-radius: 4px;
-}
-
-.tableOptionButtons button:hover
-{
-    opacity: 1.0;
-    border-radius: 12px;
-    cursor:pointer
 }
 /* # # # # # # # LIST END CONTENT # # # # # # # # # # */
 

@@ -53,18 +53,15 @@
 
             <!-- list content -->
             <div class="dataSection">
-                <div class="searchField" style="margin-bottom: 25px;">
+                <div class="searchField textInput" style="margin-bottom: 25px;">
                     <form action="/employee/viewAll" method="post">
                         <label for="searchSelect">Search Type</label>
                         <select name="searchType" id="searchSelect">
                             <option value="name">Name</option>
                             <option value="position">Position</option>
                         </select>
-                        <br>
-                        <label for="searchQuery">Search query</label>
-                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search">
-                        <br>
-                        <button type="submit" style="margin-left: 150px">Search</button>
+                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                        <button type="submit">Search</button>
                     </form>
                 </div>
                 <table class="dataTable">

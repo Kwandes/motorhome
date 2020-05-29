@@ -165,15 +165,11 @@ Extras Checkboxes
 
 /* input fields
 * * * * * * * * * * * * * * * * * * * * * * * * */
-.textInput input[type = "text"], .textInput input[type = "password"]
+.textInput input[type = "text"], .textInput input[type = "number"], .textInput input[type = "date"]
 {
-    border: 0;
     background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
     border: 1px solid #3E2719;
-    padding: 14px 10px;
+    padding: 5px 10px;
     width: 200px;
     outline: none;
     color: #3E2719;
@@ -181,19 +177,60 @@ Extras Checkboxes
 }
 
 /* input fields when selected */
-.textInput input[type = "text"]:focus, .textInput input[type = "password"]:focus
+.textInput input[type = "text"]:focus
 {
     border: 0;
     background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
     border: 2px solid #3E2719;
-    padding: 14px 10px;
-    width: 250px;
+    padding: 4px 9px;
+    width: 200px;
     outline: none;
     color: #3E2719;
-    border-radius: 6px;
+    border-radius: 5px;
+}
+
+/* Trying hard to override the auto fill background from text-fields */
+input:-webkit-autofill {
+    -webkit-box-shadow:0 0 0 50px rgba(252, 233, 192, 0.7) inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
+}
+
+.textInput button
+{
+    background: #3E2719;
+    color: rgba(252, 233, 192, 1.0);
+    margin: 2px;
+    text-align: center;
+    padding: 6px 25px;
+    width: 100px;
+    border: none;
+    border-radius: 4px;
+}
+
+.textInput button:hover
+{
+    border-radius: 12px;
+    cursor:pointer
+}
+
+/* SELECT OPTION STYLING
+* * * * * * * * * * * * * * * * * * * * * */
+.searchField select
+{
+	background-color: #3E2719;
+    color: rgba(252, 233, 192, 1.0);
+    padding: 5px 10px;
+    width: 150px;
+    border: none;
+    border-radius: 4px;
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
+.searchField label {
+    font-size: 16px;
+    margin: 0 25px 0 11px;
 }
 
 /* buttons
@@ -233,4 +270,25 @@ Extras Checkboxes
 ::placeholder
 {
     color: #3E2719;
+}
+
+.tableOptionButtons button
+{
+    background: #3E2719;
+    color: rgba(252, 233, 192, 0.9);
+    opacity: 0.9;
+    display: block;
+    margin: 5px;
+    text-align: center;
+    padding: 5px 25px;
+    width: 100px;
+    border: 2px solid #3E2719;
+    border-radius: 4px;
+}
+
+.tableOptionButtons button:hover
+{
+    opacity: 1.0;
+    border-radius: 12px;
+    cursor:pointer
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -63,42 +64,47 @@
 
                 <form action="/rv/updateRV" method="POST">
 
-                    <h3>Edit an RV</h3>
-                    <label for="id">Id</label>
-                    <input type="text" name="id" id="id" th:value="${rv.id}" readonly><br>
-                    <label for="brand">Brand</label>
-                    <input type="text" name="brand" id="brand" th:value="${rv.brand}" required><br>
-                    <label for="model">Model</label>
-                    <input type="text" name="model" id="model" th:value="${rv.model}" required><br>
-                    <label for="color">Color</label>
-                    <input type="text" name="color" id="color" th:value="${rv.color}" required><br>
-                    <label for="rvType">Type</label>
-                    <input type="text" name="rvType" id="rvType" th:value="${rv.rvType}" required><br>
-                    <label for="price">price</label>
-                    <input type="number" name="price" id="price" th:value="${rv.price}" required><br>
-                    <label for="fuelStatus">Fuel Status</label>
-                    <input type="number" name="fuelStatus" id="fuelStatus" th:value="${rv.fuelStatus}" required><br>
-                    <label for="kmDriven">Km Driven</label>
-                    <input type="number" name="kmDriven" id="kmDriven" th:value="${rv.kmDriven}" required><br>
+                    <div class="createForm textInput createFormEditRV">
+                        <h3>Edit an RV</h3>
 
-                    <input type="checkbox" name="isRented" id="isRented" th:checked="${rv.isRented}">
-                    <label for="isRented">Is Rented</label><br>
+                        <div class="innerCreateForm">
+                            <label for="id">Id</label>
+                            <input type="text" name="id" id="id" th:value="${rv.id}" readonly><br>
+                            <label for="brand">Brand</label>
+                            <input type="text" name="brand" id="brand" th:value="${rv.brand}" required><br>
+                            <label for="model">Model</label>
+                            <input type="text" name="model" id="model" th:value="${rv.model}" required><br>
+                            <label for="color">Color</label>
+                            <input type="text" name="color" id="color" th:value="${rv.color}" required><br>
+                            <label for="rvType">Type</label>
+                            <input type="text" name="rvType" id="rvType" th:value="${rv.rvType}" required><br>
+                            <label for="price">price</label>
+                            <input type="number" name="price" id="price" th:value="${rv.price}" required><br>
+                            <label for="fuelStatus">Fuel Status</label>
+                            <input type="number" name="fuelStatus" id="fuelStatus" th:value="${rv.fuelStatus}" required><br>
+                            <label for="kmDriven">Km Driven</label>
+                            <input type="number" name="kmDriven" id="kmDriven" th:value="${rv.kmDriven}" required><br>
+                        </div>
 
-                    <input type="checkbox" name="requiresCleaning" id="requiresCleaning"
-                           th:checked="${rv.requiresCleaning}">
-                    <label for="requiresCleaning">Requires Cleaning</label><br>
+                        <input type="checkbox" name="requiresFurtherService" id="requiresFurtherService"
+                               th:checked="${rv.requiresFurtherService}">
+                        <label for="requiresFurtherService">Requires Further Service</label><br>
 
-                    <input type="checkbox" name="requiresMaintenance" id="requiresMaintenance"
-                           th:checked="${rv.requiresMaintenance}">
-                    <label for="requiresMaintenance">Requires Maintenance</label><br>
+                        <input type="checkbox" name="requiresMaintenance" id="requiresMaintenance"
+                               th:checked="${rv.requiresMaintenance}">
+                        <label for="requiresMaintenance">Requires Maintenance</label><br>
 
-                    <input type="checkbox" name="requiresFurtherService" id="requiresFurtherService"
-                           th:checked="${rv.requiresFurtherService}">
-                    <label for="requiresFurtherService">Requires Further Service</label><br>
+                        <input type="checkbox" name="requiresCleaning" id="requiresCleaning"
+                               th:checked="${rv.requiresCleaning}">
+                        <label for="requiresCleaning">Requires Cleaning</label><br>
 
-                    <div class="tableOptionButtons">
-                        <button type="submit">Save</button>
-                        <button onclick="location.href='/rv/viewAll'">Cancel</button>
+                        <input type="checkbox" name="isRented" id="isRented" th:checked="${rv.isRented}">
+                        <label for="isRented">Is Rented</label><br>
+
+                        <div class="tableOptionButtons">
+                            <button onclick="location.href='/rv/viewAll'">Cancel</button>
+                            <button type="submit">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>
