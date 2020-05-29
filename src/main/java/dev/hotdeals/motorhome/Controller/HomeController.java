@@ -32,15 +32,20 @@ public class HomeController
     @PostMapping("/home/login")
     public String login(WebRequest wr, Model model)
     {
+        // Attempts to retrieve the User with the provided Username.
         User user = userService.fetchByUsername(wr.getParameter("username"));
         int error;
 
+        // If the User could not be found or the User's Password did not match the provided Password
+        // the Login page is being reloaded and the error is being displayed.
         if (user == null || !user.getPassword().equals(wr.getParameter("password")))
         {
             error = 1; // Wrong Username or Password. Try Again !
             model.addAttribute("error", error);
             return "/home/index";
         }
+        // If the Username and Password matched the User's inputs
+        // the user will be redirected to the corresponding webpage
         switch (employeeService.fetchByID(user.getEmployee_id()).getPosition())
         {
             case "Cleaning Staff":

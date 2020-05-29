@@ -20,6 +20,7 @@ public class UserRepo {
     public UserRepo() {
     }
 
+    // Returns the User with the provided ID.
     public User fetchByID ( int userID )
     {
         String query = "SELECT * FROM user WHERE id = ?";
@@ -39,6 +40,7 @@ public class UserRepo {
         return user;
     }
 
+    // Returns the User with the provided Username.
     public User fetchByUsername ( String username )
     {
         String query = "SELECT * FROM user WHERE username = ?";
@@ -58,6 +60,7 @@ public class UserRepo {
         return user;
     }
 
+    // Returns the User with the provided Employee ID.
     public User fetchByEmployeeID ( int employeeID )
     {
         String query = "SELECT * FROM user WHERE employee_id = ?";
@@ -77,6 +80,7 @@ public class UserRepo {
         return user;
     }
 
+    // Returns a list of all Users within the Database.
     public List<User> fetchAll ()
     {
         String query = "SELECT * FROM user";
@@ -96,6 +100,7 @@ public class UserRepo {
         return userList;
     }
 
+    // Returns a list of all Users of which Username contains the given String.
     public List<User> searchByUsername ( String username )
     {
         String query = "SELECT * FROM user WHERE username LIKE CONCAT ('%', ?, '%')";
@@ -115,6 +120,7 @@ public class UserRepo {
         return userList;
     }
 
+    // Adds a given User to the Database.
     public boolean addUser( User user )
     {
         String query = "INSERT INTO user( username, password, employee_id ) VALUES ( ?, ?, ? )";
@@ -125,6 +131,7 @@ public class UserRepo {
         return status;
     }
 
+    // Updates a specific User with the values provided in the user object.
     public boolean updateUser( User user )
     {
         String query = "UPDATE user SET username = ?, password = ?, employee_id = ? WHERE id = ?";
@@ -135,6 +142,7 @@ public class UserRepo {
         return status;
     }
 
+    // Deletes the User with the provided ID.
     public boolean deleteUser( int userID )
     {
         String query = "DELETE FROM user WHERE id = ?";

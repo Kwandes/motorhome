@@ -55,21 +55,27 @@ public class EmployeeService {
         return employeeRepo.deleteEmployee( employeeID );
     }
 
+    // Creates a Username based on the provided Employee
     public String createUsername ( Employee employee )
     {
+        // Retrieves the First Name of the Employee and makes it lowercase.
         String username, employeeFirstName = employee.getFirstName().toLowerCase();
+        // If the Name is longer or equal to 4 characters
         if (employeeFirstName.length() >= 4)
         {
+            // The Username will contain the first 4 characters of the Employee's first name.
             username = employeeFirstName.substring(0,4);
         }
-        else
+        else // If the Name is shorter than 4 characters
         {
+            // The Username will contain the entire First Name and will be filled up with '#' until it reaches a length of 4.
             username = employeeFirstName;
             while (username.length() < 4)
             {
                 username += "#";
             }
         }
+        // The first 4 characters of the Employee's Job/Position within the Company, along with the last digit of their ID will be added to the Username.
         username += "_" + employee.getPosition().substring(0,4).toLowerCase() + employee.getId()%10;
 
         return username;
