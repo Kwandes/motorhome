@@ -205,7 +205,12 @@ public class RentalContractService
             }
             int finalPrice = calculateFinalPrice(rentalContract, rvFuelStatus);
             rentalContract.setFinalPrice(finalPrice);
+        } else if (rentalContract.getStatus().equals("canceled"))
+        {
+            int finalPrice = calculateCharge(rentalContract);
+            rentalContract.setFinalPrice(finalPrice);
         }
+
         return rentalContractRepo.updateRentalContract(rentalContract);
     }
 
@@ -244,6 +249,36 @@ public class RentalContractService
         finalPrice += calculateFuelPrice(rvFuelStatus);
 
         return finalPrice;
+    }
+
+    // Calculates the charges that a customer has to pay when he requests to cancel the contract
+    public int calculateCharge (RentalContract rentalContract)
+    {
+        int charge;
+        int basePrice = rentalContract.getBasePrice();
+        LocalDate startDate = LocalDate.parse(rentalContract.getDateStart());
+        LocalDate currentDate = LocalDate.now();
+        int daysDifference = (int)DAYS.between(currentDate, startDate);
+
+        if (daysDifference >= 50)
+        {
+            charge = (int)(0.2 * basePrice);
+            if (charge < 200) charge = 200;
+        } else if (daysDifference >= 15 && daysDifference < 50)
+        {
+            charge = (int)(0.5 * basePrice);
+        } else if (daysDifference >= 1 && daysDifference < 15)
+        {
+            charge = (int)(0.8 * basePrice);
+        } else if (daysDifference == 0)
+        {
+            charge = (int)(0.95 * basePrice);
+        } else
+        {
+            charge = -1;
+        }
+
+        return charge;
     }
 
     // takes in a rental contract object and returns price for fuel used. Used in final price calculation
