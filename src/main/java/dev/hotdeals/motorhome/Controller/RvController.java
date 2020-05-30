@@ -139,6 +139,48 @@ public class RvController
         return "redirect:/rv/viewAll";
     }
 
+    @GetMapping("/rv/maintenance")
+    public String maintainRV( Model model )
+    {
+        List<RV> rvList = rvService.fetchRequiresMaintenance();
+        System.out.println(rvList);
+        model.addAttribute("rvList", rvList);
+        return "/rv/maintenance";
+    }
+
+    @PostMapping("/rv/repairRV")
+    public String repairRV( WebRequest wr )
+    {
+        int rvID = checkID("id", wr, "/rv/repairRV");
+        if ( rvID == -1 )
+        {
+            return "redirect:/rv/errorParameters";
+        }
+
+        RV rv = rvService.fetchByID( rvID );
+        rv.setRequiresMaintenance(false);
+        rv.setRequiresFurtherService(false);
+        rvService.updateRV(rv);
+
+        return "redirect:/rv/maintenance";
+    }
+
+    @PostMapping("/rv/serviceRV")
+    public String serviceRV( WebRequest wr )
+    {
+        int rvID = checkID("id", wr, "/rv/serviceRV");
+        if ( rvID == -1 )
+        {
+            return "redirect:/rv/errorParameters";
+        }
+
+        RV rv = rvService.fetchByID( rvID );
+        rv.setRequiresFurtherService(true);
+        rvService.updateRV(rv);
+
+        return "redirect:/rv/maintenance";
+    }
+
     @GetMapping("/rv/createCleaningPlan")
     public String createCleaningPlan( Model model )
     {

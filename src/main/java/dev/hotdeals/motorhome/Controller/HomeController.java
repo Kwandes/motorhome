@@ -48,12 +48,13 @@ public class HomeController
         // the user will be redirected to the corresponding webpage
         switch (employeeService.fetchByID(user.getEmployee_id()).getPosition())
         {
-            case "Cleaning Staff":
-            case "Auto-mechanic":
             case "Bookkeeper":
                 error = 0; // Not implemented yet - WIP
                 model.addAttribute("error", error);
                 return "/home/index";
+            case "Auto-mechanic":
+                System.out.println("User : " + user.getUsername() + " has logged in.");
+                return "redirect:/rv/maintenance";
             case "Owner":
                 System.out.println("User : " + user.getUsername() + " has logged in.");
                 return "redirect:/employee/viewAll";
