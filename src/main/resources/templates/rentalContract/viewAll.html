@@ -59,11 +59,11 @@
 
         <!-- list content -->
         <div class="dataSection">
-            <div class="searchField" style="margin-bottom: 25px;">
+            <div class="searchField textInput" style="margin-bottom: 25px;">
                 <form action="/rentalContract/viewAll" method="post">
                     <label for="searchSelect">Search Type</label>
                     <select name="searchType" id="searchSelect">
-                        <option value="dropffAddress">Drop-Off Address</option>
+                        <option value="dropoffAddress">Drop-Off Address</option>
                         <option value="pickupAddress">Pick-Up Address</option>
                         <option value="extras">Extras</option>
                         <option value="customerName">Customer Name</option>
@@ -73,12 +73,9 @@
                         <option value="dateStart">Date Start</option>
                         <option value="dateEnd">Date End</option>
                         <option value="status">Status</option>
-                    </select><br>
-
-                    <label for="searchQuery">Search query</label>
-                    <input type="text" name="searchQuery" id="searchQuery" placeholder="Search" maxlength="255"><br>
-
-                    <button type="submit" style="margin-left: 150px">Search</button>
+                    </select>
+                    <input type="text" name="searchQuery" id="searchQuery" placeholder="Search..." maxlength="60">
+                    <button type="submit">Search</button>
                 </form>
             </div>
             <table class="dataTable">
