@@ -5,7 +5,9 @@
 
 package dev.hotdeals.motorhome.Controller;
 
+import dev.hotdeals.motorhome.Model.Employee;
 import dev.hotdeals.motorhome.Model.RV;
+import dev.hotdeals.motorhome.Service.EmployeeService;
 import dev.hotdeals.motorhome.Service.RVService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +25,8 @@ public class RvController
 {
     @Autowired
     RVService rvService;
+    @Autowired
+    EmployeeService employeeService;
 
     // default mapping, redirects to actual viewAll file
     @GetMapping({"/rv", "/rv/", "/rv/viewAll/"})
@@ -134,6 +139,96 @@ public class RvController
         return "redirect:/rv/viewAll";
     }
 
+    @GetMapping("/rv/maintenance")
+    public String maintainRV( Model model )
+    {
+        List<RV> rvList = rvService.fetchRequiresMaintenance();
+        System.out.println(rvList);
+        model.addAttribute("rvList", rvList);
+        return "/rv/maintenance";
+    }
+
+    @PostMapping("/rv/repairRV")
+    public String repairRV( WebRequest wr )
+    {
+        int rvID = checkID("id", wr, "/rv/repairRV");
+        if ( rvID == -1 )
+        {
+            return "redirect:/rv/errorParameters";
+        }
+
+        RV rv = rvService.fetchByID( rvID );
+        rv.setRequiresMaintenance(false);
+        rv.setRequiresFurtherService(false);
+        rvService.updateRV(rv);
+
+        return "redirect:/rv/maintenance";
+    }
+
+    @PostMapping("/rv/serviceRV")
+    public String serviceRV( WebRequest wr )
+    {
+        int rvID = checkID("id", wr, "/rv/serviceRV");
+        if ( rvID == -1 )
+        {
+            return "redirect:/rv/errorParameters";
+        }
+
+        RV rv = rvService.fetchByID( rvID );
+        rv.setRequiresFurtherService(true);
+        rvService.updateRV(rv);
+
+        return "redirect:/rv/maintenance";
+    }
+
+    @GetMapping("/rv/createCleaningPlan")
+    public String createCleaningPlan( Model model )
+    {
+        List<Employee> employeeList = employeeService.searchByPosition("Cleaning Staff");
+        model.addAttribute("employeeList", employeeList);
+        List<RV> rvList = rvService.fetchRequiresCleaning();
+        model.addAttribute("rvList", rvList);
+
+        return "/rv/createCleaningPlan";
+    }
+
+    @PostMapping("/rv/printCleaningPlan")
+    public String printCleaningPlan (WebRequest wr, Model model)
+    {
+        // Fetch Cleaner
+        int cleanerID = checkID("employeeID", wr, "/rv/printCleaningPlan");
+        if (cleanerID == -1)
+        {
+            return "redirect:/rv/errorParameters";
+        }
+        Employee cleaner = employeeService.fetchByID(cleanerID);
+
+        // Fetch List of Selected RVs
+        List<RV> rvList = new ArrayList<>();
+        String[] selectedRVList = wr.getParameterValues("rvID");
+        try
+        {
+            for (int i = 0; i < selectedRVList.length; i ++)
+            {
+                int rvID = Integer.parseInt(selectedRVList[i]);
+                RV rv = rvService.fetchByID(rvID);
+                rv.setRequiresCleaning(false);
+                rvService.updateRV(rv);
+                rvList.add(rv);
+            }
+        } catch (NullPointerException | NumberFormatException e)
+        {
+            System.out.println("Failed to retrieve Selected RV List");
+            System.out.println(e);
+        }
+
+        model.addAttribute("cleaner", cleaner);
+        model.addAttribute("rvList", rvList);
+
+        return "/rv/cleaningPlan";
+    }
+
+
     @GetMapping("/rv/errorParameters")
     public String errorParameters()
     {
@@ -157,5 +252,19 @@ public class RvController
             model.addAttribute("rvList", rvList);
             return "rv/viewAll";
         }
+    }
+
+    public int checkID (String varName, WebRequest wr, String mapping)
+    {
+        int x;
+        try
+        {
+            x = Integer.parseInt(wr.getParameter(varName));
+        } catch (NullPointerException | NumberFormatException e)
+        {
+            System.out.println("Failed to get parameter '" + varName + "' from the model in " + mapping + " : " + e);
+            return -1;
+        }
+        return x;
     }
 }

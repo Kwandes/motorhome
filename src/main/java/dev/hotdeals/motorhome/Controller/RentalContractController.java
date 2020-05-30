@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 
 @Controller
 public class RentalContractController
@@ -136,7 +142,6 @@ public class RentalContractController
     @PostMapping("/rentalContract/updateRentalContract")
     public String updateRentalContract(@ModelAttribute RentalContract rentalContract, WebRequest wr)
     {
-        rentalContractService.updateRentalContract(rentalContract);
         if (rentalContract.getStatus().equals("closed"))
         {
             Random r = new Random();
@@ -150,7 +155,25 @@ public class RentalContractController
             rv.setFuelStatus(rvFuelStatus);
             rv.setKmDriven(rv.getKmDriven()+rentalContract.getKmDriven());
             rvService.updateRV(rv);
+        } else if (rentalContract.getStatus().equals("canceled"))
+        {
+            // If the Start Day hasn't already passed
+            if (rentalContractService.calculateCharge(rentalContract) != -1)
+            {
+                int rvID = rentalContract.getRv_id();
+                RV rv = rvService.fetchByID(rvID);
+                rv.setIsRented(false);
+                rvService.updateRV(rv);
+            }
+           else
+            {
+                // In case the current day is past the Start Day of the Contract, then no changes will apply.
+                rentalContract.setStatus("open");
+            }
         }
+
+        rentalContractService.updateRentalContract(rentalContract);
+
         return "redirect:/rentalContract/viewAll";
     }
 

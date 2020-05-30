@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cleaning Plan - Send</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="backgroundImage"></div>
+
+<!-- HEADER NAVIGATION BAR -->
+<div class="navContainer">
+    <div class="navWrapper">
+        <nav>
+            <div class="logo">
+                <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+            </div>
+
+            <ul class="navItems">
+                <li>
+                    <a href="/customer/viewAll">Customers</a>
+                </li>
+                <li>
+                    <a href="/rentalContract/viewAll">Rentals</a>
+                </li>
+                <li>
+                    <a href="/rv">RV</a>
+                </li>
+                <li>
+                    <a href="/index">Log out</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END HEADER NAVIGATION BAR -->
+
+<!-- PAGE CONTENT -->
+<div class="headerContainer">
+    <div class="pageWrapper">
+        <!-- list content -->
+        <div class="dataSection">
+                <div class="createForm textInput createFormEditRV">
+                    <h3>Cleaning Plan sent !</h3>
+
+                    <label for="cleaner">Sales Assistant</label>
+                    <div th:name="cleaner" id="cleaner"  th:text="${cleaner.id} + ' ' + ${cleaner.firstName} + ' ' + ${cleaner.lastName}"></div><br>
+
+                    <table class="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Type</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="main" th:each="rv: ${rvList}">
+                            <td th:text="${rv.id}"></td>
+                            <td th:text="${rv.brand}"></td>
+                            <td th:text="${rv.model}"></td>
+                            <td th:text="${rv.rvType}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="tableOptionButtons">
+                        <button onclick="location.href='/rv/viewAll'">Go Back</button>
+                    </div>
+                </div>
+        </div>
+        <!-- end list content -->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+</body>
+</html>

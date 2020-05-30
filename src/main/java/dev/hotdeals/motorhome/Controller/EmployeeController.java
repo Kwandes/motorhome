@@ -90,7 +90,9 @@ public class EmployeeController {
     @PostMapping ("/employee/updateEmployee")
     public String updateEmployee (@ModelAttribute Employee employee)
     {
+        // Creates the Username based on the Employee
         String username = employeeService.createUsername(employee);
+        // Generates a password : Hash code of the Username ( to simulate having a 'secure' password )
         String password = String.valueOf(abs(username.hashCode()));
 
         User user = userService.fetchByEmployeeID(employee.getId());
@@ -117,14 +119,16 @@ public class EmployeeController {
     {
         employeeService.addEmployee(employee);
 
+        // Creates the Username based on the Employee
         String username = employeeService.createUsername(employee);
-        String password = String.valueOf(username.hashCode());
+        // Generates a password : Hash code of the Username ( to simulate having a 'secure' password )
+        String password = String.valueOf(abs(username.hashCode()));
 
         User user = new User();
 
         user.setUsername(username);
         user.setPassword(password);
-        try
+        try // Sets User's employeeID to the Employee's ID
         {
             user.setEmployee_id(employeeService.searchByName(employee.getFirstName() + " " + employee.getLastName()).get(0).getId());
             userService.addUser(user);

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/index.css}" rel="stylesheet"/>
     <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -42,29 +43,44 @@
 
                 <form action="/employee/updateEmployee" method="POST">
 
-                    <h3>Edit an existing Employee</h3>
-                    <label for="id">ID</label>
-                    <input type="number" name="id" id="id" th:value="${employee.id}" required readonly><br>
+                    <div class="createForm textInput createFormEmployeeEdit">
+                        <h3>Edit an existing Employee</h3>
 
-                    <label for="firstName">First Name</label>
-                    <input type="text" name="firstName" id="firstName" th:value="${employee.firstName}" required><br>
+                        <div class="innerCreateForm innerCreateFormEmployeeEdit">
+                            <label for="id">ID</label>
+                            <input type="number" name="id" id="id" th:value="${employee.id}" required readonly><br>
 
-                    <label for="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" th:value="${employee.lastName}" required><br>
+                            <label for="firstName">First Name</label>
+                            <input type="text" name="firstName" id="firstName" th:value="${employee.firstName}" maxlength="40" required><br>
 
-                    <label for="position">Position</label>
-                    <input type="text" name="position" id="position" th:value="${employee.position}" required><br>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" name="lastName" id="lastName" th:value="${employee.lastName}" maxlength="40" required><br>
 
-                    <label for="gender">Gender</label>
-                    <select name="gender" id="gender" th:field="${employee.gender}">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select><br>
+                            <label for="position">Position</label>
+                            <div class="searchField createSelect">
+                                <select name="position" id="position" th:field="${employee.position}" required>
+                                    <option value="Cleaning Staff">Cleaning Staff</option>
+                                    <option value="Auto-mechanic">Auto-mechanic</option>
+                                    <option value="Bookkeeper">Bookkeeper</option>
+                                    <option value="Owner">Owner</option>
+                                    <option value="Sales Assistant">Sales Assistant</option>
+                                </select><br>
+                            </div>
 
-                    <div class="tableOptionButtons">
-                        <button type="submit">Save</button>
-                        <button type="button" onclick="location.href='/employee/viewAll'">Cancel</button>
+                            <label for="gender">Gender</label>
+                            <div class="searchField createSelect">
+                                <select name="gender" id="gender" th:field="${employee.gender}">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select><br>
+                            </div>
+                        </div>
+
+                        <div class="tableOptionButtons">
+                            <button type="button" onclick="location.href='/employee/viewAll'">Cancel</button>
+                            <button type="submit">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>
