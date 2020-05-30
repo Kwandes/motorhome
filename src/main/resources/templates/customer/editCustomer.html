@@ -56,25 +56,25 @@
                             <input type="text" name="id" id="id" th:value="${customer.id}" readonly><br>
 
                             <label for="firstName">First Name</label>
-                            <input type="text" name="firstName" id="firstName" th:value="${customer.firstName}" required><br>
+                            <input type="text" name="firstName" id="firstName" th:value="${customer.firstName}" maxlength="40" required><br>
 
                             <label for="lastName">Last Name</label>
-                            <input type="text" name="lastName" id="lastName" th:value="${customer.lastName}" required><br>
+                            <input type="text" name="lastName" id="lastName" th:value="${customer.lastName}" maxlength="40" required><br>
 
                             <label for="cpr">Cpr</label>
-                            <input type="text" name="cpr" id="cpr" th:value="${customer.cpr}" required><br>
+                            <input type="text" name="cpr" id="cpr" th:value="${customer.cpr}" maxlength="11" required><br>
 
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" th:value="${customer.email}"><br>
+                            <input type="text" name="email" id="email" th:value="${customer.email}" maxlength="80"><br>
 
                             <label for="birthdate">Birthdate</label>
-                            <input type="date" name="birthdate" id="birthdate" th:value="${customer.birthdate}" required><br>
+                            <input type="date" name="birthdate" id="birthdate" th:value="${customer.birthdate}" max="2020-01-01" required><br>
 
                             <label for="address">Address</label>
-                            <input type="text" name="address" id="address" th:value="${customer.address}" required><br>
+                            <input type="text" name="address" id="address" th:value="${customer.address}" maxlength="255" required><br>
 
                             <label for="address2">address2</label>
-                            <input type="text" name="address2" id="address2" th:value="${customer.address2}"><br>
+                            <input type="text" name="address2" id="address2" th:value="${customer.address2}" maxlength="255"><br>
 
                             <label for="gender">Gender</label>
                             <div class="searchField createSelect">
@@ -86,7 +86,7 @@
                             </div>
 
                             <label for="phoneNumber">Phone Number</label>
-                            <input type="text" name="phoneNumber" id="phoneNumber" th:value="${customer.phoneNumber}"><br>
+                            <input type="text" name="phoneNumber" id="phoneNumber" th:value="${customer.phoneNumber}" maxlength="15"><br>
                         </div>
 
                         <div class="tableOptionButtons">

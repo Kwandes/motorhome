@@ -44,20 +44,6 @@
     <!-- PAGE CONTENT -->
     <div class="headerContainer">
         <div class="pageWrapper">
-            <!-- Selection buttons
-            <div class="buttonList">
-                <ul class="optionButtons">
-                    <div class="selected">
-                        <li onClick="location.href='/rv/viewAll';" style="cursor:pointer;">
-                            <a href="/rv/viewAll">View All</a>
-                        </li>
-                    </div>
-                    <li onClick="location.href='/rv/createNewRV';" style="cursor:pointer;">
-                        <a href="/rv/createNewRV">Create New</a>
-                    </li>
-                </ul>
-            </div>
-            -->
 
             <!-- list content -->
             <div class="dataSection">
@@ -71,19 +57,19 @@
                             <label for="id">Id</label>
                             <input type="text" name="id" id="id" th:value="${rv.id}" readonly><br>
                             <label for="brand">Brand</label>
-                            <input type="text" name="brand" id="brand" th:value="${rv.brand}" required><br>
+                            <input type="text" name="brand" id="brand" th:value="${rv.brand}" maxlength="30" required><br>
                             <label for="model">Model</label>
-                            <input type="text" name="model" id="model" th:value="${rv.model}" required><br>
+                            <input type="text" name="model" id="model" th:value="${rv.model}" maxlength="30" required><br>
                             <label for="color">Color</label>
-                            <input type="text" name="color" id="color" th:value="${rv.color}" required><br>
+                            <input type="text" name="color" id="color" th:value="${rv.color}" maxlength="30" required><br>
                             <label for="rvType">Type</label>
-                            <input type="text" name="rvType" id="rvType" th:value="${rv.rvType}" required><br>
+                            <input type="text" name="rvType" id="rvType" th:value="${rv.rvType}" maxlength="30" required><br>
                             <label for="price">price</label>
-                            <input type="number" name="price" id="price" th:value="${rv.price}" required><br>
+                            <input type="number" name="price" id="price" th:value="${rv.price}" min="-2147483648" max="2147483647" required><br>
                             <label for="fuelStatus">Fuel Status</label>
-                            <input type="number" name="fuelStatus" id="fuelStatus" th:value="${rv.fuelStatus}" required><br>
+                            <input type="number" name="fuelStatus" id="fuelStatus" th:value="${rv.fuelStatus}" min="0" max="1" step="0.1" required><br>
                             <label for="kmDriven">Km Driven</label>
-                            <input type="number" name="kmDriven" id="kmDriven" th:value="${rv.kmDriven}" required><br>
+                            <input type="number" name="kmDriven" id="kmDriven" th:value="${rv.kmDriven}" min="-2147483648" max="2147483647" required><br>
                         </div>
 
                         <input type="checkbox" name="requiresFurtherService" id="requiresFurtherService"

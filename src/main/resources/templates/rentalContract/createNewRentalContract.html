@@ -74,10 +74,10 @@
                             <input type="date" th:name="dateEnd" id="dateEnd" placeholder="Date End" min="2020-01-01" max="2200-02-02" required><br>
 
                             <label for="dropoffAddress">Drop-Off Address</label>
-                            <input type="text" th:name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" required><br>
+                            <input type="text" th:name="addressDropoff" id="dropoffAddress" placeholder="Drop-Off Address" maxlength="255" required><br>
 
                             <label for="pickupAddress">Pick-Up Address</label>
-                            <input type="text" th:name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" required><br>
+                            <input type="text" th:name="addressPickup" id="pickupAddress" placeholder="Pick-Up Address" maxlength="255" required><br>
 
                             <div class="searchField searchFieldCreate createSelect">
                                 <label for="customer_id">Customer</label>

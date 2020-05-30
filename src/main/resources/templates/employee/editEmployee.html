@@ -51,13 +51,21 @@
                             <input type="number" name="id" id="id" th:value="${employee.id}" required readonly><br>
 
                             <label for="firstName">First Name</label>
-                            <input type="text" name="firstName" id="firstName" th:value="${employee.firstName}" required><br>
+                            <input type="text" name="firstName" id="firstName" th:value="${employee.firstName}" maxlength="40" required><br>
 
                             <label for="lastName">Last Name</label>
-                            <input type="text" name="lastName" id="lastName" th:value="${employee.lastName}" required><br>
+                            <input type="text" name="lastName" id="lastName" th:value="${employee.lastName}" maxlength="40" required><br>
 
                             <label for="position">Position</label>
-                            <input type="text" name="position" id="position" th:value="${employee.position}" required><br>
+                            <div class="searchField createSelect">
+                                <select name="position" id="position" th:field="${employee.position}" required>
+                                    <option value="Cleaning Staff">Cleaning Staff</option>
+                                    <option value="Auto-mechanic">Auto-mechanic</option>
+                                    <option value="Bookkeeper">Bookkeeper</option>
+                                    <option value="Owner">Owner</option>
+                                    <option value="Sales Assistant">Sales Assistant</option>
+                                </select><br>
+                            </div>
 
                             <label for="gender">Gender</label>
                             <div class="searchField createSelect">

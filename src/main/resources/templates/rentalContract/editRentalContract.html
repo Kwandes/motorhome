@@ -65,7 +65,7 @@
                     <input type="text" name="addressPickup" id="pickupAddress" th:value="${rentalContract.addressPickup}" placeholder="Pick-Up Address" required readonly><br>
 
                     <label for="kmDriven">Kilometers Driven</label>
-                    <input type="number" name="kmDriven" id="kmDriven" th:value="${rentalContract.kmDriven}" placeholder="Kilometers Driven" required><br>
+                    <input type="number" name="kmDriven" id="kmDriven" th:value="${rentalContract.kmDriven}" placeholder="Kilometers Driven" min="-2147483648" max="2147483647" required><br>
 
                     <label for="status">Status</label>
                     <select name="status" id="status" th:value="${rentalContract.status}">
