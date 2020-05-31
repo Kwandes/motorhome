@@ -141,7 +141,7 @@ public class ReportService
         //
         rented = rvService.fetchRented().size();
         available = rvService.fetchAvailable().size();
-        requireAttention = rvService.fetchRequiresCleaning().size() + rvService.fetchRequiresMaintenance().size();
+        requireAttention = rvService.fetchAll().size() - (rented + available);
 
         statList.put("rented", rented);
         statList.put("requireAttention", requireAttention);
