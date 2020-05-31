@@ -204,6 +204,14 @@ public class RentalContractTests
         }
 
         @Test
+        @DisplayName("searchByEmployeeName()")
+        public void rentalContractRepoSearchByEmployeeNameTest() throws Exception
+        {
+            List<RentalContract> rentalContractList = rentalContractRepo.searchByEmployeeName("");
+            assertThat(rentalContractList).isNotEmpty();
+        }
+
+        @Test
         @DisplayName("searchByRvModel()")
         public void rentalContractRepoSearchByRvModelTest() throws Exception
         {
