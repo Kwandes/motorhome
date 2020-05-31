@@ -25,19 +25,6 @@ public class CustomerService {
         return customerRepo.fetchByID( customerID );
     }
 
-    // Returns a list of all Customers of which CPR contains the String provided
-    public List<Customer> searchByCpr( String cpr )
-    {
-        return customerRepo.searchByCpr( cpr );
-    }
-
-    // Returns a list of all Customers of which Name( First Name & Last Name )
-    // contains the String provided
-    public List<Customer> searchByName( String name )
-    {
-        return customerRepo.searchByName ( name );
-    }
-
     // Adds a Customers to the DB
     public boolean addCustomer ( Customer customer )
     {
@@ -54,5 +41,18 @@ public class CustomerService {
     public boolean deleteCustomer ( int customerID )
     {
         return customerRepo.deleteCustomer( customerID );
+    }
+
+    // Returns a list of all Customers of which CPR contains the String provided
+    public List<Customer> searchByCpr( String cpr )
+    {
+        return customerRepo.searchByCpr( cpr );
+    }
+
+    // Returns a list of all Customers of which Name( First Name & Last Name )
+    // contains the String provided
+    public List<Customer> searchByName( String name )
+    {
+        return customerRepo.searchByName ( name );
     }
 }

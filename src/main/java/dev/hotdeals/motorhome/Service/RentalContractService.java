@@ -135,56 +135,6 @@ public class RentalContractService
         return rentalContractRepo.fetchAll();
     }
 
-    public List<RentalContract> searchByCustomerName(String customerName)
-    {
-        return rentalContractRepo.searchByCustomerName(customerName);
-    }
-
-    public List<RentalContract> searchByEmployeeName(String employeeName)
-    {
-        return rentalContractRepo.searchByEmployeeName(employeeName);
-    }
-
-    public List<RentalContract> searchByExtras(String extras)
-    {
-        return rentalContractRepo.searchByExtras(extras);
-    }
-
-    public List<RentalContract> searchByAddressDropoff(String dropoff)
-    {
-        return rentalContractRepo.searchByAddressDropoff(dropoff);
-    }
-
-    public List<RentalContract> searchByAddressPickup(String pickup)
-    {
-        return rentalContractRepo.searchByAddressPickup(pickup);
-    }
-
-    public List<RentalContract> sortByStatus()
-    {
-        return rentalContractRepo.sortByStatus();
-    }
-
-    public List<RentalContract> searchByRvModel(String rvModel)
-    {
-        return rentalContractRepo.searchByRvModel(rvModel);
-    }
-
-    public List<RentalContract> sortByDateStart()
-    {
-        return rentalContractRepo.sortByDateStart();
-    }
-
-    public List<RentalContract> sortByDateEnd()
-    {
-        return rentalContractRepo.sortByDateEnd();
-    }
-
-    public List<RentalContract> sortByDateSigned()
-    {
-        return rentalContractRepo.sortByDateSigned();
-    }
-
     // due to complexity, this method is not tested in the Tests (extra call to the rvService)
     public boolean updateRentalContract(RentalContract rentalContract)
     {
@@ -236,6 +186,56 @@ public class RentalContractService
         rentalContract.setBasePrice(basePrice);
 
         return rentalContractRepo.addRentalContract(rentalContract);
+    }
+
+    public List<RentalContract> searchByCustomerName(String customerName)
+    {
+        return rentalContractRepo.searchByCustomerName(customerName);
+    }
+
+    public List<RentalContract> searchByEmployeeName(String employeeName)
+    {
+        return rentalContractRepo.searchByEmployeeName(employeeName);
+    }
+
+    public List<RentalContract> searchByExtras(String extras)
+    {
+        return rentalContractRepo.searchByExtras(extras);
+    }
+
+    public List<RentalContract> searchByAddressDropoff(String dropoff)
+    {
+        return rentalContractRepo.searchByAddressDropoff(dropoff);
+    }
+
+    public List<RentalContract> searchByAddressPickup(String pickup)
+    {
+        return rentalContractRepo.searchByAddressPickup(pickup);
+    }
+
+    public List<RentalContract> sortByStatus()
+    {
+        return rentalContractRepo.sortByStatus();
+    }
+
+    public List<RentalContract> searchByRvModel(String rvModel)
+    {
+        return rentalContractRepo.searchByRvModel(rvModel);
+    }
+
+    public List<RentalContract> sortByDateSigned()
+    {
+        return rentalContractRepo.sortByDateSigned();
+    }
+
+    public List<RentalContract> sortByDateStart()
+    {
+        return rentalContractRepo.sortByDateStart();
+    }
+
+    public List<RentalContract> sortByDateEnd()
+    {
+        return rentalContractRepo.sortByDateEnd();
     }
 
     //region Calculate Final Price

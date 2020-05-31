@@ -53,6 +53,33 @@ public class EmployeeRepo
         return employeeList;
     }
 
+    // Returns a boolean ( status ) : true - if the Employee has been successfully added; false - if opposite
+    public boolean addEmployee(Employee employee)
+    {
+        String query = "INSERT INTO employee (first_name, last_name, position, gender) VALUES ( ?, ?, ?, ? )";
+        int rowsAffected = template.update(query, employee.getFirstName(), employee.getLastName(), employee.getPosition(), employee.getGender());
+        boolean status = rowsAffected > 0; // If higher than 0, it means that the Employee has been added
+        return status;
+    }
+
+    // Returns a boolean ( status ) : true - if the Employee has been successfully update; false - if opposite
+    public boolean updateEmployee (Employee employee)
+    {
+        String query = "UPDATE employee SET first_name = ?, last_name = ?, position = ?, gender = ? WHERE id = ?";
+        int rowsAffected = template.update(query, employee.getFirstName(), employee.getLastName(), employee.getPosition(), employee.getGender(), employee.getId());
+        boolean status = rowsAffected > 0; // If higher than 0, it means that the Employee has been update
+        return status;
+    }
+
+    // Returns a boolean ( status ) : true - if the Employee has been successfully update; false - is opposite
+    public boolean deleteEmployee(int employeeID)
+    {
+        String query = "DELETE FROM employee WHERE id = ?";
+        int rowsAffected = template.update(query,employeeID);
+        boolean status = rowsAffected > 0; //  // If higher than 0, it means that the Employee has been deleted
+        return status;
+    }
+
     // Returns a list of all Employees of which Name contains the provided String
     public List<Employee> searchByName( String name )
     {
@@ -87,32 +114,5 @@ public class EmployeeRepo
             employeeList = new ArrayList<>(); // In case of failure, return an empty list
         }
         return employeeList;
-    }
-
-    // Returns a boolean ( status ) : true - if the Employee has been successfully added; false - if opposite
-    public boolean addEmployee(Employee employee)
-    {
-        String query = "INSERT INTO employee (first_name, last_name, position, gender) VALUES ( ?, ?, ?, ? )";
-        int rowsAffected = template.update(query, employee.getFirstName(), employee.getLastName(), employee.getPosition(), employee.getGender());
-        boolean status = rowsAffected > 0; // If higher than 0, it means that the Employee has been added
-        return status;
-    }
-
-    // Returns a boolean ( status ) : true - if the Employee has been successfully update; false - if opposite
-    public boolean updateEmployee (Employee employee)
-    {
-        String query = "UPDATE employee SET first_name = ?, last_name = ?, position = ?, gender = ? WHERE id = ?";
-        int rowsAffected = template.update(query, employee.getFirstName(), employee.getLastName(), employee.getPosition(), employee.getGender(), employee.getId());
-        boolean status = rowsAffected > 0; // If higher than 0, it means that the Employee has been update
-        return status;
-    }
-
-    // Returns a boolean ( status ) : true - if the Employee has been successfully update; false - is opposite
-    public boolean deleteEmployee(int employeeID)
-    {
-        String query = "DELETE FROM employee WHERE id = ?";
-        int rowsAffected = template.update(query,employeeID);
-        boolean status = rowsAffected > 0; //  // If higher than 0, it means that the Employee has been deleted
-        return status;
     }
 }

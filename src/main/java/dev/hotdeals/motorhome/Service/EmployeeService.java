@@ -25,18 +25,6 @@ public class EmployeeService {
         return employeeRepo.fetchAll();
     }
 
-    // Returns a list of all Employees of which Name contains the String provided
-    public List<Employee> searchByName ( String name )
-    {
-        return employeeRepo.searchByName( name );
-    }
-
-    // Returns a list of all Employees of which Position contains the String provided
-    public List<Employee> searchByPosition ( String position )
-    {
-        return employeeRepo.searchByPosition( position );
-    }
-
     // Adds an Employee to the DB
     public boolean addEmployee ( Employee employee )
     {
@@ -53,6 +41,18 @@ public class EmployeeService {
     public boolean deleteEmployee ( int employeeID )
     {
         return employeeRepo.deleteEmployee( employeeID );
+    }
+
+    // Returns a list of all Employees of which Name contains the String provided
+    public List<Employee> searchByName ( String name )
+    {
+        return employeeRepo.searchByName( name );
+    }
+
+    // Returns a list of all Employees of which Position contains the String provided
+    public List<Employee> searchByPosition ( String position )
+    {
+        return employeeRepo.searchByPosition( position );
     }
 
     // Creates a Username based on the provided Employee
