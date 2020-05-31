@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 
 @Entity
-public class RentalContract
+public class RentalContract implements Model
 {
     @Id
     private int id;
