@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Customer
+public class Customer implements Model
 {
     @Id
     private int id;

@@ -16,16 +16,34 @@ public class RVService {
     @Autowired
     RVRepo rvRepo;
 
+    // Returns the RV with the specified ID
+    public RV fetchByID ( int recreationalVehicleID )
+    {
+        return rvRepo.fetchByID( recreationalVehicleID );
+    }
+
     // Returns a list of all RVs in the DB
     public List<RV> fetchAll ()
     {
         return rvRepo.fetchAll();
     }
 
-    // Returns the RV with the specified ID
-    public RV fetchByID ( int recreationalVehicleID )
+    // Adds the given RV Object into the DataBase
+    public boolean addRV ( RV recreationalVehicle )
     {
-        return rvRepo.fetchByID( recreationalVehicleID );
+        return rvRepo.addRV( recreationalVehicle );
+    }
+
+    // Updates the row of a specified RV with the information from the given RV Object
+    public boolean updateRV ( RV recreationalVehicle )
+    {
+        return rvRepo.updateRV( recreationalVehicle );
+    }
+
+    // Deletes the RV with the given ID from the DataBase
+    public boolean deleteRV ( int recreationalVehicleID )
+    {
+        return rvRepo.deleteRV( recreationalVehicleID );
     }
 
     // Returns a list of all RVs that are available ( not rented, don't require cleaning, maintenance or further service )
@@ -50,24 +68,6 @@ public class RVService {
     public List<RV> fetchRequiresMaintenance ()
     {
         return rvRepo.fetchRequiresMaintenance();
-    }
-
-    // Adds the given RV Object into the DataBase
-    public boolean addRV ( RV recreationalVehicle )
-    {
-        return rvRepo.addRV( recreationalVehicle );
-    }
-
-    // Updates the row of a specified RV with the information from the given RV Object
-    public boolean updateRV ( RV recreationalVehicle )
-    {
-        return rvRepo.updateRV( recreationalVehicle );
-    }
-
-    // Deletes the RV with the given ID from the DataBase
-    public boolean deleteRV ( int recreationalVehicleID )
-    {
-        return rvRepo.deleteRV( recreationalVehicleID );
     }
 
     // Returns a list of all RVs in the DB, sorted by price ( Descended )

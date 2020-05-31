@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -200,6 +201,14 @@ public class RentalContractTests
         public void rentalContractRepoSearchByCustomerNameTest() throws Exception
         {
             List<RentalContract> rentalContractList = rentalContractRepo.searchByCustomerName("");
+            assertThat(rentalContractList).isNotEmpty();
+        }
+
+        @Test
+        @DisplayName("searchByEmployeeName()")
+        public void rentalContractRepoSearchByEmployeeNameTest() throws Exception
+        {
+            List<RentalContract> rentalContractList = rentalContractRepo.searchByEmployeeName("");
             assertThat(rentalContractList).isNotEmpty();
         }
 
@@ -486,6 +495,58 @@ public class RentalContractTests
             rentalContract.setKmDriven(44100); // 105 days * 400 km = 42000 km. 44100 is over that
 
             assertThat(rcService.calculateKmDrivenPrice(rentalContract)).isEqualTo(2100);
+        }
+
+        @Test
+        @DisplayName("calculateCharge() - All edge cases")
+        public void RentalContractServiceCalculateChargeTest()
+        {
+            RentalContract rentalContract = new RentalContract();
+            rentalContract.setBasePrice(1000);
+            String currentDate = LocalDate.now().plusDays(75).toString(); // 75 days ahead of current date
+            rentalContract.setDateStart(currentDate);
+
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(200); // X > 50, expected charge = 200
+
+            currentDate = LocalDate.now().plusDays(51).toString(); // 51 days ahead of current date
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(200); // X > 50, expected charge = 200
+
+            currentDate = LocalDate.now().plusDays(50).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(200); // 50 == X, expected charge = 200
+
+            currentDate = LocalDate.now().plusDays(49).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(500); // 50 > X > 15, expected charge 1000 * 0,5
+
+            currentDate = LocalDate.now().plusDays(16).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(500); // 50 > X > 15, expected charge 1000 * 0,5
+
+            currentDate = LocalDate.now().plusDays(15).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(500); // 50 > X == 15, expected charge 1000 * 0,5
+
+            currentDate = LocalDate.now().plusDays(14).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(800); // 15 > X > 1, expected charge 1000 * 0,8
+
+            currentDate = LocalDate.now().plusDays(2).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(800); // 15 > X > 1, expected charge 1000 * 0,8
+
+            currentDate = LocalDate.now().plusDays(1).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(800); // 15 > X == 1, expected charge 1000 * 0,8
+
+            currentDate = LocalDate.now().plusDays(0).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(950); // X == 0, expected charge 1000 * 0,95
+
+            currentDate = LocalDate.now().plusDays(-1).toString();
+            rentalContract.setDateStart(currentDate);
+            assertThat(rcService.calculateCharge(rentalContract)).isEqualTo(-1); // 0 > X, else case, expected charge -1
         }
 
         @Test

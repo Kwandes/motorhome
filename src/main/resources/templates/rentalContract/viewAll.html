@@ -82,15 +82,10 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Date Signed</th>
                         <th>Date Start</th>
                         <th>Date End</th>
-                        <th>Drop-Off Address</th>
-                        <th>Pick-Up Address</th>
                         <th>Base Price</th>
                         <th>Final Price</th>
-                        <th>KM Driven</th>
-                        <th>Extras</th>
                         <th>Customer Name</th>
                         <th>Employee Name</th>
                         <th>Motorhome</th>
@@ -100,15 +95,10 @@
                 <tbody>
                     <tr class="main" th:each="rentalContract,iter: ${rentalContractList}">
                         <td th:text="${rentalContract.id}"></td>
-                        <td th:text="${rentalContract.dateSigned}"></td>
                         <td th:text="${rentalContract.dateStart}"></td>
                         <td th:text="${rentalContract.dateEnd}"></td>
-                        <td th:text="${rentalContract.addressDropoff}"></td>
-                        <td th:text="${rentalContract.addressPickup}"></td>
                         <td th:text="${rentalContract.basePrice}"></td>
                         <td th:text="${rentalContract.finalPrice}"></td>
-                        <td th:text="${rentalContract.kmDriven}"></td>
-                        <td th:text="${rentalContract.extras}"></td>
                         <td th:with="i=${iter.count}-1" th:text="${customerList[i].firstName} + ' ' + ${customerList[i].lastName}"></td>
                         <td th:with="i=${iter.count}-1" th:text="${employeeList[i].firstName} + ' ' + ${employeeList[i].lastName}"></td>
                         <td th:with="i=${iter.count}-1" th:text="${rvList[i].brand} + ' ' + ${rvList[i].model}"></td>

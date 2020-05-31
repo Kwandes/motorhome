@@ -138,7 +138,7 @@ public class RentalContractRepo
     //search by customer name. Joins customer and rental_contract matching Customer_id with customer.Id. No order.
     public List<RentalContract> searchByCustomerName(String customerName)
     {
-        String query = "SELECT * FROM rental_contract " +
+        String query = "SELECT rental_contract.* FROM rental_contract " +
                 "JOIN customer ON rental_contract.customer_id = customer.id " +
                 "WHERE CONCAT( customer.first_name, \" \", customer.last_name ) LIKE CONCAT ( '%' , ? , '%' )";
 
@@ -159,9 +159,9 @@ public class RentalContractRepo
     //search by employee name. Joins customer and rental_contract matching employee_id with employee.Id. No order.
     public List<RentalContract> searchByEmployeeName(String employeeName)
     {
-        String query = "SELECT * FROM rental_contract " +
-                "JOIN customer ON rental_contract.employee_id = employee.id " +
-                "WHERE CONCAT( employee.first_name, \" \", employee.last_name ) = LIKE CONCAT ( '%' , ? , '%' )";
+        String query = "SELECT rental_contract.* FROM rental_contract " +
+                "JOIN employee ON rental_contract.employee_id = employee.id " +
+                "WHERE CONCAT( employee.first_name, \" \", employee.last_name ) LIKE CONCAT ( '%' , ? , '%' )";
 
         RowMapper<RentalContract> rw = new BeanPropertyRowMapper<>(RentalContract.class);
         List<RentalContract> rentalContractList;
@@ -182,7 +182,7 @@ public class RentalContractRepo
     {
         //Using a join between rental_contract and rv
         //Rv_id and rv.id connects, then order rental_contracts by the model of the rv
-        String query = "SELECT * FROM rental_contract " +
+        String query = "SELECT rental_contract.* FROM rental_contract " +
                 "JOIN rv ON rental_contract.rv_id = rv.id " +
                 "WHERE rv.model LIKE CONCAT ( '%' , ? , '%' )";
 

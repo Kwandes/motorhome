@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Motorhome Report</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/create.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/report.css}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="/report/">Report</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewContract">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewEmployee">Employees</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewCustomer">Customer</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewRv">RVs</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- list content -->
+            <div class="reportSection">
+                <h1>Motorhome Statistics</h1>
+                <!-- Rental Contract Information -->
+                <div>
+                    <h3>Rental Contract Statistics</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Open</th>
+                            <th>Closed</th>
+                            <th>Canceled</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span th:text="${contractStats.get('open')}"></span></td>
+                            <td><span th:text="${contractStats.get('closed')}"></span></td>
+                            <td><span th:text="${contractStats.get('canceled')}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" class="redirectButton"
+                            onclick="location.href='/report/viewContract'">Contract Information
+                    </button>
+                </div>
+
+                <!-- Employee Information -->
+                <div>
+                    <h3>Employee Positions</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Owners</th>
+                            <th>Bookkepers</th>
+                            <th>Sales Assistants</th>
+                            <th>Auto-Mechanics</th>
+                            <th>Cleaners</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span th:text="${employeeStats.get('owners')}"></span></td>
+                            <td><span th:text="${employeeStats.get('bookkeepers')}"></span></td>
+                            <td><span th:text="${employeeStats.get('salesAssistants')}"></span></td>
+                            <td><span th:text="${employeeStats.get('mechanics')}"></span></td>
+                            <td><span th:text="${employeeStats.get('cleaners')}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" class="redirectButton"
+                            onclick="location.href='/report/viewEmployee'">Employee Information
+                    </button>
+                </div>
+
+
+                <!-- Customer Information -->
+                <div>
+                    <h3>Customer Statistics</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Currently Renting</th>
+                            <th>Not Active</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span th:text="${customerStats.get('active')}"></span></td>
+                            <td><span th:text="${customerStats.get('inactive')}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" class="redirectButton"
+                            onclick="location.href='/report/viewCustomer'">Customer Information
+                    </button>
+                </div>
+
+
+                <!-- Rv Statistics -->
+                <div>
+                    <h3>Recreational Vehicle Statistics</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Rented</th>
+                            <th>Require Attention</th>
+                            <th>Available</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span th:text="${rvStats.get('rented')}"></span></td>
+                            <td><span th:text="${rvStats.get('requireAttention')}"></span></td>
+                            <td><span th:text="${rvStats.get('available')}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="button" class="redirectButton"
+                            onclick="location.href='/report/viewRv'">RV Information
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- end list content -->
+    </div>
+    <!-- END PAGE CONTENT -->
+
+</body>
+</html>

@@ -49,9 +49,8 @@ public class HomeController
         switch (employeeService.fetchByID(user.getEmployee_id()).getPosition())
         {
             case "Bookkeeper":
-                error = 0; // Not implemented yet - WIP
-                model.addAttribute("error", error);
-                return "/home/index";
+                System.out.println("User : " + user.getUsername() + " has logged in.");
+                return "redirect:/report";
             case "Auto-mechanic":
                 System.out.println("User : " + user.getUsername() + " has logged in.");
                 return "redirect:/rv/maintenance";

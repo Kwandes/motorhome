@@ -51,7 +51,7 @@ public class RentalContractController
     {
         List<RentalContract> rentalContractList = rentalContractService.fetchAll();
 
-        setupRentalContractDataObjects(model, rentalContractList);
+        setupRentalContractLists(model, rentalContractList);
 
         return checkList(rentalContractList, model);
     }
@@ -68,50 +68,50 @@ public class RentalContractController
         {
             case "null":
                 rentalContractList = rentalContractService.fetchAll();
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             //Sort
             case "dateSigned":
                 rentalContractList = rentalContractService.sortByDateSigned();
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "dateStart":
                 rentalContractList = rentalContractService.sortByDateStart();
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList,model);
             case "dateEnd":
                 rentalContractList = rentalContractService.sortByDateEnd();
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList,model);
             case "status":
                 rentalContractList = rentalContractService.sortByStatus();
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList,model);
 
             //Search
             case "dropoffAddress":
                 rentalContractList = rentalContractService.searchByAddressDropoff(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "pickupAddress":
                 rentalContractList = rentalContractService.searchByAddressPickup(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "extras":
                 rentalContractList = rentalContractService.searchByExtras(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "customerName":
                 rentalContractList = rentalContractService.searchByCustomerName(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "employeeName":
                 rentalContractList = rentalContractService.searchByEmployeeName(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             case "rvModel":
                 rentalContractList = rentalContractService.searchByRvModel(searchQuery);
-                setupRentalContractDataObjects(model, rentalContractList);
+                setupRentalContractLists(model, rentalContractList);
                 return checkList(rentalContractList, model);
             default:
                 return "redirect:/rentalContract/errorParameters";
@@ -183,7 +183,7 @@ public class RentalContractController
     {
         List<Customer> customerList = customerService.fetchAll();
         model.addAttribute("customerList", customerList);
-        List<Employee> employeeList = employeeService.fetchAll();
+        List<Employee> employeeList = employeeService.searchByPosition("Sales Assistant");
         model.addAttribute("employeeList", employeeList);
         List<RV> rvList = rvService.fetchAvailable();
         model.addAttribute("rvList", rvList);
@@ -271,8 +271,7 @@ public class RentalContractController
     }
 
     // adds the Customer, Employee and RV lists to the model based off the IDs found in the Rental Contract
-    // TODO - rename the method to something that makes sense
-    public void setupRentalContractDataObjects(Model model, List<RentalContract> rentalContractList)
+    public void setupRentalContractLists(Model model, List<RentalContract> rentalContractList)
     {
         model.addAttribute("customerList", rentalContractService.fetchCustomersInRC(rentalContractList));
         model.addAttribute("employeeList", rentalContractService.fetchEmployeesInRC(rentalContractList));

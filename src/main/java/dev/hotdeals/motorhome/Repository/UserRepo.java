@@ -40,6 +40,59 @@ public class UserRepo {
         return user;
     }
 
+    // Returns a list of all Users within the Database.
+    public List<User> fetchAll ()
+    {
+        String query = "SELECT * FROM user";
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        List<User> userList;
+
+        try
+        {
+            userList = template.query(query, rowMapper);
+        } catch ( EmptyResultDataAccessException e )
+        {
+            System.out.println("Failed to retrieve the User List from the DB");
+            System.out.println(e);
+            userList = new ArrayList<>();
+        }
+
+        return userList;
+    }
+
+    // Adds a given User to the Database.
+    public boolean addUser( User user )
+    {
+        String query = "INSERT INTO user( username, password, employee_id ) VALUES ( ?, ?, ? )";
+
+        int rowsAffected = template.update(query, user.getUsername(), user.getPassword(), user.getEmployee_id());
+        boolean status = rowsAffected > 0;
+
+        return status;
+    }
+
+    // Updates a specific User with the values provided in the user object.
+    public boolean updateUser( User user )
+    {
+        String query = "UPDATE user SET username = ?, password = ?, employee_id = ? WHERE id = ?";
+
+        int rowsAffected = template.update(query, user.getUsername(), user.getPassword(), user.getEmployee_id(), user.getId());
+        boolean status = rowsAffected > 0;
+
+        return status;
+    }
+
+    // Deletes the User with the provided ID.
+    public boolean deleteUser( int userID )
+    {
+        String query = "DELETE FROM user WHERE id = ?";
+
+        int rowsAffected = template.update(query, userID);
+        boolean status = rowsAffected > 0;
+
+        return status;
+    }
+
     // Returns the User with the provided Username.
     public User fetchByUsername ( String username )
     {
@@ -80,26 +133,6 @@ public class UserRepo {
         return user;
     }
 
-    // Returns a list of all Users within the Database.
-    public List<User> fetchAll ()
-    {
-        String query = "SELECT * FROM user";
-        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
-        List<User> userList;
-
-        try
-        {
-            userList = template.query(query, rowMapper);
-        } catch ( EmptyResultDataAccessException e )
-        {
-            System.out.println("Failed to retrieve the User List from the DB");
-            System.out.println(e);
-            userList = new ArrayList<>();
-        }
-
-        return userList;
-    }
-
     // Returns a list of all Users of which Username contains the given String.
     public List<User> searchByUsername ( String username )
     {
@@ -118,38 +151,5 @@ public class UserRepo {
         }
 
         return userList;
-    }
-
-    // Adds a given User to the Database.
-    public boolean addUser( User user )
-    {
-        String query = "INSERT INTO user( username, password, employee_id ) VALUES ( ?, ?, ? )";
-
-        int rowsAffected = template.update(query, user.getUsername(), user.getPassword(), user.getEmployee_id());
-        boolean status = rowsAffected > 0;
-
-        return status;
-    }
-
-    // Updates a specific User with the values provided in the user object.
-    public boolean updateUser( User user )
-    {
-        String query = "UPDATE user SET username = ?, password = ?, employee_id = ? WHERE id = ?";
-
-        int rowsAffected = template.update(query, user.getUsername(), user.getPassword(), user.getEmployee_id(), user.getId());
-        boolean status = rowsAffected > 0;
-
-        return status;
-    }
-
-    // Deletes the User with the provided ID.
-    public boolean deleteUser( int userID )
-    {
-        String query = "DELETE FROM user WHERE id = ?";
-
-        int rowsAffected = template.update(query, userID);
-        boolean status = rowsAffected > 0;
-
-        return status;
     }
 }
