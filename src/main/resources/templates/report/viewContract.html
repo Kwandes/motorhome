@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Report - Rental Contract Information</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/report.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/report/">Report</a>
+                    </li>
+                    <li class="navSelect">
+                        <a href="/report/viewContract">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewEmployee">Employees</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewCustomer">Customer</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewRv">RVs</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+
+            <!-- list content -->
+            <div class="dataSection">
+                <div class="searchField textInput" style="margin-bottom: 25px;">
+                    <form action="/report/viewContract" method="post">
+                        <label for="searchSelect">Search Type</label>
+                        <select name="searchType" id="searchSelect">
+                            <option value="dropoffAddress">Drop-Off Address</option>
+                            <option value="pickupAddress">Pick-Up Address</option>
+                            <option value="extras">Extras</option>
+                            <option value="customerName">Customer Name</option>
+                            <option value="employeeName">Employee Name</option>
+                            <option value="rvModel">Motorhome Model</option>
+                            <option value="dateSigned">Date Signed</option>
+                            <option value="dateStart">Date Start</option>
+                            <option value="dateEnd">Date End</option>
+                            <option value="status">Status</option>
+                        </select>
+                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search..." maxlength="60">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+                <table class="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date Signed</th>
+                        <th>Date Start</th>
+                        <th>Date End</th>
+                        <th>Drop-Off Address</th>
+                        <th>Pick-Up Address</th>
+                        <th>Base Price</th>
+                        <th>Final Price</th>
+                        <th>KM Driven</th>
+                        <th>Extras</th>
+                        <th>Customer Name</th>
+                        <th>Employee Name</th>
+                        <th>Motorhome</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="main" th:each="rentalContract,iter: ${rentalContractList}">
+                        <td th:text="${rentalContract.id}"></td>
+                        <td th:text="${rentalContract.dateSigned}"></td>
+                        <td th:text="${rentalContract.dateStart}"></td>
+                        <td th:text="${rentalContract.dateEnd}"></td>
+                        <td th:text="${rentalContract.addressDropoff}"></td>
+                        <td th:text="${rentalContract.addressPickup}"></td>
+                        <td th:text="${rentalContract.basePrice}"></td>
+                        <td th:text="${rentalContract.finalPrice}"></td>
+                        <td th:text="${rentalContract.kmDriven}"></td>
+                        <td th:text="${rentalContract.extras}"></td>
+                        <td th:with="i=${iter.count}-1"
+                            th:text="${customerList[i].firstName} + ' ' + ${customerList[i].lastName}"></td>
+                        <td th:with="i=${iter.count}-1"
+                            th:text="${employeeList[i].firstName} + ' ' + ${employeeList[i].lastName}"></td>
+                        <td th:with="i=${iter.count}-1" th:text="${rvList[i].brand} + ' ' + ${rvList[i].model}"></td>
+                        <td th:text="${rentalContract.status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end list content -->
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>

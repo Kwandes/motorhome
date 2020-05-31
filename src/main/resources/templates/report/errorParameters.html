@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Report - Invalid Parameters</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/index.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/login.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/buttons.css}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
+
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="wrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
+                </div>
+
+                <ul class="navItems">
+                    <li>
+                        <a href="/report/">Report</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewContract">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewEmployee">Employees</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewCustomer">Customer</a>
+                    </li>
+                    <li>
+                        <a href="/report/viewRv">RVs</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <!-- Placeholder structure, to be replaced with proper classes -->
+    <div class="headerContainer">
+        <div class="wrapper">
+            <header>
+                <div class="pageContainer">
+                    <form class="login" action="/customer/viewAll" method="get">
+                        <h1 class="welcomeText">There was<br>an invalid parameter passed</h1>
+                        <h3 class="welcomeText">Contact developers for<br>more information</h3>
+                        <div style="margin-top: 75px">
+                            <button onclick="location.href='/report'">Go Back to the Report</button>
+                        </div>
+                    </form>
+                </div>
+            </header>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT -->
+</body>
+</html>

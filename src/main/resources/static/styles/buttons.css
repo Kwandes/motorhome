@@ -298,3 +298,23 @@ input:-webkit-autofill {
     border-radius: 12px;
     cursor:pointer
 }
+
+/* buttons used to redirect in the report section */
+.redirectButton
+{
+    background: #3E2719;
+    color: rgba(252, 233, 192, 0.9);
+    opacity: 0.9;
+    display: block;
+    margin: 5px;
+    text-align: center;
+    border: 2px solid #3E2719;
+    border-radius: 4px;
+}
+
+.redirectButton:hover
+{
+    opacity: 1.0;
+    border-radius: 12px;
+    cursor:pointer
+}
