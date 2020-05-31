@@ -59,7 +59,7 @@
 
 /* rental contract screen specifics */
 .createFormRentalContract {
-    height: 550px;
+    height: auto; /* account for the expanding area after pressing the 'more information' */
 }
 
 .innerCreateFormRentalContract {
