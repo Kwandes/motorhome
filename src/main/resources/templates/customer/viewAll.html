@@ -10,80 +10,83 @@
 </head>
 <body>
 
-<!-- BACKGROUND -->
-<div class="backgroundImage"></div>
+    <!-- BACKGROUND -->
+    <div class="backgroundImage"></div>
 
-<!-- HEADER NAVIGATION BAR -->
-<div class="navContainer">
-    <div class="navWrapper">
-        <nav>
-            <div class="logo">
-                <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115" >
-            </div>
-
-            <ul class="navItems">
-                <li class="navSelect">
-                    <a href="#">Customers</a>
-                </li>
-                <li>
-                    <a href="/rentalContract/viewAll">Rentals</a>
-                </li>
-                <li>
-                    <a href="/rv/viewAll">RV</a>
-                </li>
-                <li>
-                    <a href="/index">Log out</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-<!-- END HEADER NAVIGATION BAR -->
-
-<!-- PAGE CONTENT -->
-<div class="headerContainer">
-    <div class="pageWrapper">
-        <!-- Selection buttons -->
-        <div class="buttonList">
-            <ul class="optionButtons">
-                <div class="selected">
-                    <li onClick="location.href='/customer/viewAll';" style="cursor:pointer;">
-                        <a href="#">View All</a>
-                    </li>
+    <!-- HEADER NAVIGATION BAR -->
+    <div class="navContainer">
+        <div class="navWrapper">
+            <nav>
+                <div class="logo">
+                    <img th:src="@{~/img/logo.png}" alt="RVs R Us" width="115">
                 </div>
-                <li onClick="location.href='/customer/createNewCustomer';" style="cursor:pointer;">
-                    <a href="#">Create New</a>
-                </li>
-            </ul>
-        </div>
 
-        <!-- list content -->
-        <div class="dataSection">
-            <div class="searchField textInput" style="margin-bottom: 25px;">
-                <form action="/customer/viewAll" method="post">
-                    <label for="searchSelect">Search Type</label>
-                    <select name="searchType" id="searchSelect">
-                        <option value="name">Name</option>
-                        <option value="cpr">Cpr</option>
-                    </select>
-                    <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </form>
+                <ul class="navItems">
+                    <li class="navSelect">
+                        <a href="#">Customers</a>
+                    </li>
+                    <li>
+                        <a href="/rentalContract/viewAll">Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/rv/viewAll">RV</a>
+                    </li>
+                    <li>
+                        <a href="/index">Log out</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END HEADER NAVIGATION BAR -->
+
+    <!-- PAGE CONTENT -->
+    <div class="headerContainer">
+        <div class="pageWrapper">
+            <!-- Selection buttons -->
+            <div class="buttonList">
+                <ul class="optionButtons">
+                    <div class="selected">
+                        <li onClick="location.href='/customer/viewAll';" style="cursor:pointer;">
+                            <a href="#">View All</a>
+                        </li>
+                    </div>
+                    <li onClick="location.href='/customer/createNewCustomer';" style="cursor:pointer;">
+                        <a href="#">Create New</a>
+                    </li>
+                </ul>
             </div>
-            <table class="dataTable">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Phone nr</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+
+            <!-- list content -->
+            <div class="dataSection">
+                <div class="searchField textInput" style="margin-bottom: 25px;">
+                    <form action="/customer/viewAll" method="post">
+                        <label for="searchSelect">Search Type</label>
+                        <select name="searchType" id="searchSelect">
+                            <option value="name">Name</option>
+                            <option value="cpr">Cpr</option>
+                        </select>
+                        <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+                <table class="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Phone nr</th>
+                        <th>Cpr</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <tr class="main" th:each="customer: ${customerList}">
                         <td th:text="${customer.id}"></td>
-                        <td th:text="${customer.firstName}"></td>
+                        <td th:text="${customer.firstName + ' ' + customer.lastName}"></td>
                         <td th:text="${customer.phoneNumber}"></td>
+                        <td th:text="${customer.cpr}"></td>
+
                         <td class="tableOptions">
                             <div class="tableOptionButtons">
                                 <form action="/customer/editCustomer" method="POST">
@@ -95,12 +98,12 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end list content -->
         </div>
-        <!-- end list content -->
     </div>
-</div>
-<!-- END PAGE CONTENT -->
+    <!-- END PAGE CONTENT -->
 </body>
 </html>
