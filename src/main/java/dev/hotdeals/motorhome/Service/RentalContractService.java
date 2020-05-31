@@ -117,6 +117,14 @@ public class RentalContractService
         {
             // Null Pointer Exception is expected in case of a non-checked extra
         }
+        try
+        {
+            if (wr.getParameter("extrasBikeRacc").equals("on"))
+                extras += "bike rack,";
+        } catch (NullPointerException e)
+        {
+            // Null Pointer Exception is expected in case of a non-checked extra
+        }
         // remove an extra ',' at the end
         if (extras.length() > 0) extras = extras.substring(0, extras.length() - 1);
         return extras;
