@@ -51,7 +51,7 @@ public class RentalContractTests
             System.out.println("RentalContract Repo ordered tests of adding, updating and deleting data");
             System.out.println("RentalContract Repo - Test 1 : searchByAddressDropoff");
 
-            List<RentalContract> rentalContractList = rentalContractRepo.fetchAll();
+            List<RentalContract> rentalContractList = rentalContractRepo.searchByAddressDropoff("");
 
             testVerification = false; // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
 
@@ -194,6 +194,14 @@ public class RentalContractTests
         {
             RentalContract rentalContract = rentalContractRepo.fetchContractByID(4000);
             assertThat(rentalContract).isNotNull();
+        }
+
+        @Test
+        @DisplayName("searchByAddressPickup()")
+        public void rentalContractRepoSearchByAddressPickupTest() throws Exception
+        {
+            List<RentalContract> rentalContractList = rentalContractRepo.searchByAddressPickup("");
+            assertThat(rentalContractList).isNotEmpty();
         }
 
         @Test

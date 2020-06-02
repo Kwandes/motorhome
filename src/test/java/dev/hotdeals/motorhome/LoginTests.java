@@ -13,7 +13,8 @@ import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LoginTests {
+public class LoginTests
+{
 
     @Autowired
     UserRepo userRepo;
@@ -28,30 +29,10 @@ public class LoginTests {
     public class UserRepoTests
     {
         @Test
-        @DisplayName("fetchByID()")
-        public void userRepoFetchByIDTest()
+        public void userRepoLoads()
         {
-            User user = userRepo.fetchByID(5000);
-
-            assertThat(user).isNotNull();
-        }
-
-        @Test
-        @DisplayName("fetchByEmployeeID()")
-        public void userRepoFetchByEmployeeIDTest()
-        {
-            User user = userRepo.fetchByEmployeeID(1000);
-
-            assertThat(user).isNotNull();
-        }
-
-        @Test
-        @DisplayName("fetchAll()")
-        public void userRepoFetchAllTest()
-        {
-            List<User> userList = userRepo.fetchAll();
-
-            assertThat(userList).isNotEmpty();
+            // validate if the User Repository layer has loaded
+            assertThat(userRepo).isNotNull();
         }
 
         @Test
@@ -59,11 +40,14 @@ public class LoginTests {
         @Order(1)
         public void userRepoSearchByUsernameTest()
         {
+            System.out.println("User Repo ordered tests of adding, updating and deleting data");
+            System.out.println("User Repo - Test 1 : Search");
             List<User> userList = userRepo.searchByUsername("");
 
-            testVerification = false;
+            testVerification = false; // if the list is empty, testVerification will be false ( test has failed ) else, it will be true
+
             assertThat(userList).isNotEmpty();
-            testVerification = true;
+            testVerification = true; // this will only be reached if the assert is successful
         }
 
         @Test
@@ -71,25 +55,39 @@ public class LoginTests {
         @Order(2)
         public void userRepoAddUserTest()
         {
+            System.out.println("user Repo - Test 2 : Add User Test");
+
             if (!testVerification)
             {
-                assertThat("Search User by Username - Unsuccessful").isEqualTo("Successful");
+                System.out.println("Search By Username test failed. Skipping the Add User test...");
+                // throw a more descriptive exception message
+                assertThat("User Repo - Search By Username Test to be ").isEqualTo("Successful");
             }
-            testVerification = false;
 
+            // If the Search has passed, we can test the Add
             // given
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            User foundUser;
+
             User user = new User();
             user.setUsername("testUsername");
             user.setPassword("testPassword");
             user.setEmployee_id(1000);
 
             // when
-            boolean queryResult = userRepo.addUser(user);
+            queryResult = userRepo.addUser(user);
+            foundUser = userRepo.searchByUsername(user.getUsername()).get(0);
 
             // then
-            assertThat(queryResult).isTrue();
+            assertThat(queryResult).isTrue(); // check if the query was successful
 
-            testVerification = true;
+            // check if the added User is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(user.toString().replaceFirst("(\\d+)", "")).
+                    isEqualTo(foundUser.toString().replaceFirst("(\\d+)", ""));
+
+            testVerification = true; // this will only be reached if the assert is successful
         }
 
         @Test
@@ -97,6 +95,7 @@ public class LoginTests {
         @Order(3)
         public void userRepoFetchByUsername()
         {
+            // has to be tested after adding a test as it requires an exact username
             if (!testVerification)
             {
                 assertThat("Add User - Unsuccessful").isEqualTo("Successful");
@@ -115,23 +114,39 @@ public class LoginTests {
         @Order(4)
         public void userRepoUpdateUser()
         {
+            System.out.println("user Repo - Test 3 : Update User Test");
+
             if (!testVerification)
             {
-                assertThat("Fetch User by ID - Unsuccessful").isEqualTo("Successful");
+                System.out.println("Add User test failed. Skipping the Update User test...");
+                // throw a more descriptive exception message
+                assertThat("User Repo - Add User Test to be ").isEqualTo("Successful");
             }
-            testVerification = false;
 
+            // If the Search has passed, we can test the Update
             // given
-            User user = userRepo.fetchByUsername("testUsername");
-            user.setUsername("testUpdatedUsername");
+            testVerification = false; // reset the variable to false
+            boolean queryResult;
+            User foundUser;
+
+            User user = userRepo.searchByUsername("testUsername").get(0);
+            user.setUsername("testUsernameUpdated");
+            user.setPassword("testPasswordUpdated");
+            user.setEmployee_id(1001); // will cause a fail if the employee doesn't exist
 
             // when
-            boolean queryReult = userRepo.updateUser(user);
+            queryResult = userRepo.updateUser(user);
+
+            foundUser = userRepo.searchByUsername(user.getUsername()).get(0);
 
             // then
-            assertThat(queryReult).isTrue();
+            assertThat(queryResult).isTrue(); // check if the query was successful
 
-            testVerification = true;
+            // check if the added User is the same as the original
+            // IDs needs to be removed from the toString() as the original doesn't have an ID
+            assertThat(user.toString()).isEqualTo(user.toString());
+
+            testVerification = true; // this will only be reached if the assert is successful
         }
 
         @Test
@@ -139,19 +154,54 @@ public class LoginTests {
         @Order(5)
         public void userRepoDeleteUser()
         {
+            System.out.println("RV Repo - Test 4 : Delete User Test");
+
             if (!testVerification)
             {
-                assertThat("Update User - Unsuccessful").isEqualTo("Successful");
+                System.out.println("Update User test failed. Skipping the Delete User test...");
+                // throw a more descriptive exception message
+                assertThat("User Repo - Update User Test to be ").isEqualTo("Successful");
             }
 
+            // If the Update has passed, we can test the Delete
             // given
-            int id = userRepo.fetchByUsername("testUpdatedUsername").getId();
+            User rv = userRepo.searchByUsername("testUsernameUpdated").get(0); // Searching for an updated value
+            List<User> foundUserList;
 
             // when
-            boolean queryResult = userRepo.deleteUser(id);
+            boolean userDeleted = userRepo.deleteUser(rv.getId());
+            foundUserList = userRepo.searchByUsername("testUsernameUpdated"); // checking if the entry still exists in the DB
 
             // then
-            assertThat(queryResult).isTrue();
+            assertThat(userDeleted).isTrue();
+            assertThat(foundUserList).isEmpty();
+        }
+
+        @Test
+        @DisplayName("fetchByID()")
+        public void userRepoFetchByIDTest()
+        {
+            User user = userRepo.fetchByID(5000);
+
+            assertThat(user).isNotNull();
+        }
+
+        @Test
+        @DisplayName("fetchAll()")
+        public void userRepoFetchAllTest()
+        {
+            List<User> userList = userRepo.fetchAll();
+
+            assertThat(userList).isNotEmpty();
+        }
+
+        @Test
+        @DisplayName("fetchByEmployeeID()")
+        public void userRepoFetchByEmployeeIDTest()
+        {
+            User user = userRepo.fetchByEmployeeID(1000);
+
+            assertThat(user).isNotNull();
         }
     }
 
@@ -159,131 +209,14 @@ public class LoginTests {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     public class UserServiceTests
     {
-        @Test
-        @DisplayName("fetchByID()")
-        public void userServiceFetchByIDTest()
-        {
-            User user = userService.fetchByID(5000);
-
-            assertThat(user).isNotNull();
-        }
+        // In the Login Use Case, the User Service logic only contains Repository calls
+        // Therefore, not all Service layer methods are tested
 
         @Test
-        @DisplayName("fetchByEmployeeID()")
-        public void userServiceFetchByEmployeeIDTest()
+        public void userServiceLoads()
         {
-            User user = userService.fetchByEmployeeID(1000);
-
-            assertThat(user).isNotNull();
-        }
-
-        @Test
-        @DisplayName("fetchAll()")
-        public void userServiceFetchAllTest()
-        {
-            List<User> userList = userService.fetchAll();
-
-            assertThat(userList).isNotEmpty();
-        }
-
-        @Test
-        @DisplayName("searchByUsername()")
-        @Order(1)
-        public void userServiceSearchByUsernameTest()
-        {
-            List<User> userList = userService.searchByUsername("");
-
-            testVerification = false;
-            assertThat(userList).isNotEmpty();
-            testVerification = true;
-        }
-
-        @Test
-        @DisplayName("addUser()")
-        @Order(2)
-        public void userServiceAddUserTest()
-        {
-            if (!testVerification)
-            {
-                assertThat("Search User by Username - Unsuccessful").isEqualTo("Successful");
-            }
-            testVerification = false;
-
-            // given
-            User user = new User();
-            user.setUsername("testUsername");
-            user.setPassword("testPassword");
-            user.setEmployee_id(1000);
-
-            // when
-            boolean queryResult = userService.addUser(user);
-
-            // then
-            assertThat(queryResult).isTrue();
-
-            testVerification = true;
-        }
-
-        @Test
-        @DisplayName("fetchByUsername()")
-        @Order(3)
-        public void userServiceFetchByUsername()
-        {
-            if (!testVerification)
-            {
-                assertThat("Add User - Unsuccessful").isEqualTo("Successful");
-            }
-            testVerification = false;
-
-            User user = userService.fetchByUsername("testUsername");
-
-            assertThat(user).isNotNull();
-
-            testVerification = true;
-        }
-
-        @Test
-        @DisplayName("updateUser()")
-        @Order(4)
-        public void userServiceUpdateUser()
-        {
-            if (!testVerification)
-            {
-                assertThat("Fetch User by ID - Unsuccessful").isEqualTo("Successful");
-            }
-            testVerification = false;
-
-            // given
-            User user = userService.fetchByUsername("testUsername");
-            user.setUsername("testUpdatedUsername");
-
-            // when
-            boolean queryReult = userService.updateUser(user);
-
-            // then
-            assertThat(queryReult).isTrue();
-
-            testVerification = true;
-        }
-
-        @Test
-        @DisplayName("deleteUser()")
-        @Order(5)
-        public void userServiceDeleteUser()
-        {
-            if (!testVerification)
-            {
-                assertThat("Update User - Unsuccessful").isEqualTo("Successful");
-            }
-
-            // given
-            int id = userService.fetchByUsername("testUpdatedUsername").getId();
-
-            // when
-            boolean queryResult = userRepo.deleteUser(id);
-
-            // then
-            assertThat(queryResult).isTrue();
+            // validate if the User Service layer has loaded
+            assertThat(userService).isNotNull();
         }
     }
 }

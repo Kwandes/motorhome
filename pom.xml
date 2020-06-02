@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>motorhome</artifactId>
-    <version>1.0</version>
+    <version>1.3</version>
     <name>motorhome</name>
     <description>Exam Project for 2nd Semester</description>
 
